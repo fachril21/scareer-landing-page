@@ -4,11 +4,6 @@ import { HERO_GROUPS, NAV_GROUPS, PROGRAM_GROUPS, WHY_GROUPS, LEARN_GROUPS, WORK
 import { useTweaks } from './TweakContext'
 import './tweaks.css'
 
-/** Panel hanya tampil saat pengembangan atau dengan `?tweak` di URL. */
-function isPanelEnabled(): boolean {
-  return import.meta.env.DEV || new URLSearchParams(window.location.search).has('tweak')
-}
-
 function Group<K extends keyof Tweaks>({ group }: { group: TweakGroup<K> }) {
   const { tweaks, setTweak } = useTweaks()
   const name = useId()
@@ -37,8 +32,6 @@ export function TweakPanel() {
   const [open, setOpen] = useState(false)
   const { reset, saveAsDefault, clearSavedDefault, hasSavedDefault, isAtDefault } = useTweaks()
   const panelId = useId()
-
-  if (!isPanelEnabled()) return null
 
   return (
     <aside className="tweak" aria-label="Panel tweak">
