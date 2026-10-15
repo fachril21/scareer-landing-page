@@ -1,0 +1,198 @@
+/* ---------- Offset gulir dan penataan gutter ---------- */
+/* HP dan tablet: navbar + switcher 52 px + 16 px. Desktop (sidebar atau rail): 96 px. */
+:root { --scroll-offset: calc(var(--nav-h) + 52px + 16px); --aside-top: 96px; }
+@media (min-width: 1440px), (min-width: 1280px) and (hover: hover) {
+  :root { --scroll-offset: 96px; }
+}
+html.is-program-page { scroll-padding-top: var(--scroll-offset); }
+
+.pd-shell { position: relative; }
+.pd-aside { position: absolute; top: 0; bottom: 0; z-index: 30; pointer-events: none; }
+.pd-aside__sticky { position: sticky; top: var(--aside-top); pointer-events: auto; }
+/* Sidebar: di gutter kiri, di luar kolom konten 1024 px, jadi tata letak tidak bergeser. */
+.pd-aside--sidebar { left: 12px; width: min(200px, calc((100% - var(--w-content)) / 2 - 24px)); }
+.pd-aside--rail { left: 0; width: 56px; }
+
+/* ---------- Daftar isi (sidebar, panel rail, sheet) ---------- */
+.toc { --fill: 0; position: relative; padding-left: 16px; }
+.toc__track { position: absolute; inset: 0 auto 0 0; width: 1px; background: var(--border-control); opacity: 0.35; }
+.toc__fill {
+  position: absolute;
+  inset: 0 auto 0 -1px;
+  width: 3px;
+  background: var(--ink);
+  transform: scaleY(var(--fill));
+  transform-origin: top;
+  transition: transform 200ms var(--ease-out), background-color 150ms var(--ease-out);
+}
+.toc__group-label { margin: 16px 0 2px 12px; font-size: 12px; font-weight: 600; letter-spacing: 0.02em; color: var(--text-secondary); }
+.toc__group:first-child .toc__group-label { margin-top: 0; }
+.toc__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 32px;
+  padding: 4px 0 4px 12px;
+  border-bottom: 1px solid transparent;
+  color: var(--text-secondary);
+  font-size: 13.5px;
+  line-height: 1.35;
+  text-decoration: none;
+  transition: color 100ms var(--ease-out), border-color 100ms var(--ease-out);
+}
+.toc__link.is-active { color: var(--text); font-weight: 700; }
+@media (hover: hover) {
+  .toc__link:hover { color: var(--text); border-bottom-color: var(--border-control); }
+}
+.toc__children { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 200ms var(--ease-out); }
+.toc__children[data-open='true'] { grid-template-rows: 1fr; }
+.toc__children > ol { min-height: 0; overflow: hidden; }
+.toc__link--child { padding-left: 26px; font-size: 13px; }
+
+/* Sidebar */
+.toc-side { display: flex; flex-direction: column; gap: 16px; max-height: calc(100vh - 160px); }
+.toc-side__scroll { min-height: 0; overflow-y: auto; scrollbar-width: none; overscroll-behavior: contain; padding-block: 2px; }
+.toc-side__scroll::-webkit-scrollbar { display: none; }
+
+/* Di atas section gelap (Why Us, Karya): warna berganti ke versi on-ink, 150 ms */
+.toc-side .toc__link, .toc-side .toc__group-label { transition: color 150ms var(--ease-out), border-color 100ms var(--ease-out); }
+.toc-side.is-ink .toc__link, .toc-side.is-ink .toc__group-label { color: var(--text-on-ink-secondary); }
+.toc-side.is-ink .toc__link.is-active { color: var(--text-on-ink); }
+.toc-side.is-ink .toc__fill { background: var(--text-on-ink); }
+.toc-side.is-ink .toc__track { background: var(--border-on-ink); opacity: 1; }
+@media (hover: hover) {
+  .toc-side.is-ink .toc__link:hover { color: var(--text-on-ink); border-bottom-color: var(--border-on-ink); }
+}
+.toc-side.is-ink :focus-visible { outline-color: var(--purple-light); }
+
+.mini-cta {
+  display: grid;
+  gap: 4px;
+  padding: 16px;
+  border: var(--hairline);
+  border-radius: var(--r-panel);
+  background: var(--surface);
+  color: var(--text);
+  transition: opacity 150ms var(--ease-out);
+}
+.mini-cta.is-hidden { opacity: 0; pointer-events: none; }
+.mini-cta__label { font-size: var(--t-small); color: var(--text-secondary); }
+.mini-cta__price { margin-bottom: 8px; font-family: var(--f-display); font-size: 1.25rem; font-weight: 600; }
+.mini-cta__wa { justify-self: center; padding-block: 8px; font-size: var(--t-small); color: var(--text-secondary); }
+
+/* ---------- Rail 56 px ---------- */
+.rail { position: relative; width: 56px; }
+.rail__dashes { display: grid; gap: 14px; padding: 4px 0 4px 16px; }
+.rail__group { display: grid; gap: 10px; }
+.rail__dash {
+  position: relative;
+  display: block;
+  width: 14px;
+  height: 2px;
+  background: var(--border-control);
+  transform-origin: left;
+  transition: transform 200ms var(--ease-out), background-color 150ms var(--ease-out);
+}
+.rail__dash.is-active { background: var(--ink); transform: scaleX(2); }
+.rail__chip {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-left: 6px;
+  padding: 2px 10px;
+  border: 1px solid var(--ink);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  transform: translateY(-50%) scaleX(0.5);
+  transform-origin: left;
+}
+.rail.is-ink .rail__dash { background: var(--text-on-ink-secondary); }
+.rail.is-ink .rail__dash.is-active { background: var(--text-on-ink); }
+.rail.is-ink.is-open .rail__dashes { visibility: hidden; }
+.rail__toggle { position: absolute; inset: 0; width: 100%; border: 0; border-radius: var(--r-media); background: none; cursor: pointer; }
+.rail__panel {
+  position: absolute;
+  top: -8px;
+  left: 8px;
+  z-index: 2;
+  width: 220px;
+  max-height: calc(100vh - 128px);
+  overflow-y: auto;
+  padding: 16px 16px 16px 8px;
+  border: var(--hairline);
+  border-radius: var(--r-panel);
+  background: var(--surface);
+  color: var(--text);
+  animation: rail-in 200ms var(--ease-out);
+  scrollbar-width: none;
+}
+.rail__panel::-webkit-scrollbar { display: none; }
+@keyframes rail-in { from { opacity: 0; transform: translateX(-8px); } }
+
+/* ---------- Section switcher + bottom sheet (< 1280 px atau tanpa hover) ---------- */
+.switcher { position: sticky; top: var(--nav-h); z-index: 45; height: 52px; border-bottom: var(--hairline); background: var(--surface); }
+.switcher__btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+  padding-inline: var(--gutter-x);
+  border: 0;
+  background: none;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+.switcher__name { display: inline-flex; align-items: center; gap: 6px; min-width: 0; }
+.switcher__label { animation: switcher-fade 150ms var(--ease-out); }
+.switcher__count { flex: none; font-size: var(--t-small); font-weight: 400; color: var(--text-secondary); }
+.switcher__progress {
+  position: absolute;
+  inset: auto 0 -1px 0;
+  height: 2px;
+  background: var(--ink);
+  transform-origin: left;
+  transition: transform 150ms var(--ease-out);
+}
+@keyframes switcher-fade { from { opacity: 0; } }
+
+.sheet { position: fixed; inset: 0; z-index: 70; }
+.sheet__scrim { position: absolute; inset: 0; background: rgba(23, 24, 26, 0.45); opacity: 0; transition: opacity 200ms var(--ease-out); }
+.sheet.is-shown .sheet__scrim { opacity: 1; transition-duration: 250ms; }
+.sheet__panel {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  flex-direction: column;
+  max-height: 70vh;
+  border-radius: var(--r-panel) var(--r-panel) 0 0;
+  background: var(--surface);
+  transform: translateY(100%);
+  transition: transform 200ms var(--ease-out);
+}
+.sheet.is-shown .sheet__panel { transform: none; transition-duration: 250ms; }
+.sheet__grab { display: grid; place-items: center; padding: 14px; cursor: grab; touch-action: none; }
+.sheet__handle { width: 40px; height: 4px; border-radius: var(--r-pill); background: var(--border-control); }
+.sheet__title { padding: 0 20px 4px; font-size: 1.125rem; }
+.sheet__scroll { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 0 20px calc(24px + env(safe-area-inset-bottom)); }
+
+.toc--sheet { padding-left: 0; }
+.toc--sheet .toc__group-label { margin: 18px 0 0; }
+.toc--sheet .toc__group:first-child .toc__group-label { margin-top: 8px; }
+.toc--sheet .toc__link {
+  min-height: 48px;
+  padding: 8px 0;
+  border-bottom: var(--hairline);
+  color: var(--text);
+  font-size: 1.0625rem;
+}
+.toc--sheet .toc__link.is-active { font-weight: 700; }
+.toc--sheet .toc__link--child { padding-left: 20px; font-size: 1rem; color: var(--text-secondary); }
+.toc--sheet .toc__link--child.is-active { color: var(--text); }

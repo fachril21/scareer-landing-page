@@ -1,0 +1,23 @@
+.cta { padding-block: var(--sec-y); border-top: var(--hairline); background: var(--surface); }
+
+.cta__box {
+  display: grid;
+  justify-items: center;
+  gap: 32px;
+  padding: 56px 24px;
+  border: var(--hairline);
+  border-radius: var(--r-panel);
+  background: var(--dots), var(--surface);
+  text-align: center;
+}
+@media (min-width: 1024px) { .cta__box { padding: 80px 64px; } }
+
+.cta__box h2 { max-width: 18ch; }
+.cta__actions { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+.cta__actions .btn { width: 100%; }
+@media (min-width: 640px) {
+  .cta__actions { flex-direction: row; justify-content: center; width: auto; }
+  .cta__actions .btn { width: auto; }
+}
+.cta__facts { justify-content: center; }
+.cta__chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 8px; }

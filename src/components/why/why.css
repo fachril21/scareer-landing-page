@@ -1,0 +1,74 @@
+/* ---------- Kalimat pernyataan ---------- */
+.statement { display: grid; justify-items: center; text-align: center; }
+.statement__text {
+  max-width: 780px;
+  font-size: var(--t-statement);
+  font-weight: 500;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+.mark {
+  padding: 0 0.12em;
+  margin: 0 -0.12em;
+  background: linear-gradient(transparent 22%, var(--lavender) 22% 82%, transparent 82%);
+  color: var(--ink);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* ---------- Tiga pilar ---------- */
+.pillars {
+  display: grid;
+  margin-top: 64px;
+  border-top: var(--hairline);
+}
+.pillar { display: grid; gap: 8px; align-content: start; padding: 28px 0; border-bottom: var(--hairline); }
+.pillar svg { margin-bottom: 8px; }
+.pillar p { color: var(--text-secondary); }
+@media (min-width: 1024px) {
+  .pillars { grid-template-columns: repeat(3, 1fr); border-top: 0; margin-top: 80px; }
+  .pillar { padding: 0 32px; border-bottom: 0; border-left: var(--hairline); }
+  .pillar:first-child { padding-left: 0; border-left: 0; }
+  .pillar:last-child { padding-right: 0; }
+}
+
+/* ---------- Panel gelap ---------- */
+.panel__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  color: var(--text-on-ink-secondary);
+  font-size: var(--t-small);
+  font-weight: 500;
+}
+.panel__box { width: 10px; height: 10px; background: var(--purple-light); }
+.panel__title { max-width: 22ch; color: var(--text-on-ink); }
+
+.panel {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  margin-top: 48px;
+  overflow: hidden;
+  border: var(--hairline-on-ink);
+  border-radius: var(--r-panel);
+  background: var(--border-on-ink);
+}
+@media (min-width: 1024px) { .panel { grid-template-columns: 1fr 1fr; } }
+
+.panel__cell { display: grid; gap: 16px; align-content: start; padding: 28px; background: var(--ink-raised); }
+.panel__cell h3 { color: var(--text-on-ink); }
+.panel__cell > p { color: var(--text-on-ink-secondary); font-size: var(--t-lead); line-height: 1.5; max-width: 62ch; }
+.panel__cell ul { display: grid; gap: 12px; }
+.panel__cell li { display: flex; gap: 12px; align-items: flex-start; color: var(--text-on-ink-secondary); }
+.panel__cell li svg { flex: none; margin-top: 3px; color: var(--text-on-ink); }
+.panel__cell--wide { grid-column: 1 / -1; }
+.panel__cell--price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+}
+.panel__cell--price p { color: var(--text-on-ink); font-family: var(--f-display); font-size: var(--t-h3); font-weight: 600; }

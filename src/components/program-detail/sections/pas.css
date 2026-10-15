@@ -1,0 +1,14 @@
+.pas__cols { margin-top: 56px; }
+@media (min-width: 1024px) { .pas__cols { margin-top: 72px; } }
+.pas__tag {
+  justify-self: start;
+  padding: 2px 12px;
+  border-radius: var(--r-pill);
+  background: var(--lavender);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.pas__cols .pillar h3 { margin-top: 4px; }
+.pas__stat { max-width: none; margin-top: 40px; color: var(--text-secondary); font-size: var(--t-small); text-align: center; }
+.pas__stat a { display: inline-flex; align-items: center; gap: 4px; }

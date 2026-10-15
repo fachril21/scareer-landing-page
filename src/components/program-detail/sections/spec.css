@@ -1,0 +1,56 @@
+/* ---------- Tabel spesifikasi: satu kontainer, dua kolom di desktop ---------- */
+.specs {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 40px 0 0;
+  overflow: hidden;
+  border: var(--hairline);
+  border-radius: var(--r-panel);
+  background: var(--surface);
+}
+@media (min-width: 768px) { .specs { grid-template-columns: 1fr 1fr; } }
+.specs__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 16px;
+  padding: 16px 24px;
+  border-bottom: var(--hairline);
+  font-size: 15px;
+}
+@media (min-width: 768px) {
+  .specs__row:nth-child(odd) { border-right: var(--hairline); }
+  /* Baris terakhir tiap kolom tidak berborder bawah (dua kolom: dua butir terakhir) */
+  .specs__row:nth-last-child(-n + 2) { border-bottom: 0; }
+  .specs__row:nth-child(odd):last-child { border-right: var(--hairline); }
+}
+@media (max-width: 767px) { .specs__row:last-child { border-bottom: 0; } }
+.specs dt { color: var(--text-secondary); }
+.specs dd { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: flex-end; gap: 4px 12px; margin: 0; font-weight: 600; text-align: right; }
+.specs__more { display: inline-flex; align-items: center; min-height: 24px; font-size: 13px; font-weight: 400; color: var(--text-secondary); }
+
+/* ---------- Untuk siapa ---------- */
+.whofor { margin-top: 64px; }
+.whofor > h3 { font-size: 1.25rem; }
+.personas {
+  display: grid;
+  margin-top: 20px;
+  overflow: hidden;
+  border: var(--hairline);
+  border-radius: var(--r-panel);
+  background: var(--surface);
+}
+@media (min-width: 1024px) { .personas { grid-template-columns: repeat(3, 1fr); } }
+.persona { display: grid; gap: 8px; align-content: start; padding: 28px; }
+.persona + .persona { border-top: var(--hairline); }
+@media (min-width: 1024px) { .persona + .persona { border-top: 0; border-left: var(--hairline); } }
+.persona h4 { font-size: var(--t-h3); }
+.persona__label { margin-top: 12px; font-size: var(--t-small); font-weight: 600; }
+.persona ul { display: grid; gap: 6px; }
+.persona ul li { position: relative; padding-left: 16px; color: var(--text-secondary); font-size: 15px; }
+.persona ul li::before { content: "-"; position: absolute; left: 0; }
+
+.whofor__ask { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-top: 24px; }
+.whofor__ask > p { color: var(--text-secondary); font-size: var(--t-small); }
+.whofor__chips { display: flex; flex-wrap: wrap; gap: 12px 8px; }

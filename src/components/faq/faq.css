@@ -1,0 +1,39 @@
+.faq { display: grid; gap: 40px; }
+@media (min-width: 1024px) {
+  .faq { grid-template-columns: 320px 1fr; gap: 80px; align-items: start; }
+  .faq__head { position: sticky; top: 96px; }
+}
+
+.faq__list { border-top: var(--hairline); }
+.faq__item { border-bottom: var(--hairline); scroll-margin-top: 96px; }
+.faq__item h3 { font-size: inherit; }
+
+.faq__q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  min-height: 72px;
+  padding: 16px 0;
+  border: 0;
+  background: none;
+  font-family: var(--f-display);
+  font-size: var(--t-h3);
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+}
+.faq__icon { flex: none; transition: transform var(--dur-base) var(--ease-out); }
+.faq__item.is-open .faq__icon { transform: rotate(135deg); }
+
+/* Tinggi jawaban beranimasi lewat grid-template-rows (satu-satunya animasi tinggi) */
+.faq__a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--dur-base) var(--ease-out); }
+.faq__item.is-open .faq__a { grid-template-rows: 1fr; }
+.faq__a-inner { min-height: 0; overflow: hidden; }
+.faq__a-inner p { padding-bottom: 24px; color: var(--text-secondary); }
+.faq__item:not(.is-open) .faq__a-inner { visibility: hidden; transition: visibility 0s var(--dur-base); }
+
+.faq__more { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; margin-top: 40px; }
+.faq__more p { font-weight: 500; }

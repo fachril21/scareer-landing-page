@@ -1,0 +1,90 @@
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  color: var(--text-secondary);
+  font-size: var(--t-small);
+  font-weight: 500;
+  line-height: 1.45;
+}
+.section-label__icon { color: var(--purple); fill: var(--purple); }
+.section-label--on-ink { color: var(--text-on-ink-secondary); }
+.section-label--on-ink .section-label__icon { color: var(--text-on-ink-secondary); fill: var(--text-on-ink-secondary); }
+
+.check-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.check-row li { display: inline-flex; align-items: center; gap: 8px; }
+
+.filter-chip {
+  position: relative;
+  min-height: 40px;
+  padding: 0 18px;
+  border: 1px solid var(--border-control);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: var(--t-small);
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+/* Area sentuh 48 px tanpa mengubah tinggi tampilan 40 px */
+.filter-chip::after { content: ""; position: absolute; inset: -4px 0; }
+.filter-chip[aria-pressed="true"] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+@media (hover: hover) {
+  .filter-chip[aria-pressed="false"]:hover { background: var(--paper); }
+}
+
+.quick-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 14px 0 16px;
+  border-radius: var(--r-pill);
+  background: var(--lavender);
+  color: var(--ink);
+  font-size: var(--t-small);
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+}
+/* Area sentuh 48 px untuk chip 36 px */
+.quick-chip::after { content: ""; position: absolute; inset: -6px 0; }
+.quick-chip__arrow { flex: none; transition: transform var(--dur-fast) var(--ease-out); }
+@media (hover: hover) {
+  .quick-chip:hover .quick-chip__arrow { transform: translateX(2px); }
+}
+
+.placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  border-radius: var(--r-media);
+  background:
+    repeating-linear-gradient(135deg, transparent 0 14px, rgba(23, 24, 26, 0.06) 14px 15px),
+    var(--lavender);
+  color: var(--text-secondary);
+}
+.placeholder__label {
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  font-size: var(--t-small);
+  font-weight: 500;
+}
+
+.photo { display: block; width: 100%; height: auto; border-radius: var(--r-media); object-fit: cover; background: var(--lavender); }

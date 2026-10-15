@@ -1,0 +1,24 @@
+.why-title { max-width: 22ch; color: var(--text-on-ink); }
+.why-group { margin-top: 48px; }
+.why-group > h3 { margin-bottom: 16px; color: var(--text-on-ink-secondary); font-family: var(--f-body); font-size: var(--t-small); font-weight: 600; }
+
+/* Sel berbagi garis tipis dalam satu kontainer, seperti panel transparansi homepage */
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  overflow: hidden;
+  border: var(--hairline-on-ink);
+  border-radius: var(--r-panel);
+  background: var(--border-on-ink);
+}
+@media (min-width: 768px) {
+  .why-grid--2 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .why-grid--3 { grid-template-columns: repeat(3, 1fr); }
+}
+.why-cell { display: grid; gap: 12px; align-content: start; justify-items: start; padding: 28px; background: var(--ink-raised); }
+.why-cell h4 { color: var(--text-on-ink); font-family: var(--f-display); font-size: var(--t-h3); font-weight: 600; line-height: 1.25; }
+.why-cell p { color: var(--text-on-ink-secondary); max-width: 52ch; }
+.why-more { margin-top: 20px; }

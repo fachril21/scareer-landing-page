@@ -1,0 +1,95 @@
+.works__title { max-width: 18ch; margin-bottom: 40px; color: var(--text-on-ink); }
+
+.work {
+  position: relative;
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--r-media);
+  color: var(--text-on-ink);
+  text-decoration: none;
+  isolation: isolate;
+}
+.work__photo { position: absolute; inset: 0; height: 100%; border-radius: 0; }
+.work__tint { position: absolute; inset: 0; background: rgba(23, 24, 26, 0.35); }
+/* Scrim fungsional: kontras teks ≥ 4.5:1 di atas foto apa pun */
+.work__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(23, 24, 26, 0.82) 0%, rgba(23, 24, 26, 0.6) 35%, rgba(23, 24, 26, 0) 75%);
+}
+.work__text { position: absolute; inset: auto 20px 20px 20px; display: grid; gap: 8px; }
+.work__name { font-family: var(--f-display); font-size: var(--t-h3); font-weight: 600; line-height: 1.25; }
+.work__more { display: grid; gap: 6px; font-size: 15px; line-height: 1.45; }
+.work__desc { display: block; }
+.work__tools { color: var(--text-on-ink-secondary); font-size: 13px; }
+.work__honest { color: var(--text-on-ink-secondary); font-size: 13px; font-weight: 500; }
+
+/* ---------- Akordeon (desktop + pointer) ---------- */
+/* Semua gerak memakai satu kurva dan durasi yang sama supaya terasa satu gerakan utuh. */
+.accordion { --reveal-dur: 560ms; --reveal-ease: cubic-bezier(0.22, 1, 0.36, 1); display: flex; gap: 8px; height: 420px; }
+.accordion__col {
+  flex-basis: 0;
+  min-width: 0;
+  contain: layout paint;
+  border-radius: var(--r-media);
+  transition: flex-grow var(--reveal-dur) var(--reveal-ease);
+}
+
+/* Foto sedikit membesar saat diam dan mengendap saat terbuka (transform saja, tanpa reflow) */
+.accordion .work__photo { transform: scale(1.08); transition: transform calc(var(--reveal-dur) * 1.4) var(--reveal-ease); }
+.accordion .work.is-open .work__photo { transform: none; }
+.accordion .work__tint { transition: opacity var(--reveal-dur) var(--reveal-ease); }
+.work.is-open .work__tint { opacity: 0; }
+
+/* Ikon: plus berputar hilang, panah masuk. Keduanya bertumpuk, tidak diganti elemen */
+.work__icon {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid var(--text-on-ink);
+  border-radius: var(--r-pill);
+  transition:
+    background-color var(--reveal-dur) var(--reveal-ease),
+    border-color var(--reveal-dur) var(--reveal-ease),
+    color var(--reveal-dur) var(--reveal-ease);
+}
+.work__plus, .work__arrow { grid-area: 1 / 1; transition: opacity 240ms var(--reveal-ease), transform var(--reveal-dur) var(--reveal-ease); }
+.work__arrow { opacity: 0; transform: translateX(-6px) scale(0.8); }
+.work.is-open .work__plus { opacity: 0; transform: rotate(90deg) scale(0.8); }
+.work.is-open .work__arrow { opacity: 1; transform: none; transition-delay: 120ms; }
+.work.is-open .work__icon { border-color: var(--highlight); background: var(--highlight); color: var(--ink); }
+
+/* Teks: lebar tetap supaya tidak wrap ulang saat kolom melebar. Nama naik sedikit, lalu deskripsi
+   dan label jujur muncul bertahap. Semuanya tetap ada di DOM tanpa hover. */
+.accordion .work__text { width: 340px; max-width: calc(100% - 40px); transition: transform var(--reveal-dur) var(--reveal-ease); }
+.accordion .work__name { white-space: nowrap; }
+.accordion .work__more { gap: 8px; }
+.accordion .work__desc,
+.accordion .work__tools,
+.accordion .work__honest {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 260ms var(--reveal-ease), transform var(--reveal-dur) var(--reveal-ease);
+}
+.accordion .work.is-open .work__desc { opacity: 1; transform: none; transition-delay: 140ms; }
+.accordion .work.is-open .work__tools { opacity: 1; transform: none; transition-delay: 180ms; }
+.accordion .work.is-open .work__honest { opacity: 1; transform: none; transition-delay: 220ms; }
+
+/* ---------- Carousel (mobile dan sentuh) ---------- */
+.carousel {
+  display: flex;
+  gap: 12px;
+  margin-inline: calc(-1 * var(--gutter-x));
+  padding-inline: var(--gutter-x);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter-x);
+  scrollbar-width: none;
+}
+.carousel::-webkit-scrollbar { display: none; }
+.carousel__item { flex: 0 0 calc(100% - 48px); max-width: 420px; height: 420px; scroll-snap-align: start; }

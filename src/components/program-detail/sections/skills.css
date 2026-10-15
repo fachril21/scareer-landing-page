@@ -1,0 +1,34 @@
+.skills-title { max-width: 24ch; }
+.skills-filters { margin-top: 32px; }
+
+/* ---------- Tabel (tablet ke atas) ---------- */
+.skills-box { margin-top: 32px; overflow: hidden; border: var(--hairline); border-radius: var(--r-panel); }
+.skills-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.skills-table th, .skills-table td { padding: 18px 20px; text-align: left; vertical-align: top; }
+.skills-table thead th { background: var(--paper); font-size: var(--t-small); font-weight: 600; }
+.skills-table tbody tr { border-top: var(--hairline); transition: opacity 200ms var(--ease-out); }
+.skills-table tbody th { width: 28%; font-weight: 600; }
+.skills-table tbody td:nth-child(2) { width: 38%; }
+.skills-table tbody td:last-child { color: var(--text-secondary); }
+.skills-table tr.is-fading { opacity: 0.2; }
+
+.skill__module { position: relative; color: var(--ink); font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
+.skill__module::after { content: ""; position: absolute; inset: -14px -4px; }
+
+/* ---------- Tumpuk per skill (mobile) ---------- */
+.skills-stack { margin-top: 32px; overflow: hidden; border: var(--hairline); border-radius: var(--r-panel); }
+.skills-stack li { display: grid; gap: 12px; padding: 20px; border-top: var(--hairline); transition: opacity 200ms var(--ease-out); }
+.skills-stack li:first-child { border-top: 0; }
+.skills-stack li.is-fading { opacity: 0.2; }
+.skills-stack h3 { font-size: 1.0625rem; }
+.skills-stack dl { display: grid; gap: 10px; margin: 0; }
+.skills-stack dt { color: var(--text-secondary); font-size: 13px; }
+.skills-stack dd { margin: 2px 0 0; font-size: 15px; }
+
+/* ---------- Empat kartu output ---------- */
+.takehome { display: grid; gap: 12px; margin-top: 32px; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .takehome { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .takehome { grid-template-columns: repeat(4, 1fr); gap: 16px; } }
+.takehome li { display: grid; gap: 6px; align-content: start; padding: 20px; border: var(--hairline); border-radius: var(--r-panel); }
+.takehome h3 { font-size: 1.0625rem; }
+.takehome p { color: var(--text-secondary); font-size: var(--t-small); }

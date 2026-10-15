@@ -1,0 +1,56 @@
+.journey-title { max-width: 22ch; }
+
+/* ---------- Alur belajar: tiga sel berurutan dalam satu kontainer ---------- */
+.phases {
+  display: grid;
+  margin-top: 40px;
+  overflow: hidden;
+  border: var(--hairline);
+  border-radius: var(--r-panel);
+  background: var(--surface);
+}
+.phase { position: relative; display: grid; gap: 10px; align-content: start; justify-items: start; padding: 24px 24px 24px 56px; }
+.phase + .phase { border-top: var(--hairline); }
+.phase__tag { padding: 2px 12px; border-radius: var(--r-pill); background: var(--lavender); font-size: 13px; font-weight: 500; }
+.phase p { color: var(--text-secondary); font-size: 15px; }
+/* Mobile: garis putus-putus yang menghubungkan fase secara vertikal */
+.phase::before { content: ""; position: absolute; left: 27px; top: 0; bottom: 0; border-left: 2px dashed var(--border-control); opacity: 0.5; }
+.phase:first-child::before { top: 32px; }
+.phase:last-child::before { bottom: calc(100% - 32px); }
+.phase::after { content: ""; position: absolute; left: 21px; top: 28px; width: 14px; height: 14px; border: 2px solid var(--ink); border-radius: var(--r-pill); background: var(--surface); }
+@media (min-width: 1024px) {
+  .phases { grid-template-columns: repeat(3, 1fr); }
+  .phase { padding: 28px; }
+  .phase + .phase { border-top: 0; border-left: var(--hairline); }
+  /* Desktop: garis penghubung tipis di antara sel */
+  .phase::before { left: -1px; top: 40px; bottom: auto; width: 24px; height: 0; border-left: 0; border-top: 1px solid var(--border-control); opacity: 1; }
+  .phase:first-child::before, .phase:last-child::before { top: 40px; bottom: auto; }
+  .phase:first-child::before { display: none; }
+  .phase::after { display: none; }
+}
+
+/* ---------- Jadwal batch ---------- */
+.batch-title { margin-top: 56px; font-size: 1.25rem; }
+.batch-box { margin-top: 20px; overflow-x: auto; border: var(--hairline); border-radius: var(--r-panel); }
+.batch-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.batch-table th, .batch-table td { padding: 16px 18px; text-align: left; vertical-align: middle; }
+.batch-table thead th { background: var(--paper); font-size: var(--t-small); font-weight: 600; white-space: nowrap; }
+.batch-table tbody tr { border-top: var(--hairline); transition: background-color var(--dur-fast) var(--ease-out); }
+@media (hover: hover) { .batch-table tbody tr:hover { background: var(--paper); } }
+.batch-table tbody th { font-weight: 600; }
+.batch-table__action { text-align: right; white-space: nowrap; }
+
+.batch-status { display: inline-block; padding: 3px 12px; border-radius: var(--r-pill); background: var(--lavender); font-size: 13px; font-weight: 500; line-height: 1.4; }
+.batch-status--dibuka { background: var(--purple); color: #fff; font-weight: 700; }
+.batch-status--penuh { background: var(--paper); border: 1px solid var(--border-control); }
+
+.batch-cards { display: grid; gap: 12px; margin-top: 20px; }
+.batch-cards li { display: grid; gap: 14px; justify-items: start; padding: 20px; border: var(--hairline); border-radius: var(--r-panel); }
+.batch-cards__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; width: 100%; }
+.batch-cards h4 { font-size: 1.125rem; }
+.batch-cards dl { display: grid; gap: 8px; width: 100%; margin: 0; }
+.batch-cards dl > div { display: flex; justify-content: space-between; gap: 16px; font-size: 15px; }
+.batch-cards dt { color: var(--text-secondary); }
+.batch-cards dd { margin: 0; font-weight: 500; text-align: right; }
+
+.batch-empty { display: grid; gap: 16px; justify-items: start; margin-top: 20px; padding: 24px; border: var(--hairline); border-radius: var(--r-panel); }

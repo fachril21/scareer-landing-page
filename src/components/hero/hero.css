@@ -1,0 +1,148 @@
+.hero {
+  padding-top: 56px;
+  padding-bottom: 48px;
+  background: var(--surface);
+}
+@media (min-width: 1024px) { .hero { padding-top: 80px; padding-bottom: 96px; } }
+
+.hero__copy h1 { max-width: 12ch; }
+@media (min-width: 640px) { .hero__copy h1 { max-width: 16ch; } }
+@media (min-width: 1024px) { .hero__copy h1 { max-width: 14ch; } }
+
+.hero__lead {
+  max-width: 52ch;
+  margin-top: 24px;
+  color: var(--text-secondary);
+  font-size: var(--t-lead);
+  line-height: 1.5;
+}
+.hero__actions { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+.hero__facts { margin-top: 24px; }
+@media (min-width: 640px) { .hero__actions { flex-direction: row; } }
+
+/* ---------- Panggung ---------- */
+.stage {
+  position: relative;
+  display: grid;
+  margin-top: 48px;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--r-media);
+  isolation: isolate;
+}
+@media (min-width: 640px) { .stage { aspect-ratio: 16 / 9; } }
+@media (min-width: 1024px) { .stage { aspect-ratio: auto; height: 480px; margin-top: 64px; border-radius: var(--r-panel); } }
+
+.stage picture { display: contents; }
+.stage__photo { position: absolute; inset: 0; height: 100%; border-radius: 0; object-position: 50% 0; }
+@media (min-width: 640px) { .stage__photo { object-position: 50% 50%; } }
+.stage__tint { position: absolute; inset: 0; background: rgba(23, 24, 26, 0.25); }
+
+/* ---------- Kartu lowongan ---------- */
+.job {
+  position: absolute;
+  inset: auto 20px 20px 20px;
+  margin: 0;
+}
+@media (min-width: 640px) {
+  .job { inset: 50% auto auto 8%; transform: translateY(-50%); display: flex; align-items: flex-end; gap: 28px; }
+}
+
+.job__card {
+  width: 100%;
+  max-width: 380px;
+  padding: 24px 24px 20px;
+  border: 1.5px solid var(--ink);
+  border-radius: var(--r-paper);
+  background: var(--surface);
+  box-shadow: var(--shadow-ink);
+  opacity: 0;
+  transition: opacity 200ms var(--ease-out);
+}
+.job.is-drawn .job__card { opacity: 1; }
+
+.job__title { font-family: var(--f-display); font-size: var(--t-h3); font-weight: 600; line-height: 1.25; }
+.job__company { margin-top: 4px; color: var(--text-secondary); font-size: var(--t-small); }
+.job__heading {
+  margin-top: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--lavender);
+  font-size: var(--t-small);
+  font-weight: 600;
+}
+.job__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 28px;
+  border-bottom: 1px solid var(--lavender);
+  font-size: 15px;
+}
+.job__item::before { content: "-"; margin-right: 8px; color: var(--text-secondary); }
+.job__text { position: relative; }
+
+.job__strike {
+  position: absolute;
+  left: 20px;
+  right: 0;
+  top: 50%;
+  height: 24px;
+  transform: translateY(-50%);
+  overflow: visible;
+}
+.job__strike path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.job.is-drawn .job__strike path { stroke-dashoffset: 0; transition: stroke-dashoffset 600ms var(--ease-out) 200ms; }
+
+/* Catatan kakak tingkat: Satoshi bold ungu, di atas kertas agar kontras aman di atas foto */
+.job__note {
+  align-self: center;
+  max-width: 14ch;
+  margin-bottom: 12px;
+  padding: 6px 14px;
+  border-radius: var(--r-paper);
+  background: var(--surface);
+  color: var(--purple);
+  font-family: var(--f-note);
+  font-size: var(--t-note);
+  font-weight: 700;
+  line-height: 1.25;
+  opacity: 0;
+  transition: opacity 200ms var(--ease-out) 800ms;
+}
+.job.is-drawn .job__note { opacity: 1; }
+@media (max-width: 639px) {
+  .job__note { position: absolute; top: -56px; left: 0; max-width: none; transform: rotate(-2deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .job__card, .job__note { opacity: 1; transition: none; }
+  .job__strike path { stroke-dashoffset: 0; transition: none; }
+}
+
+/* ---------- Strip bukti ---------- */
+.proof {
+  display: flex;
+  margin-top: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  border: var(--hairline);
+  border-radius: var(--r-panel);
+  scrollbar-width: none;
+}
+.proof::-webkit-scrollbar { display: none; }
+.proof__cell {
+  flex: 0 0 70%;
+  display: flex;
+  align-items: center;
+  min-height: 72px;
+  padding: 16px 24px;
+  scroll-snap-align: start;
+  border-left: var(--hairline);
+  font-size: var(--t-small);
+  font-weight: 500;
+}
+.proof__cell:first-child { border-left: 0; }
+@media (min-width: 1024px) {
+  .proof { overflow: visible; }
+  .proof__cell { flex: 1 1 0; }
+}

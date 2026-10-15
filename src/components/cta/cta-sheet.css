@@ -1,0 +1,43 @@
+/* CTA penutup varian "Lembar" (tweak "Layout CTA dan footer"). */
+.cta-sheet { background: var(--surface); padding-top: var(--sec-y); }
+
+.cta-sheet__panel {
+  --sheet-r: var(--r-sheet);
+  /* Ruang bawah ekstra: footer menimpa tepi bawah panel setinggi satu radius. */
+  padding: 72px 0 calc(72px + var(--r-sheet));
+  border-radius: var(--sheet-r) var(--sheet-r) 0 0;
+  background: var(--purple);
+  color: #fff;
+}
+@media (min-width: 1024px) {
+  .cta-sheet__panel { --sheet-r: 48px; padding: 128px 0 calc(112px + var(--sheet-r)); }
+}
+
+.cta-sheet__inner { display: grid; justify-items: center; gap: 24px; text-align: center; }
+
+.cta-sheet__title {
+  max-width: 14ch;
+  font-size: clamp(2.5rem, 1.1rem + 5.6vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+.cta-sheet__mark {
+  padding: 0.02em 0.16em;
+  border-radius: 0.18em;
+  background: var(--highlight);
+  color: var(--ink);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.cta-sheet__lead { max-width: 44ch; font-size: var(--t-lead); line-height: 1.5; }
+
+.cta-sheet__actions { display: flex; flex-direction: column; gap: 16px; width: 100%; margin-top: 8px; }
+.cta-sheet__actions .btn { width: 100%; }
+@media (min-width: 640px) {
+  .cta-sheet__actions { flex-direction: row; justify-content: center; width: auto; }
+  .cta-sheet__actions .btn { width: auto; }
+}
+
+.cta-sheet__chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 8px; margin-top: 8px; }

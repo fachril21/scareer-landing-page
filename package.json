@@ -1,0 +1,29 @@
+{
+  "name": "scareer-homepage",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "verify": "node scripts/verify.mjs",
+    "shots": "node scripts/shots.mjs",
+    "verify:program": "node scripts/route-check.mjs && node scripts/route-transition.mjs && node scripts/program-nav.mjs && node scripts/program-sections.mjs && node scripts/program-pricing.mjs && node scripts/program-budget.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "lucide-react": "^1.55.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "playwright-core": "^1.64.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4"
+  }
+}

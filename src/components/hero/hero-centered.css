@@ -1,0 +1,15 @@
+/* Varian layout terpusat (tweak "Layout hero"). Hanya aktif dengan .hero--centered. */
+.hero--centered .hero__copy { text-align: center; }
+.hero--centered .hero__copy h1 { max-width: none; margin-inline: auto; }
+.hero--centered .hero__lead { margin-inline: auto; max-width: 56ch; }
+.hero--centered .hero__actions { align-items: stretch; justify-content: center; }
+@media (min-width: 640px) {
+  .hero--centered .hero__actions { align-items: center; }
+}
+.hero--centered .hero__facts { justify-content: center; }
+
+/* Navbar transparan menimpa bagian atas hero, jadi hero memberi ruang setinggi navbar. */
+html[data-nav-style="floating"] .hero { padding-top: calc(var(--nav-h) + 56px); }
+@media (min-width: 1024px) {
+  html[data-nav-style="floating"] .hero { padding-top: calc(var(--nav-h) + 80px); }
+}

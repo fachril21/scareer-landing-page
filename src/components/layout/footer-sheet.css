@@ -1,0 +1,83 @@
+/* Footer varian "Lembar" (tweak "Layout CTA dan footer"). */
+.fsheet {
+  --sheet-r: var(--r-sheet);
+  padding: 64px 0 calc(40px + 64px); /* ruang ekstra agar tidak tertutup bar sticky mobile */
+  border-radius: var(--sheet-r) var(--sheet-r) 0 0;
+  background: var(--ink);
+  color: var(--text-on-ink-secondary);
+}
+/* Di homepage footer menimpa tepi bawah CTA ungu, jadi ungu terlihat di kedua sudut. */
+.fsheet--overlap { position: relative; margin-top: calc(-1 * var(--sheet-r)); }
+@media (min-width: 1024px) {
+  .fsheet { --sheet-r: 48px; padding: 96px 0 40px; }
+}
+
+.fsheet__head { display: grid; gap: 16px; align-items: center; }
+@media (min-width: 1024px) { .fsheet__head { grid-template-columns: 1fr auto; } }
+.fsheet__tagline {
+  color: var(--text-on-ink);
+  font-family: var(--f-display);
+  font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.fsheet__body { display: grid; gap: 40px; align-items: start; margin-top: 48px; }
+@media (min-width: 1024px) { .fsheet__body { grid-template-columns: 5fr 7fr; gap: 64px; margin-top: 56px; } }
+
+/* Kartu kontak putih */
+.fsheet__card {
+  display: grid;
+  gap: 16px;
+  padding: 28px 32px 32px;
+  border-radius: var(--r-panel);
+  background: var(--surface);
+  color: var(--text-secondary);
+}
+.fsheet__card h2 { color: var(--ink); font-size: var(--t-h3); }
+.fsheet__card dl { display: grid; gap: 8px; margin: 0; font-size: var(--t-small); }
+.fsheet__card dt, .fsheet__card dd { display: inline; margin: 0; }
+.fsheet__icons { display: flex; gap: 12px; margin-top: 8px; }
+.fsheet__icons a {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: var(--hairline);
+  border-radius: var(--r-media);
+  background: var(--paper);
+  color: var(--ink);
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+@media (hover: hover) { .fsheet__icons a:hover { background: var(--lavender); } }
+
+/* Kolom tautan */
+.fsheet__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+@media (min-width: 640px) { .fsheet__cols { grid-template-columns: repeat(3, 1fr); } }
+.fsheet__title { margin-bottom: 12px; color: var(--text-on-ink); font-family: var(--f-body); font-size: var(--t-small); font-weight: 600; }
+.fsheet__cols li a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  color: var(--text-on-ink-secondary);
+  font-size: 15px;
+  text-decoration: none;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+@media (hover: hover) { .fsheet__cols li a:hover { text-decoration: underline; } }
+
+.fsheet__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: var(--hairline-on-ink);
+  font-size: var(--t-small);
+}
+.fsheet__bottom ul { display: flex; flex-wrap: wrap; gap: 0 24px; }
+.fsheet__bottom a { display: inline-flex; align-items: center; min-height: 44px; color: inherit; text-decoration: none; }
+@media (hover: hover) { .fsheet__bottom a:hover { text-decoration: underline; text-underline-offset: 0.2em; } }

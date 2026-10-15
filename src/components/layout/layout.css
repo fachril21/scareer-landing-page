@@ -1,0 +1,35 @@
+.container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--gutter-x);
+}
+.container--content { max-width: calc(var(--w-content) + 2 * var(--gutter-x)); }
+.container--wide { max-width: calc(var(--w-wide) + 2 * var(--gutter-x)); }
+
+.section { padding-block: var(--sec-y); border-top: var(--hairline); }
+.section--flush { border-top: 0; }
+.section--surface { background: var(--surface); }
+.section--paper { background: var(--paper); }
+.section--ink {
+  border-top: 0;
+  background: var(--ink);
+  color: var(--text-on-ink);
+}
+
+/* Judul section yang jadi tujuan scroll/anchor menerima fokus tanpa cincin */
+.section :is(h1, h2)[tabindex="-1"]:focus { outline: none; }
+
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 12px 20px;
+  border-radius: var(--r-pill);
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+.skip-link:focus-visible { transform: none; outline-color: var(--purple-light); }

@@ -1,0 +1,11 @@
+node_modules
+dist
+.impeccable/live
+*.local
+
+# Artefak lokal
+verify-out/
+bash.exe.stackdump
+
+# Brand guideline 52 MB: terlalu besar untuk riwayat git, simpan di luar repo
+docs/Scareer-Brand-Guideline-Final.pdf

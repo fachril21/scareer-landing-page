@@ -1,0 +1,36 @@
+/* Section "scareer itu apa" (tweak "Section Apa itu scareer"). */
+.what__lead { max-width: 52ch; margin-top: 20px; color: var(--text-secondary); font-size: var(--t-lead); line-height: 1.5; }
+.what__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; margin-top: 32px; }
+
+.what__item { padding: 24px 0 28px; border-top: var(--hairline); }
+.what__item h3 { font-size: var(--t-h3); }
+.what__item p { max-width: 56ch; margin-top: 8px; color: var(--text-secondary); line-height: 1.55; }
+.what__item strong { color: var(--ink); font-weight: 600; }
+
+/* Gaya A: definisi di kiri, tiga potongan di kanan */
+.what--definition .container { display: grid; gap: 40px; }
+.what--definition .what__intro h2 {
+  max-width: 16ch;
+  font-size: clamp(2rem, 1.2rem + 2.8vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+@media (min-width: 1024px) {
+  .what--definition .container { grid-template-columns: 5fr 6fr; gap: 80px; align-items: start; }
+  .what--definition .what__items { margin-top: 8px; }
+}
+
+/* Gaya B: satu kalimat besar, tiga fakta berdampingan */
+.what__sentence {
+  max-width: 22ch;
+  font-size: clamp(2rem, 1.1rem + 3.4vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+.what__key { color: var(--purple); }
+.what--sentence .what__items { display: grid; gap: 0; margin-top: 48px; }
+@media (min-width: 1024px) {
+  .what--sentence .what__items { grid-template-columns: repeat(3, 1fr); gap: 0 48px; margin-top: 64px; }
+}

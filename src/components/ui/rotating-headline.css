@@ -1,0 +1,43 @@
+.rhead { text-align: center; }
+.rhead__visual { display: block; }
+.rhead__prefix { display: block; }
+
+/* Semua frasa ditumpuk di satu sel grid: lebar dan tinggi slot = frasa terpanjang, jadi tidak ada layout shift. */
+.rhead__slot {
+  display: inline-grid;
+  max-width: 100%;
+  margin-block: -0.1em;
+  padding-block: 0.1em;
+  overflow: clip;
+  color: var(--purple);
+}
+.rhead__word {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translateY(100%);
+  transition:
+    transform 500ms var(--ease-out),
+    opacity 350ms var(--ease-out);
+}
+.rhead__word.is-active { opacity: 1; transform: none; }
+.rhead__word.is-previous { transform: translateY(-100%); }
+
+/* Gaya sorotan: dipilih lewat panel tweak (atribut di <html>). */
+html[data-word-style="stabilo"] .rhead__slot {
+  margin-top: 0.08em;
+  padding-inline: 0.28em;
+  border-radius: 0.2em;
+  background: var(--highlight);
+  color: var(--ink);
+}
+html[data-word-style="lavender"] .rhead__slot {
+  margin-top: 0.08em;
+  padding-inline: 0.28em;
+  border-radius: 0.2em;
+  background: var(--lavender);
+  color: var(--purple-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rhead__word { transition: none; }
+}

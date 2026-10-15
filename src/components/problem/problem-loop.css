@@ -1,0 +1,113 @@
+/* Section masalah (tweak "Section masalah"). */
+.problem__title {
+  max-width: 18ch;
+  font-size: clamp(2rem, 1.2rem + 2.8vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+.problem__lead { max-width: 52ch; margin-top: 20px; color: var(--text-secondary); font-size: var(--t-lead); line-height: 1.5; }
+
+/* ---------- Gaya A: lingkaran ---------- */
+.loop { position: relative; display: grid; gap: 0; margin-top: 48px; }
+.loop__step {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  padding: 0 0 32px 36px;
+}
+.loop__step h3 { font-size: var(--t-h3); }
+.loop__step p { color: var(--text-secondary); max-width: 34ch; }
+.loop__num {
+  color: var(--text-secondary);
+  font-family: var(--f-display);
+  font-size: var(--t-small);
+  font-weight: 700;
+}
+
+/* Mobile: garis vertikal di kiri, titik di tiap langkah */
+.loop__step::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 6px;
+  bottom: -6px;
+  border-left: 1.5px dashed var(--border-control);
+}
+.loop__step:last-child::before { bottom: auto; height: 12px; }
+.loop__node {
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: var(--surface);
+}
+.loop__step:last-child .loop__node { border-color: var(--text-secondary); }
+
+.loop__break {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: start;
+  margin-top: 10px;
+  padding: 6px 14px;
+  border-radius: var(--r-pill);
+  background: var(--purple);
+  color: #fff;
+  font-size: var(--t-small);
+  font-weight: 600;
+}
+
+.loop__return {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  color: var(--text-secondary);
+  font-size: var(--t-small);
+}
+
+@media (min-width: 1024px) {
+  .loop { grid-template-columns: repeat(4, 1fr); gap: 0 32px; margin-top: 72px; }
+  .loop__step { padding: 40px 0 0; }
+  .loop__step::before {
+    left: 0;
+    right: -32px;
+    top: 7px;
+    bottom: auto;
+    height: 0;
+    border-left: 0;
+    border-top: 1.5px dashed var(--border-control);
+  }
+  .loop__step:last-child::before { right: 0; height: 0; width: auto; }
+  .loop__node { left: 0; top: 0; }
+  .loop__num { margin-top: 4px; }
+  .loop__break {
+    /* Di tengah garis antara langkah 3 dan 4: terlihat seperti titik putusnya lingkaran. */
+    position: absolute;
+    top: -10px;
+    left: calc(50% + 16px);
+    transform: translateX(-50%);
+    margin: 0;
+    white-space: nowrap;
+  }
+  .loop__return { display: flex; justify-content: flex-end; margin-top: 28px; }
+}
+
+/* ---------- Gaya B: dua sisi ---------- */
+.sides { display: grid; gap: 40px; margin-top: 48px; }
+.sides__col h3 { margin-bottom: 8px; font-size: var(--t-h3); }
+.sides__col li { padding: 16px 0; border-top: var(--hairline); color: var(--text-secondary); line-height: 1.55; max-width: 48ch; }
+.sides__col:first-child li { color: var(--ink); font-weight: 500; }
+@media (min-width: 1024px) {
+  .sides { grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 64px; }
+}
+
+/* ---------- Jembatan ke Cara belajar ---------- */
+.problem__pivot { display: grid; gap: 8px; justify-items: start; margin-top: 24px; padding-top: 32px; border-top: var(--hairline); }
+.problem__pivot p { max-width: 58ch; font-family: var(--f-display); font-size: var(--t-statement); font-weight: 600; line-height: 1.25; letter-spacing: -0.02em; text-wrap: balance; }
+@media (min-width: 1024px) { .problem__pivot { margin-top: 40px; } }

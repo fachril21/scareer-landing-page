@@ -1,0 +1,7 @@
+/* Satoshi di-host sendiri (Fontshare, gratis untuk komersial). Hanya tiga bobot sesuai brand guideline. */
+@font-face { font-family: "Satoshi"; font-weight: 400; font-style: normal; font-display: swap;
+  src: url("/fonts/satoshi/Satoshi-Regular.woff2") format("woff2"), url("/fonts/satoshi/Satoshi-Regular.woff") format("woff"); }
+@font-face { font-family: "Satoshi"; font-weight: 500; font-style: normal; font-display: swap;
+  src: url("/fonts/satoshi/Satoshi-Medium.woff2") format("woff2"), url("/fonts/satoshi/Satoshi-Medium.woff") format("woff"); }
+@font-face { font-family: "Satoshi"; font-weight: 700; font-style: normal; font-display: swap;
+  src: url("/fonts/satoshi/Satoshi-Bold.woff2") format("woff2"), url("/fonts/satoshi/Satoshi-Bold.woff") format("woff"); }
