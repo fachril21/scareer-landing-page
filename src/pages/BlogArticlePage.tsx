@@ -3,7 +3,7 @@ import { Footer } from '../components/layout/Footer'
 import { Navbar } from '../components/navbar/Navbar'
 import { Breadcrumbs } from '../components/ui/Breadcrumbs'
 import { Photo } from '../components/ui/Primitives'
-import { ArticleBody, ArticleToc } from '../components/blog/ArticleBody'
+import { ArticleBody, ArticleToc, hasArticleToc } from '../components/blog/ArticleBody'
 import { AuthorMark } from '../components/blog/ArticleCard'
 import { ProgramCta, RelatedArticles, ShareRow } from '../components/blog/ArticleExtras'
 import { formatDate, getArticle, getCategory, groupOfArticle, readingMinutes } from '../content/blog'
@@ -88,7 +88,7 @@ export function BlogArticlePage({ slug }: { slug: string }) {
             <Photo name={article.cover} alt="" width={1200} height={675} sizes="(min-width: 1024px) 1024px, 92vw" eager />
           </div>
 
-          <div className="alayout">
+          <div className={`alayout${hasArticleToc(article.body) ? ' alayout--toc' : ''}`}>
             <ArticleToc body={article.body} />
             <article className="aarticle">
               <ArticleBody body={article.body} />

@@ -1,26 +1,31 @@
-import { useRef, useState } from 'react'
-import { Check, Minus } from 'lucide-react'
+import { Check, CircleCheck, CircleMinus, Minus } from 'lucide-react'
 import { Button } from '../../ui/Button'
-import { Section } from '../../layout/Section'
 import type { PricingPlan, ProgramDetail } from '../../../content/program-detail.types'
-import { useScrollDepthOnce } from '../../../hooks/useScrollDepthOnce'
-import { scrollToElement } from '../../../lib/scrollTo'
 import { track } from '../../../lib/track'
 import { waLink } from '../../../lib/whatsapp'
-import { PricingCompare } from './PricingCompare'
+import { PricingShell } from './PricingShell'
 import './pricing-tiers.css'
+import './pricing-glass.css'
 
 interface PlanCardProps {
   plan: PricingPlan
   programName: string
   onDetail: () => void
+  /** Gaya kaca: pil nama, ikon centang bulat, dan sorotan paket yang direkomendasikan. */
+  glass: boolean
 }
 
-function PlanCard({ plan, programName, onDetail }: PlanCardProps) {
+function PlanCard({ plan, programName, onDetail, glass }: PlanCardProps) {
   const href = waLink('Detail: Harga', `Aku mau daftar ${plan.name} (${programName})`)
+  const recommended = glass && plan.recommended === true
+  const Yes = glass ? CircleCheck : Check
+  const No = glass ? CircleMinus : Minus
   return (
-    <article className="plan" aria-labelledby={`plan-${plan.id}`}>
-      <h3 id={`plan-${plan.id}`} className="plan__name">{plan.name}</h3>
+    <article className={`plan${glass ? ' plan--glass' : ''}${recommended ? ' plan--rec' : ''}`} aria-labelledby={`plan-${plan.id}`}>
+      <div className="plan__top">
+        <h3 id={`plan-${plan.id}`} className="plan__name">{plan.name}</h3>
+        {recommended && <span className="plan__rec">Direkomendasikan</span>}
+      </div>
       <p className="plan__price num">
         <span className="plan__from">mulai</span>
         <strong>{plan.price}</strong>
@@ -29,21 +34,21 @@ function PlanCard({ plan, programName, onDetail }: PlanCardProps) {
       <ul className="plan__list">
         {plan.includes.map((item) => (
           <li key={item}>
-            <Check size={16} strokeWidth={2} aria-hidden="true" />
+            <Yes size={glass ? 18 : 16} strokeWidth={glass ? 1.75 : 2} aria-hidden="true" />
             <span><span className="sr-only">Termasuk: </span>{item}</span>
           </li>
         ))}
         <li className="plan__excluded">
-          <Minus size={16} strokeWidth={2} aria-hidden="true" />
+          <No size={glass ? 18 : 16} strokeWidth={glass ? 1.75 : 2} aria-hidden="true" />
           <span><span className="sr-only">Tidak termasuk: </span>{plan.excludes}</span>
         </li>
       </ul>
       <div className="plan__actions">
-        <Button variant="primary" href={href} target="_blank" onClick={() => track('click_wa_pricing', { sumber: `plan-${plan.id}` })}>
+        <Button variant={recommended ? 'light' : 'primary'} href={href} target="_blank" onClick={() => track('click_wa_pricing', { sumber: `plan-${plan.id}` })}>
           Pilih {plan.name}
           <span className="sr-only"> (membuka WhatsApp di tab baru)</span>
         </Button>
-        <Button variant="link" onClick={onDetail} aria-controls="bandingkan-program">
+        <Button variant="link" onInk={glass} onClick={onDetail} aria-controls="bandingkan-program">
           Detail
           <span className="sr-only"> {plan.name}: buka perbandingan program</span>
         </Button>
@@ -52,50 +57,17 @@ function PlanCard({ plan, programName, onDetail }: PlanCardProps) {
   )
 }
 
-/**
- * 11. Harga, layout dua paket di band Ink: judul besar, dua kartu Paper (kanan sedikit turun di desktop),
- * catatan jujur soal harga dan refund, lalu akordeon perbandingan. Tanpa form: daftar lewat WhatsApp.
- */
-export function PricingTiers({ program }: { program: ProgramDetail }) {
-  const rootRef = useRef<HTMLDivElement>(null)
-  const [compareOpen, setCompareOpen] = useState(false)
-  useScrollDepthOnce(rootRef, () => track('scroll_depth_pricing'))
-
-  const showCompare = () => {
-    setCompareOpen(true)
-    track('click_pricing_detail')
-    const compare = document.getElementById('bandingkan-program')
-    if (compare) scrollToElement(compare)
-  }
-
+/** 11. Harga, kartu terpisah di band Ink: kartu Paper ("tiers") atau kartu kaca ("glass"). Tinggi kartu sama, tanpa stagger. */
+export function PricingTiers({ program, glass = false }: { program: ProgramDetail; glass?: boolean }) {
   return (
-    <Section id="harga" tone="ink" labelledBy="harga-title">
-      <div ref={rootRef} className="tiers">
-        <p className="tiers__lead">Mulai dari ±Rp3 juta. Isinya segini. Yang nggak termasuk juga kami tulis.</p>
-        <h2 id="harga-title" className="tiers__title">Harga</h2>
-
-        <div className="tiers__plans">
+    <PricingShell program={program} tone="ink">
+      {({ showCompare }) => (
+        <div className={`tiers__plans${glass ? ' tiers__plans--glass' : ''}`}>
           {program.plans.map((plan) => (
-            <PlanCard key={plan.id} plan={plan} programName={program.name} onDetail={showCompare} />
+            <PlanCard key={plan.id} plan={plan} programName={program.name} onDetail={showCompare} glass={glass} />
           ))}
         </div>
-
-        <div className="tiers__notes">
-          <p>Harga per paket dikonfirmasi lewat WhatsApp sebelum kamu memutuskan. Harga resmi: [ISI: kisaran harga].</p>
-          <p><strong>Refund dan pindah batch:</strong> {program.refundPolicy}</p>
-          <p>Pendaftaran lewat WhatsApp. Kamu akan diarahkan ke chat dengan pesan yang sudah terisi program pilihanmu.</p>
-        </div>
-
-        <PricingCompare
-          plans={program.plans}
-          rows={program.planCompare}
-          open={compareOpen}
-          onToggle={(next) => {
-            setCompareOpen(next)
-            if (next) track('open_pricing_compare')
-          }}
-        />
-      </div>
-    </Section>
+      )}
+    </PricingShell>
   )
 }

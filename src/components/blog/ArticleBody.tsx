@@ -9,10 +9,13 @@ export function articleHeadings(body: readonly BlogBlock[]): { id: string; text:
 
 const TOC_MIN_HEADINGS = 3
 
+/** Daftar isi hanya ada untuk artikel dengan tiga heading atau lebih; layout halaman mengikutinya. */
+export const hasArticleToc = (body: readonly BlogBlock[]): boolean => articleHeadings(body).length >= TOC_MIN_HEADINGS
+
 /** Daftar isi: hanya untuk artikel dengan tiga heading atau lebih. Tautan anchor memakai gulir halus yang sama dengan halaman lain. */
 export function ArticleToc({ body }: { body: readonly BlogBlock[] }) {
+  if (!hasArticleToc(body)) return null
   const headings = articleHeadings(body)
-  if (headings.length < TOC_MIN_HEADINGS) return null
   return (
     <nav className="atoc" aria-label="Daftar isi artikel">
       <p className="atoc__title">Di artikel ini</p>

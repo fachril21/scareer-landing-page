@@ -190,6 +190,7 @@ const PLANS: readonly PricingPlan[] = [
     audience: '[ISI: cocok untuk siapa]',
     includes: ['Video rekaman, bisa ditonton kapan saja', 'Kelas Zoom live bersama mentor', '[ISI: rincian internship dan lainnya]'],
     excludes: '[ISI: yang tidak termasuk]',
+    recommended: true,
   },
 ]
 

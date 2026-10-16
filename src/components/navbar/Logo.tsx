@@ -6,7 +6,7 @@ export function Logo({ onInk = false }: { onInk?: boolean }) {
   const src = onInk ? '/images/brand/logo-horizontal-white.png' : '/images/brand/logo-horizontal.png'
   return (
     <a className={`logo${onInk ? ' logo--on-ink' : ''}`} href={home()} aria-label="scareer, ke atas halaman">
-      <img src={src} width={2830} height={708} alt="" className="logo__img" />
+      <img src={src} width={3000} height={898} alt="" className="logo__img" />
     </a>
   )
 }

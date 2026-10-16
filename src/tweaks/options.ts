@@ -33,7 +33,7 @@ export type Tweaks = {
   problem: 'hidden' | 'loop' | 'sides'
   pageOrder: 'story' | 'previous'
   /** Halaman detail bootcamp: section Harga. */
-  pricingLayout: 'original' | 'tiers'
+  pricingLayout: 'original' | 'tiers' | 'glass' | 'aligned' | 'aligned-light' | 'table'
   /** Halaman detail bootcamp: hero. */
   programHeroLayout: 'original' | 'split'
   /** Halaman detail bootcamp: section Kenapa kami. */
@@ -79,7 +79,7 @@ export const DEFAULT_TWEAKS: Tweaks = {
   whatIs: 'definition',
   problem: 'loop',
   pageOrder: 'story',
-  pricingLayout: 'tiers',
+  pricingLayout: 'aligned',
   programHeroLayout: 'split',
   whyUsLayout: 'bento',
   curriculumLayout: 'timeline',
@@ -297,6 +297,10 @@ export const PRICING_GROUPS = [
     options: [
       { value: 'original', label: 'Original (satu harga)' },
       { value: 'tiers', label: 'Dua paket + bandingkan' },
+      { value: 'glass', label: 'Dua paket kaca + rekomendasi' },
+      { value: 'aligned', label: 'Sejajar: sel gelap bergaris' },
+      { value: 'aligned-light', label: 'Sejajar: sel terang bergaris' },
+      { value: 'table', label: 'Sejajar: tabel perbandingan' },
     ],
   },
 ] as const satisfies readonly TweakGroup<keyof Tweaks>[]

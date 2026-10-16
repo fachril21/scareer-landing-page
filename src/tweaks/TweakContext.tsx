@@ -2,7 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useLayoutEffect, use
 import { ALL_GROUPS, DEFAULT_TWEAKS, scopeKeys, type TweakScope, type Tweaks } from './options'
 
 /** Naik versi saat bawaan berubah, supaya pilihan lama di localStorage tidak menutupi bawaan baru. */
-const STORAGE_KEY = 'scareer-tweaks-v2'
+const STORAGE_KEY = 'scareer-tweaks-v4'
 /** Default pilihan user ("Jadikan default"): menggantikan bawaan awal sampai dihapus. */
 const SAVED_DEFAULT_KEY = 'scareer-tweaks-default-v1'
 

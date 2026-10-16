@@ -203,6 +203,8 @@ export interface PricingPlan {
   includes: readonly string[]
   /** Butir yang tidak termasuk, ditulis jujur. */
   excludes: string
+  /** Satu paket yang disorot sebagai rekomendasi tim (layout kaca). */
+  recommended?: boolean
 }
 
 export interface PlanCompareRow {

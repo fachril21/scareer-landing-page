@@ -83,8 +83,9 @@ html[data-nav-style="floating"] .blog-top { padding-top: calc(var(--nav-h) + 24p
 .acover { margin-top: 32px; overflow: hidden; border-radius: var(--r-panel); background: var(--lavender); }
 .acover img { display: block; width: 100%; aspect-ratio: 16 / 8; object-fit: cover; }
 
-.alayout { display: grid; gap: 32px; margin-top: 40px; }
-@media (min-width: 1024px) { .alayout { grid-template-columns: 220px minmax(0, 1fr); gap: 56px; align-items: start; } }
+.alayout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; margin-top: 40px; }
+/* Dua kolom hanya saat ada daftar isi; tanpa daftar isi, isi artikel memakai satu kolom selebar bacaan. */
+@media (min-width: 1024px) { .alayout--toc { grid-template-columns: 220px minmax(0, 1fr); gap: 56px; align-items: start; } }
 
 .atoc { padding: 16px 0; border-block: var(--hairline); }
 @media (min-width: 1024px) { .atoc { position: sticky; top: 96px; padding: 0 0 0 16px; border: 0; border-left: var(--hairline); } }
@@ -94,22 +95,24 @@ html[data-nav-style="floating"] .blog-top { padding-top: calc(var(--nav-h) + 24p
 @media (hover: hover) { .atoc a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; } }
 
 /* Mode baca: kolom 65 sampai 70 karakter */
-.aarticle { min-width: 0; }
-.prose { max-width: 68ch; font-size: 1.0625rem; line-height: 1.7; }
+.aarticle { --measure: none; min-width: 0; } /* isi artikel selebar kontainernya; ganti nilai ini (mis. 43.5rem untuk sekitar 70 karakter per baris) untuk membatasi lebar baca */
+.prose { max-width: var(--measure); font-size: 1.0625rem; line-height: 1.7; }
 .prose > * + * { margin-top: 1.1em; }
+/* base.css membatasi <p> ke 68ch; di artikel lebar baca diatur oleh --measure di kolomnya */
+.prose p, .acta p, .ahead__lead { max-width: none; }
 .prose h2 { margin-top: 2em; font-family: var(--f-display); font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.75rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; scroll-margin-top: 88px; }
 .prose ul { display: grid; gap: 8px; padding-left: 1.25em; list-style: disc; }
 .prose ul li::marker { color: var(--text-secondary); }
 .prose blockquote { margin-inline: 0; padding: 20px 24px; border-radius: var(--r-media); background: var(--lavender); font-family: var(--f-display); font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
 
-.ashare { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; max-width: 68ch; margin-top: 48px; padding-top: 20px; border-top: var(--hairline); }
+.ashare { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; max-width: var(--measure); margin-top: 48px; padding-top: 20px; border-top: var(--hairline); }
 .ashare > p { color: var(--text-secondary); font-size: var(--t-small); font-weight: 500; }
 .ashare__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .ashare__btn { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 1px solid var(--border-control); border-radius: var(--r-pill); background: var(--surface); color: var(--ink); font: inherit; font-size: var(--t-small); font-weight: 500; text-decoration: none; cursor: pointer; }
 @media (hover: hover) { .ashare__btn:hover { background: var(--paper); } }
 .ashare__status { min-width: 9ch; color: var(--text-secondary); font-size: var(--t-small); }
 
-.acta { display: grid; gap: 12px; justify-items: start; max-width: 68ch; margin-top: 32px; padding: 28px; border: var(--hairline); border-radius: var(--r-panel); background: var(--paper); }
+.acta { display: grid; gap: 12px; justify-items: start; max-width: var(--measure); margin-top: 32px; padding: 28px; border: var(--hairline); border-radius: var(--r-panel); background: var(--paper); }
 .acta h2 { font-family: var(--f-display); font-size: var(--t-h3); font-weight: 700; }
 .acta p { color: var(--text-secondary); }
 

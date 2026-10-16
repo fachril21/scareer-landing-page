@@ -25,7 +25,8 @@
   min-height: 48px;
   text-decoration: none;
 }
-.logo__img { width: auto; height: 28px; }
+/* Berkas logo punya ruang kosong di sekelilingnya (isi sekitar 80% tinggi). Tinggi 36 px menghasilkan wordmark setinggi sekitar 29 px; margin negatif meluruskan tepi kiri dengan teks di bawahnya. */
+.logo__img { flex: none; width: auto; height: 36px; margin-left: -3px; }
 
 .nav__menu { display: none; }
 .nav__actions { display: none; }
