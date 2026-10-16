@@ -10,7 +10,7 @@ const CLOSE_DELAY_MS = 200
  * Hover, fokus, atau klik membuka panel 220 px yang melayang di atas konten tanpa menggesernya.
  * Garis hanya dekorasi: yang bisa difokus adalah satu tombol, lalu daftar tautan di dalam panel.
  */
-export function Rail({ toc }: { toc: ProgramToc }) {
+export function Rail({ toc, boxed = false }: { toc: ProgramToc; boxed?: boolean }) {
   const [open, setOpen] = useState(false)
   const timer = useRef<number | undefined>(undefined)
   const toggleRef = useRef<HTMLButtonElement>(null)
@@ -25,7 +25,7 @@ export function Rail({ toc }: { toc: ProgramToc }) {
 
   return (
     <nav
-      className={`rail${open ? ' is-open' : ''}${toc.onInk ? ' is-ink' : ''}`}
+      className={`rail${open ? ' is-open' : ''}${boxed ? ' rail--boxed' : toc.onInk ? ' is-ink' : ''}`}
       aria-label="Daftar isi halaman"
       onPointerEnter={(e) => e.pointerType === 'mouse' && schedule(true, 0)}
       onPointerLeave={(e) => e.pointerType === 'mouse' && schedule(false, CLOSE_DELAY_MS)}

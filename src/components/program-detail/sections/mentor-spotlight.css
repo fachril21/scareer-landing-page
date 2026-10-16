@@ -1,0 +1,57 @@
+/* Mentor, sorotan satu mentor. Kartu putih bergaris tipis di atas Paper, tanpa bayangan dan tanpa gradasi. */
+.sp { container-type: inline-size; }
+.sp__title { max-width: 18ch; font-family: var(--f-display); font-size: var(--t-h2); font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; text-wrap: balance; }
+.sp__note { max-width: 62ch; margin-top: 12px; color: var(--text-secondary); font-size: var(--t-small); }
+
+.sp__stage { display: grid; gap: 12px; margin-top: 32px; touch-action: pan-y; }
+@container (min-width: 820px) { .sp__stage { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 16px; } }
+
+/* ---------- Kartu identitas ---------- */
+.sp__id, .sp__detail { border: var(--hairline); border-radius: var(--r-panel); background: var(--surface); animation: sp-in 240ms var(--ease-out); }
+.sp__id { display: grid; align-content: start; gap: 4px; padding: 16px; }
+.sp__media { position: relative; }
+.sp__photo, .sp__blank { width: 100%; aspect-ratio: 4 / 3; border-radius: var(--r-media); object-fit: cover; object-position: 50% 25%; }
+.sp__blank {
+  display: grid;
+  place-items: center;
+  background: repeating-linear-gradient(135deg, var(--lavender) 0 14px, rgba(123, 47, 247, 0.07) 14px 15px);
+  color: var(--purple-dark);
+  font-family: var(--f-display);
+  font-size: clamp(3rem, 2rem + 4vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.sp__tag { position: absolute; top: 12px; left: 12px; padding: 2px 10px; border-radius: var(--r-pill); background: var(--surface); font-size: 13px; font-weight: 500; }
+.sp__id h3 { margin-top: 12px; font-size: var(--t-h3); }
+.sp__id p { color: var(--text-secondary); font-size: var(--t-small); }
+
+/* ---------- Kartu rincian ---------- */
+.sp__detail { display: flex; flex-direction: column; gap: 16px; min-height: 360px; padding: clamp(20px, 3vw, 36px); }
+.sp__count { color: var(--text-secondary); font-size: var(--t-small); }
+.sp__quote { margin: 0; padding: 24px 28px; border: var(--hairline); border-radius: var(--r-panel); font-size: 1.0625rem; font-weight: 600; line-height: 1.5; text-wrap: pretty; }
+.sp__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.sp__chips li, .sp__access li { padding: 6px 14px; border: var(--hairline); border-radius: var(--r-pill); background: var(--surface); font-size: var(--t-small); font-weight: 500; line-height: 1.4; }
+.sp__chips .sp__chip--field { border-color: var(--border-control); }
+.sp__chips strong, .sp__access strong { font-weight: 600; }
+.sp__sample { color: var(--text-secondary); font-size: var(--t-small); }
+
+.sp__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 16px; margin-top: auto; padding-top: 16px; }
+.sp__hint { color: var(--text-secondary); font-size: var(--t-small); }
+.sp__arrows { display: flex; gap: 8px; }
+.sp__arrow { display: grid; place-items: center; width: 48px; height: 48px; border: 1.5px solid var(--ink); border-radius: 50%; background: transparent; color: var(--ink); cursor: pointer; transition: background-color var(--dur-fast) var(--ease-out); }
+@media (hover: hover) { .sp__arrow:hover { background: var(--paper); } }
+
+/* ---------- Pemilih dan akses ---------- */
+.sp__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 16px; }
+.sp__tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.sp__tab { display: grid; place-items: center; width: 48px; height: 48px; border: 2px solid transparent; border-radius: 50%; background: var(--lavender); color: var(--ink); font-family: var(--f-display); font-size: 0.9375rem; font-weight: 600; cursor: pointer; transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out); }
+.sp__tab[aria-selected="true"] { border-color: var(--purple); background: var(--surface); }
+.sp__access { display: flex; flex-wrap: wrap; gap: 8px; }
+
+@container (min-width: 820px) { .sp__photo, .sp__blank { aspect-ratio: 4 / 5; } }
+
+@keyframes sp-in { from { opacity: 0; transform: translateY(6px); } }
+@media (prefers-reduced-motion: reduce) {
+  .sp__id, .sp__detail { animation: none; }
+  .sp__arrow, .sp__tab { transition: none; }
+}

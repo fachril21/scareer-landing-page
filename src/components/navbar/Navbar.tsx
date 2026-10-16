@@ -43,8 +43,8 @@ export function Navbar() {
   const spyIds = SPY_IDS.filter((id) => !hidden.includes(id))
   const visible = useVisibleSections(onHome ? spyIds : [], '-40% 0px -40% 0px')
   const active = activeNavId(visible)
-  // Varian transparan lalu pill hanya untuk homepage: halaman detail tidak punya hero di bawah navbar.
-  const floating = onHome && tweaks.navStyle === 'floating'
+  // Varian transparan lalu pill berlaku di homepage dan halaman detail (pengaturannya bersama).
+  const floating = tweaks.navStyle === 'floating'
   useNavProgress(headerRef, floating)
   const navClass = [
     'nav',

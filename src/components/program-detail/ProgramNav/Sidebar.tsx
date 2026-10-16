@@ -7,10 +7,12 @@ interface SidebarProps {
   toc: ProgramToc
   price: string
   ctaHidden: boolean
+  /** Dibungkus kontainer berlatar: warna tidak lagi mengikuti section di belakangnya. */
+  boxed?: boolean
 }
 
 /** Sidebar penuh (1440 px ke atas): daftar isi, jalur progres, dan kartu CTA mini. */
-export function Sidebar({ toc, price, ctaHidden }: SidebarProps) {
+export function Sidebar({ toc, price, ctaHidden, boxed = false }: SidebarProps) {
   const scrollRef = useRef<HTMLDivElement>(null)
 
   // Pada layar pendek daftar menggulung di dalam sidebar; item aktif dijaga terlihat.
@@ -25,7 +27,7 @@ export function Sidebar({ toc, price, ctaHidden }: SidebarProps) {
   }, [toc.activeId, toc.activeChild])
 
   return (
-    <nav className={`toc-side${toc.onInk ? ' is-ink' : ''}`} aria-label="Daftar isi halaman">
+    <nav className={`toc-side${boxed ? ' toc-side--boxed' : toc.onInk ? ' is-ink' : ''}`} aria-label="Daftar isi halaman">
       <a
         className="skip-link"
         href="#konten"

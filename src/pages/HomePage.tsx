@@ -53,7 +53,7 @@ export function HomePage() {
       </main>
       <Footer overlapsCta={tweaks.endLayout === 'sheet'} />
       <HomeStickyBar />
-      <TweakPanel />
+      <TweakPanel scope="home" />
     </>
   )
 }

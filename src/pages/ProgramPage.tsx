@@ -28,6 +28,9 @@ import { useNavPattern } from '../hooks/useNavPattern'
 import { useProgramToc } from '../hooks/useProgramToc'
 import { requestSection } from '../lib/sectionLink'
 import { track } from '../lib/track'
+import { TweakPanel } from '../tweaks/TweakPanel'
+import { useTweaks } from '../tweaks/TweakContext'
+import { ProgramClosingCta } from '../components/program-detail/sections/ProgramClosingCta'
 import { NotFoundPage } from './NotFoundPage'
 import './program-page.css'
 
@@ -54,7 +57,7 @@ const BUILT: Readonly<Record<string, (program: ProgramDetail) => React.ReactNode
 
 /** Bar CTA mobile: dari Kenapa kami sampai Program Detail, hilang saat Hero atau Harga terlihat. */
 const STICKY_SHOW = ['kenapa-kami', 'kurikulum', 'tools', 'skill-output', 'mentor', 'jadwal', 'karya', 'detail-program']
-const STICKY_HIDE = ['ringkasan', 'harga']
+const STICKY_HIDE = ['ringkasan', 'harga', 'cta']
 
 /**
  * Halaman detail program: 12 section sesuai urutan brief, navigasi halaman (sidebar, rail, atau switcher),
@@ -63,6 +66,9 @@ const STICKY_HIDE = ['ringkasan', 'harga']
 function ProgramView({ program }: { program: ProgramDetail }) {
   const pattern = useNavPattern()
   const toc = useProgramToc()
+  const { tweaks } = useTweaks()
+  // CTA penutup dirancang untuk footer Lembar (footer menimpa tepi bawah panelnya).
+  const showCta = tweaks.endLayout === 'sheet' && tweaks.programCta === 'shown'
   useFocusOnAnchor()
   useScrollReveal(program.slug)
 
@@ -95,7 +101,9 @@ function ProgramView({ program }: { program: ProgramDetail }) {
           ))}
         </main>
       </div>
-      <Footer />
+      {showCta && <ProgramClosingCta />}
+      <Footer overlapsCta={showCta} />
+      <TweakPanel scope="detail" />
       <StickyBar
         showIn={STICKY_SHOW}
         hideIn={STICKY_HIDE}

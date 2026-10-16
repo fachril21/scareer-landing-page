@@ -335,6 +335,10 @@ export interface FaqItem {
   id: string
   question: string
   answer: string
+  /** Kategori untuk filter pil (layout kartu halaman detail). */
+  category?: string
+  /** Tautan di bawah jawaban yang menggulung ke section lain di halaman yang sama. */
+  link?: { label: string; sectionId: string }
 }
 
 const FAQ_PENDING = '[ISI] Jawaban resmi dari tim, maksimal 60 kata.'

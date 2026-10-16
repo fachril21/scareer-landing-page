@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react'
 import { WhatsAppIcon } from './Icons'
 import './button.css'
 
-type Variant = 'primary' | 'outline' | 'whatsapp' | 'link'
+type Variant = 'primary' | 'outline' | 'whatsapp' | 'light' | 'link'
 type Size = 'md' | 'lg'
 
 type Common = {

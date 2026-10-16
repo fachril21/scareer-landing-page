@@ -1,20 +1,10 @@
-import { Faq } from '../../faq/Faq'
 import type { ProgramDetail } from '../../../content/program-detail.types'
-import { track } from '../../../lib/track'
+import { useTweaks } from '../../../tweaks/TweakContext'
+import { ProgramFaqCards } from './ProgramFaqCards'
+import { ProgramFaqOriginal } from './ProgramFaqOriginal'
 
-/**
- * 12. FAQ. Komponen FAQ homepage dengan butir spesifik program: judul menempel di kiri (desktop), boleh beberapa terbuka,
- * deep-link `#faq-nama` membuka butirnya, dan tombol WhatsApp di bawah daftar.
- */
+/** 12. FAQ. Layout dipilih lewat panel tweak halaman detail: original (baris bergaris) atau kartu dengan pil kategori. */
 export function ProgramFaq({ program }: { program: ProgramDetail }) {
-  return (
-    <Faq
-      items={program.faq}
-      heading="Pertanyaan tentang program ini"
-      waSource="Detail: FAQ"
-      tone="paper"
-      onOpen={(id) => track('faq_open', { faq: id })}
-      onAsk={() => track('click_wa_faq')}
-    />
-  )
+  const { tweaks } = useTweaks()
+  return tweaks.faqLayout === 'cards' ? <ProgramFaqCards program={program} /> : <ProgramFaqOriginal program={program} />
 }

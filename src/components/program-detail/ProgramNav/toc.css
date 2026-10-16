@@ -81,6 +81,16 @@ html.is-program-page { scroll-padding-top: var(--scroll-offset); }
 .mini-cta__price { margin-bottom: 8px; font-family: var(--f-display); font-size: 1.25rem; font-weight: 600; }
 .mini-cta__wa { justify-self: center; padding-block: 8px; font-size: var(--t-small); color: var(--text-secondary); }
 
+/* Sidebar dalam kontainer berlatar: terbaca di atas section terang maupun gelap, tanpa bayangan */
+.toc-side--boxed { gap: 0; padding: 14px 10px 12px; border: var(--hairline); border-radius: var(--r-panel); background: var(--surface); color: var(--text); }
+.toc-side--boxed .toc { padding-left: 12px; }
+.toc-side--boxed .toc__link { border-radius: 8px; padding-right: 8px; }
+.toc-side--boxed .toc__link.is-active { background: var(--lavender); }
+@media (hover: hover) {
+  .toc-side--boxed .toc__link:not(.is-active):hover { background: var(--paper); border-bottom-color: transparent; }
+}
+.toc-side--boxed .mini-cta { margin-top: 12px; padding: 12px 4px 0; border: 0; border-top: var(--hairline); border-radius: 0; background: none; }
+
 /* ---------- Rail 56 px ---------- */
 .rail { position: relative; width: 56px; }
 .rail__dashes { display: grid; gap: 14px; padding: 4px 0 4px 16px; }
@@ -95,6 +105,7 @@ html.is-program-page { scroll-padding-top: var(--scroll-offset); }
   transition: transform 200ms var(--ease-out), background-color 150ms var(--ease-out);
 }
 .rail__dash.is-active { background: var(--ink); transform: scaleX(2); }
+.rail--boxed .rail__dashes { padding: 12px 0 12px 16px; border: var(--hairline); border-radius: var(--r-panel); background: var(--surface); }
 .rail__chip {
   position: absolute;
   top: 50%;

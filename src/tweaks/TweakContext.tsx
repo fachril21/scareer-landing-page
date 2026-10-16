@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useMemo, useState, type ReactNode } from 'react'
-import { ALL_GROUPS, DEFAULT_TWEAKS, type Tweaks } from './options'
+import { ALL_GROUPS, DEFAULT_TWEAKS, scopeKeys, type TweakScope, type Tweaks } from './options'
 
 /** Naik versi saat bawaan berubah, supaya pilihan lama di localStorage tidak menutupi bawaan baru. */
 const STORAGE_KEY = 'scareer-tweaks-v2'
@@ -9,15 +9,16 @@ const SAVED_DEFAULT_KEY = 'scareer-tweaks-default-v1'
 interface TweakApi {
   tweaks: Tweaks
   setTweak: <K extends keyof Tweaks>(key: K, value: Tweaks[K]) => void
-  /** Kembali ke default yang berlaku: default pilihan user kalau ada, kalau tidak bawaan awal. */
-  reset: () => void
-  /** Jadikan pilihan saat ini sebagai default. */
-  saveAsDefault: () => void
-  /** Buang default pilihan user dan kembali ke bawaan awal. */
-  clearSavedDefault: () => void
-  hasSavedDefault: boolean
-  /** Pilihan saat ini sama dengan default yang berlaku. */
-  isAtDefault: boolean
+  /** Kembali ke default yang berlaku untuk satu halaman: default pilihan user kalau ada, kalau tidak bawaan awal. */
+  reset: (scope: TweakScope) => void
+  /** Jadikan pilihan saat ini di satu halaman sebagai default. Halaman lain tidak tersentuh. */
+  saveAsDefault: (scope: TweakScope) => void
+  /** Buang default pilihan user untuk satu halaman dan kembali ke bawaan awal. */
+  clearSavedDefault: (scope: TweakScope) => void
+  /** Halaman ini punya default pilihan user yang beda dari bawaan awal. */
+  hasSavedDefault: (scope: TweakScope) => boolean
+  /** Pilihan saat ini di halaman ini sama dengan default yang berlaku. */
+  isAtDefault: (scope: TweakScope) => boolean
 }
 
 const TweakContext = createContext<TweakApi | null>(null)
@@ -56,7 +57,15 @@ const loadSavedDefault = (): Tweaks | null => {
   return parsed === null ? null : sanitize(parsed, DEFAULT_TWEAKS)
 }
 
-const isSame = (a: Tweaks, b: Tweaks) => ALL_GROUPS.every((g) => a[g.key] === b[g.key])
+/** Sama di semua key milik satu halaman. */
+const isSame = (a: Tweaks, b: Tweaks, scope: TweakScope) => scopeKeys(scope).every((key) => a[key] === b[key])
+
+/** Salin nilai key milik satu halaman dari `source` ke `base`. */
+const withScope = (base: Tweaks, source: Tweaks, scope: TweakScope): Tweaks => {
+  const next: Record<string, string> = { ...base }
+  for (const key of scopeKeys(scope)) next[key] = source[key]
+  return next as Tweaks
+}
 
 /** Atribut di <html> dipakai CSS untuk gaya yang tidak perlu logika React. */
 function applyAttributes(tweaks: Tweaks) {
@@ -86,18 +95,27 @@ export function TweakProvider({ children }: { children: ReactNode }) {
     setTweaks((prev) => ({ ...prev, [key]: value }))
   }, [])
 
-  const reset = useCallback(() => setTweaks(defaults), [defaults])
+  const reset = useCallback<TweakApi['reset']>((scope) => setTweaks((prev) => withScope(prev, defaults, scope)), [defaults])
 
-  const saveAsDefault = useCallback(() => {
-    write(SAVED_DEFAULT_KEY, tweaks)
-    setSavedDefault(tweaks)
-  }, [tweaks])
+  const saveAsDefault = useCallback<TweakApi['saveAsDefault']>(
+    (scope) => {
+      const next = withScope(savedDefault ?? DEFAULT_TWEAKS, tweaks, scope)
+      write(SAVED_DEFAULT_KEY, next)
+      setSavedDefault(next)
+    },
+    [savedDefault, tweaks],
+  )
 
-  const clearSavedDefault = useCallback(() => {
-    write(SAVED_DEFAULT_KEY, null)
-    setSavedDefault(null)
-    setTweaks(DEFAULT_TWEAKS)
-  }, [])
+  const clearSavedDefault = useCallback<TweakApi['clearSavedDefault']>(
+    (scope) => {
+      const next = withScope(savedDefault ?? DEFAULT_TWEAKS, DEFAULT_TWEAKS, scope)
+      const isPlain = ALL_GROUPS.every((g) => next[g.key] === DEFAULT_TWEAKS[g.key])
+      write(SAVED_DEFAULT_KEY, isPlain ? null : next)
+      setSavedDefault(isPlain ? null : next)
+      setTweaks((prev) => withScope(prev, DEFAULT_TWEAKS, scope))
+    },
+    [savedDefault],
+  )
 
   const api = useMemo<TweakApi>(
     () => ({
@@ -106,8 +124,8 @@ export function TweakProvider({ children }: { children: ReactNode }) {
       reset,
       saveAsDefault,
       clearSavedDefault,
-      hasSavedDefault: savedDefault !== null,
-      isAtDefault: isSame(tweaks, defaults),
+      hasSavedDefault: (scope) => savedDefault !== null && !isSame(savedDefault, DEFAULT_TWEAKS, scope),
+      isAtDefault: (scope) => isSame(tweaks, defaults, scope),
     }),
     [tweaks, setTweak, reset, saveAsDefault, clearSavedDefault, savedDefault, defaults],
   )

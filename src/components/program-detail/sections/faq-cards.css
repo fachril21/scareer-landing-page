@@ -1,0 +1,63 @@
+/* FAQ, layout kartu. Kartu putih bergaris tipis di atas Paper, tanpa bayangan. Pindah kolom lewat container query. */
+.fc { container-type: inline-size; }
+.fc__grid { display: grid; gap: 32px; }
+@container (min-width: 880px) {
+  .fc__grid { grid-template-columns: minmax(280px, 1fr) minmax(0, 2fr); gap: 64px; align-items: start; }
+  .fc__head { position: sticky; top: 96px; }
+}
+
+/* ---------- Kepala ---------- */
+.fc__head { display: grid; gap: 16px; justify-items: start; }
+.fc__head h2 { font-family: var(--f-display); font-size: var(--t-hero); font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+.fc__lead { max-width: 34ch; color: var(--text-secondary); text-wrap: pretty; }
+.fc__filters { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+@media (max-width: 639px) { .fc__head > .btn { width: 100%; } }
+
+/* ---------- Daftar kartu ---------- */
+.fc__list { display: grid; gap: 8px; }
+.fc__item {
+  scroll-margin-top: 96px;
+  border: var(--hairline);
+  border-radius: var(--r-panel);
+  background: var(--surface);
+  transition: opacity 420ms var(--ease-out) calc(var(--i, 0) * 25ms), filter 420ms var(--ease-out) calc(var(--i, 0) * 25ms);
+}
+.fc__item.is-off { opacity: 0.4; filter: grayscale(1); }
+.fc__item h3 { margin: 0; font-size: inherit; }
+
+.fc__q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  min-height: 64px;
+  padding: 12px 16px 12px 24px;
+  border: 0;
+  border-radius: var(--r-panel);
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+}
+.fc__q:disabled { cursor: default; }
+.fc__chev { flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--text-secondary); color: #fff; transition: background-color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out); }
+.fc__item.is-open .fc__chev { background: var(--ink); transform: rotate(180deg); }
+@media (hover: hover) { .fc__q:not(:disabled):hover .fc__chev { background: var(--ink); } }
+
+/* Tinggi jawaban beranimasi lewat grid-template-rows (satu-satunya animasi tinggi) */
+.fc__a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--dur-base) var(--ease-out); }
+.fc__item.is-open .fc__a { grid-template-rows: 1fr; }
+.fc__a-inner { min-height: 0; overflow: hidden; padding-inline: 24px; }
+.fc__item.is-open .fc__a-inner { padding-bottom: 20px; }
+.fc__a-inner p { max-width: 64ch; color: var(--text-secondary); font-size: 15px; }
+.fc__a-inner .btn { margin-top: 12px; }
+.fc__item:not(.is-open) .fc__a-inner { visibility: hidden; transition: visibility 0s var(--dur-base); }
+
+@media (prefers-reduced-motion: reduce) {
+  .fc__item, .fc__a, .fc__chev { transition: none; }
+}

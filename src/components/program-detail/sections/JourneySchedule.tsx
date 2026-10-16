@@ -5,6 +5,7 @@ import { upcomingBatches } from '../../../content/program-detail'
 import type { Batch, BatchStatus, ProgramDetail } from '../../../content/program-detail.types'
 import { useMediaQuery } from '../../../hooks/useMediaQuery'
 import { track } from '../../../lib/track'
+import { useTweaks } from '../../../tweaks/TweakContext'
 import { waLink } from '../../../lib/whatsapp'
 import './journey.css'
 
@@ -94,6 +95,7 @@ function BatchCards({ batches, program }: { batches: readonly Batch[]; program: 
  * Batch yang sudah lewat otomatis hilang. Tanpa batch aktif, tampil ajakan bertanya lewat WhatsApp.
  */
 export function JourneySchedule({ program }: { program: ProgramDetail }) {
+  const { tweaks } = useTweaks()
   const isTable = useMediaQuery('(min-width: 768px)')
   const batches = upcomingBatches(program.batches)
 
@@ -103,13 +105,20 @@ export function JourneySchedule({ program }: { program: ProgramDetail }) {
       <h2 id="jadwal-title" className="journey-title">Perjalanan belajarmu dan jadwal batch</h2>
 
       <ol className="phases" aria-label="Alur belajar">
-        {program.journey.map((phase, i) => (
-          <li key={phase.name} className="phase">
+        {program.journey.map((phase, i) => {
+          // Fase terakhir = tujuan akhir: kotak pembeda (ungu, pil kuning). Pembedanya juga disampaikan lewat teks.
+          const isGoal = tweaks.journeyGoal === 'highlight' && i === program.journey.length - 1
+          return (
+          <li key={phase.name} className={`phase${isGoal ? ' phase--goal' : ''}`}>
             <span className="phase__tag">Fase {i + 1} · {phase.duration}</span>
-            <h3>{phase.name}</h3>
+            <h3>
+              {isGoal && <span className="sr-only">Tujuan akhir: </span>}
+              {phase.name}
+            </h3>
             <p>{phase.summary}</p>
           </li>
-        ))}
+          )
+        })}
       </ol>
 
       <h3 className="batch-title">Batch yang sedang dibuka</h3>

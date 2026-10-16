@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useSyncExternalStore, type ReactNode } from 'react'
-import { scrollTargetFor } from '../lib/scrollTo'
+import { scrollTargetFor, scrollToElement } from '../lib/scrollTo'
 import { navigateFromProgramCard } from '../lib/viewTransition'
 
 /**
@@ -77,6 +77,16 @@ function scrollToHash(hash: string): boolean {
   return true
 }
 
+/** Tautan `#id` di halaman yang sama (selain butir FAQ, yang punya penanganan sendiri): id tujuan, atau null. */
+function sameDocumentTargetId(a: HTMLAnchorElement, e: MouseEvent): string | null {
+  if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return null
+  if ((a.target && a.target !== '_self') || a.hasAttribute('download') || a.origin !== window.location.origin) return null
+  const samePath = a.pathname.replace(/\/+$/, '') === window.location.pathname.replace(/\/+$/, '')
+  if (!samePath || a.search !== window.location.search || a.hash.length < 2) return null
+  const id = decodeURIComponent(a.hash.slice(1))
+  return id.startsWith('faq-') || !document.getElementById(id) ? null : id
+}
+
 function isInternalNavigation(a: HTMLAnchorElement, e: MouseEvent): boolean {
   if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return false
   if (a.target && a.target !== '_self') return false
@@ -102,7 +112,20 @@ export function Router({ children }: RouterProps) {
     window.history.scrollRestoration = 'manual'
     const onClick = (e: MouseEvent) => {
       const a = (e.target as Element | null)?.closest('a[href]')
-      if (!(a instanceof HTMLAnchorElement) || !isInternalNavigation(a, e)) return
+      if (!(a instanceof HTMLAnchorElement)) return
+      const sectionId = sameDocumentTargetId(a, e)
+      if (sectionId) {
+        // Anchor di halaman yang sama: gulir dengan easing sendiri, lalu umumkan perubahan hash seperti biasa
+        // (router, fokus judul, dan penanda section ikut bereaksi).
+        e.preventDefault()
+        window.history.replaceState({ ...window.history.state, y: window.scrollY }, '')
+        window.history.pushState({ y: 0 }, '', a.pathname + a.search + a.hash)
+        window.dispatchEvent(new HashChangeEvent('hashchange'))
+        const target = document.getElementById(sectionId)
+        if (target) scrollToElement(document.documentElement.classList.contains('is-program-page') ? scrollTargetFor(target) : target)
+        return
+      }
+      if (!isInternalNavigation(a, e)) return
       e.preventDefault()
       const go = () => navigate(a.pathname + a.search + a.hash)
       const card = a.closest<HTMLElement>('.cell')

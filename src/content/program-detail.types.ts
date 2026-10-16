@@ -61,6 +61,8 @@ export interface Tool {
   level: ToolLevel
   moduleIds: readonly string[]
   /** Kunci ikon generik (Lucide). Tidak memakai logo merek. */
+  /** Singkatan 1 sampai 3 huruf untuk monogram di layout ubin (bukan logo merek). */
+  abbr: string
   icon: 'code' | 'layout' | 'database' | 'chart' | 'pen' | 'git' | 'terminal' | 'users'
 }
 
@@ -89,6 +91,8 @@ export interface ProgramMentor {
   /** Dua mentor unggulan memakai potret besar, sisanya kartu kecil. */
   featured: boolean
   photo?: 'mentor-1' | 'mentor-2'
+  /** Kutipan mentor. Hanya kutipan asli yang boleh tampil; draf wajib berlabel contoh. */
+  quote?: string
 }
 
 export interface MentorAccess {
@@ -96,6 +100,9 @@ export interface MentorAccess {
   reviews: string
   oneOnOne: string
   ratio: string
+  /** Bentuk dan frekuensi bimbingan, untuk layout sorotan mentor. */
+  form: string
+  frequency: string
 }
 
 export interface JourneyPhase {
@@ -155,10 +162,13 @@ export interface ProgramDetail extends Program {
   materialAccess: string
   hero: { photo: string; lead: string }
   pas: ProblemAgitateSolution
+  whyBento: WhyBento
   whyBrand: readonly WhyItem[]
   whyProgram: readonly WhyItem[]
   curriculum: {
     stats: { modules: string; weeks: string; projects: string; hoursPerWeek: string }
+    /** Tiga angka ringkasan di layout timeline. `suffix` kosong untuk nilai yang masih [ISI]. */
+    overview: readonly { value: string; suffix: string; label: string }[]
     syllabus: Syllabus
     modules: readonly CurriculumModule[]
   }
@@ -175,6 +185,45 @@ export interface ProgramDetail extends Program {
   personas: readonly Persona[]
   /** Yang termasuk dalam harga mulai dari ±Rp3 juta. */
   includes: readonly string[]
+  /** Paket harga untuk layout dua paket. */
+  plans: readonly PricingPlan[]
+  /** Baris tabel "Bandingkan program": satu nilai per paket, urutan sama dengan `plans`. */
+  planCompare: readonly PlanCompareRow[]
   refundPolicy: string
   faq: readonly FaqItem[]
+}
+
+export interface PricingPlan {
+  id: string
+  name: string
+  /** Harga mulai per paket, mis. "Rp [ISI]". */
+  price: string
+  audience: string
+  /** Butir yang termasuk di paket. */
+  includes: readonly string[]
+  /** Butir yang tidak termasuk, ditulis jujur. */
+  excludes: string
+}
+
+export interface PlanCompareRow {
+  label: string
+  values: readonly string[]
+}
+
+export interface ChatLine {
+  from: 'visitor' | 'team'
+  text: string
+}
+
+/** Isi layout bento "Kenapa kami". */
+export interface WhyBento {
+  title: string
+  /** Baris kedua judul, disorot stabilo kuning. */
+  accent: string
+  chat: { title: string; body: string; label: string; lines: readonly ChatLine[] }
+  dibimbing: { title: string; body: string }
+  affordable: { title: string; reducedLabel: string; reduced: string; keptLabel: string; kept: string }
+  promise: { title: string; body: string }
+  reasonsTitle: string
+  reasons: readonly { title: string; body: string }[]
 }

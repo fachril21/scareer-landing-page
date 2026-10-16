@@ -56,6 +56,16 @@
   --btn-ring-active: 0 0 0 2px rgba(245, 245, 240, 0.14);
 }
 
+.btn--light {
+  /* Terisi Paper di atas panel ungu atau Ink. Tanpa ikon, tanpa bayangan: pembedanya cincin halo. */
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--ink);
+  --btn-ring: 0 0 0 4px rgba(245, 245, 240, 0.14);
+  --btn-ring-hover: 0 0 0 6px rgba(245, 245, 240, 0.14);
+  --btn-ring-active: 0 0 0 2px rgba(245, 245, 240, 0.14);
+}
+
 .btn--whatsapp {
   background: var(--ink);
   border-color: var(--ink);
@@ -100,6 +110,7 @@
   .btn--outline.btn--on-ink:hover { background: rgba(245, 245, 240, 0.08); }
   .btn--whatsapp:hover { background: var(--ink-raised); border-color: var(--ink-raised); }
   .btn--whatsapp.btn--on-ink:hover { background: var(--surface); border-color: var(--surface); }
+  .btn--light:hover { background: var(--surface); border-color: var(--surface); }
   .btn--link:hover { box-shadow: none; }
   .btn--link:hover span { text-decoration-color: currentColor; }
 }

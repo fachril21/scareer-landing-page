@@ -1,6 +1,6 @@
-import { useId, useState } from 'react'
+import { Fragment, useId, useState } from 'react'
 import { SlidersHorizontal, X } from 'lucide-react'
-import { HERO_GROUPS, NAV_GROUPS, PROGRAM_GROUPS, WHY_GROUPS, LEARN_GROUPS, WORKS_GROUPS, SECTION_VISIBILITY_GROUPS, END_GROUPS, WHAT_IS_GROUPS, PROBLEM_GROUPS, ORDER_GROUPS, type Tweaks, type TweakGroup } from './options'
+import { SCOPE_SECTIONS, type TweakScope, type Tweaks, type TweakGroup } from './options'
 import { useTweaks } from './TweakContext'
 import './tweaks.css'
 
@@ -28,9 +28,12 @@ function Group<K extends keyof Tweaks>({ group }: { group: TweakGroup<K> }) {
   )
 }
 
-export function TweakPanel() {
+/** Panel tweak satu halaman: hanya menampilkan dan mengelola pilihan milik halaman itu. */
+export function TweakPanel({ scope }: { scope: TweakScope }) {
   const [open, setOpen] = useState(false)
-  const { reset, saveAsDefault, clearSavedDefault, hasSavedDefault, isAtDefault } = useTweaks()
+  const api = useTweaks()
+  const isAtDefault = api.isAtDefault(scope)
+  const hasSavedDefault = api.hasSavedDefault(scope)
   const panelId = useId()
 
   return (
@@ -38,55 +41,19 @@ export function TweakPanel() {
       {open ? (
         <div id={panelId} className="tweak__panel">
           <div className="tweak__head">
-            <strong>Tweak</strong>
+            <strong>{scope === 'home' ? 'Tweak homepage' : 'Tweak detail bootcamp'}</strong>
             <button type="button" className="tweak__close" onClick={() => setOpen(false)} aria-label="Tutup panel tweak">
               <X size={18} strokeWidth={1.75} aria-hidden="true" />
             </button>
           </div>
           <div className="tweak__body">
-            <p className="tweak__section">Struktur halaman</p>
-            {ORDER_GROUPS.map((g) => (
-              <Group key={g.key} group={g as TweakGroup<keyof Tweaks>} />
-            ))}
-            <p className="tweak__section">Apa itu scareer (homepage)</p>
-            {WHAT_IS_GROUPS.map((g) => (
-              <Group key={g.key} group={g as TweakGroup<keyof Tweaks>} />
-            ))}
-            <p className="tweak__section">Masalah (homepage)</p>
-            {PROBLEM_GROUPS.map((g) => (
-              <Group key={g.key} group={g as TweakGroup<keyof Tweaks>} />
-            ))}
-            <p className="tweak__section">Hero</p>
-            {HERO_GROUPS.map((g) => (
-              <Group key={g.key} group={g as TweakGroup<keyof Tweaks>} />
-            ))}
-            <p className="tweak__section">Navbar (homepage)</p>
-            {NAV_GROUPS.map((g) => (
-              <Group key={g.key} group={g as TweakGroup<keyof Tweaks>} />
-            ))}
-            <p className="tweak__section">Program (homepage)</p>
-            {PROGRAM_GROUPS.map((g) => (
-              <Group key={g.key} group={g as TweakGroup<keyof Tweaks>} />
-            ))}
-            <p className="tweak__section">Kenapa scareer (homepage)</p>
-            {WHY_GROUPS.map((g) => (
-              <Group key={g.key} group={g as TweakGroup<keyof Tweaks>} />
-            ))}
-            <p className="tweak__section">Cara belajar (homepage)</p>
-            {LEARN_GROUPS.map((g) => (
-              <Group key={g.key} group={g as TweakGroup<keyof Tweaks>} />
-            ))}
-            <p className="tweak__section">Karya (homepage)</p>
-            {WORKS_GROUPS.map((g) => (
-              <Group key={g.key} group={g as TweakGroup<keyof Tweaks>} />
-            ))}
-            <p className="tweak__section">Mentor dan FAQ (homepage)</p>
-            {SECTION_VISIBILITY_GROUPS.map((g) => (
-              <Group key={g.key} group={g as TweakGroup<keyof Tweaks>} />
-            ))}
-            <p className="tweak__section">CTA dan footer</p>
-            {END_GROUPS.map((g) => (
-              <Group key={g.key} group={g as TweakGroup<keyof Tweaks>} />
+            {SCOPE_SECTIONS[scope].map((section) => (
+              <Fragment key={section.title}>
+                <p className="tweak__section">{section.title}</p>
+                {section.groups.map((g) => (
+                  <Group key={g.key} group={g} />
+                ))}
+              </Fragment>
             ))}
           </div>
           <div className="tweak__foot">
@@ -95,15 +62,15 @@ export function TweakPanel() {
               {hasSavedDefault ? ' (pilihan kamu)' : ' (bawaan)'}
             </p>
             <div className="tweak__actions">
-              <button type="button" className="tweak__action tweak__action--primary" onClick={saveAsDefault} disabled={isAtDefault}>
+              <button type="button" className="tweak__action tweak__action--primary" onClick={() => api.saveAsDefault(scope)} disabled={isAtDefault}>
                 Jadikan default
               </button>
-              <button type="button" className="tweak__action" onClick={reset} disabled={isAtDefault}>
+              <button type="button" className="tweak__action" onClick={() => api.reset(scope)} disabled={isAtDefault}>
                 Kembalikan
               </button>
             </div>
             {hasSavedDefault && (
-              <button type="button" className="tweak__link" onClick={clearSavedDefault}>
+              <button type="button" className="tweak__link" onClick={() => api.clearSavedDefault(scope)}>
                 Pakai bawaan awal
               </button>
             )}

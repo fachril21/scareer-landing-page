@@ -29,6 +29,15 @@
   .phase::after { display: none; }
 }
 
+/* Kotak pembeda: fase tujuan akhir. Kuning stabilo hanya di atas ungu, dengan teks Ink. */
+.phase--goal { background: var(--purple); color: #fff; }
+.phase--goal h3 { color: #fff; }
+.phase--goal p { color: var(--paper); }
+.phase--goal .phase__tag { background: var(--highlight); color: var(--ink); font-weight: 700; }
+.phase--goal::before { border-color: var(--paper); }
+.phase--goal::after { border-color: #fff; background: var(--purple); }
+@media (min-width: 1024px) { .phase--goal::before { border-color: var(--paper); opacity: 0.7; } }
+
 /* ---------- Jadwal batch ---------- */
 .batch-title { margin-top: 56px; font-size: 1.25rem; }
 .batch-box { margin-top: 20px; overflow-x: auto; border: var(--hairline); border-radius: var(--r-panel); }

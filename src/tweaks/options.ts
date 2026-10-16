@@ -32,7 +32,30 @@ export type Tweaks = {
   whatIs: 'hidden' | 'definition' | 'sentence'
   problem: 'hidden' | 'loop' | 'sides'
   pageOrder: 'story' | 'previous'
+  /** Halaman detail bootcamp: section Harga. */
+  pricingLayout: 'original' | 'tiers'
+  /** Halaman detail bootcamp: hero. */
+  programHeroLayout: 'original' | 'split'
+  /** Halaman detail bootcamp: section Kenapa kami. */
+  whyUsLayout: 'original' | 'bento'
+  /** Halaman detail bootcamp: section Kurikulum. */
+  curriculumLayout: 'original' | 'timeline'
+  /** Halaman detail bootcamp: section Tools. */
+  toolsLayout: 'original' | 'tiles'
+  /** Halaman detail bootcamp: section Mentor. */
+  mentorLayout: 'original' | 'spotlight'
+  /** Halaman detail bootcamp: fase tujuan akhir di section Jadwal. */
+  journeyGoal: 'plain' | 'highlight'
+  /** Halaman detail bootcamp: section FAQ. */
+  faqLayout: 'original' | 'cards'
+  /** Halaman detail bootcamp: CTA penutup di atas footer (hanya dengan footer Lembar). */
+  programCta: 'hidden' | 'shown'
+  /** Halaman detail bootcamp: daftar isi di gutter kiri (sidebar dan rail). */
+  navContainer: 'plain' | 'boxed'
 }
+
+/** Halaman yang punya panel tweak sendiri. Pilihan di satu halaman tidak menyentuh halaman lain, kecuali grup bersama. */
+export type TweakScope = 'home' | 'detail'
 
 /** Bawaan = desain baru yang sudah disetujui. Pilihan "Original" di panel tetap menampilkan tampilan lama. */
 export const DEFAULT_TWEAKS: Tweaks = {
@@ -56,6 +79,16 @@ export const DEFAULT_TWEAKS: Tweaks = {
   whatIs: 'definition',
   problem: 'loop',
   pageOrder: 'story',
+  pricingLayout: 'tiers',
+  programHeroLayout: 'split',
+  whyUsLayout: 'bento',
+  curriculumLayout: 'timeline',
+  toolsLayout: 'tiles',
+  mentorLayout: 'spotlight',
+  journeyGoal: 'highlight',
+  faqLayout: 'cards',
+  programCta: 'shown',
+  navContainer: 'boxed',
 }
 
 export const HERO_GROUPS = [
@@ -257,7 +290,154 @@ export const ORDER_GROUPS = [
   },
 ] as const satisfies readonly TweakGroup<keyof Tweaks>[]
 
-export const ALL_GROUPS: readonly TweakGroup<keyof Tweaks>[] = [
+export const PRICING_GROUPS = [
+  {
+    key: 'pricingLayout',
+    title: 'Layout Harga',
+    options: [
+      { value: 'original', label: 'Original (satu harga)' },
+      { value: 'tiers', label: 'Dua paket + bandingkan' },
+    ],
+  },
+] as const satisfies readonly TweakGroup<keyof Tweaks>[]
+
+export const PROGRAM_HERO_GROUPS = [
+  {
+    key: 'programHeroLayout',
+    title: 'Layout hero',
+    options: [
+      { value: 'original', label: 'Original (foto lebar)' },
+      { value: 'split', label: 'Terbelah + panel ungu' },
+    ],
+  },
+] as const satisfies readonly TweakGroup<keyof Tweaks>[]
+
+export const WHY_US_GROUPS = [
+  {
+    key: 'whyUsLayout',
+    title: 'Layout Kenapa kami',
+    options: [
+      { value: 'original', label: 'Original (sel bergaris)' },
+      { value: 'bento', label: 'Bento + obrolan' },
+    ],
+  },
+] as const satisfies readonly TweakGroup<keyof Tweaks>[]
+
+export const CURRICULUM_GROUPS = [
+  {
+    key: 'curriculumLayout',
+    title: 'Layout Kurikulum',
+    options: [
+      { value: 'original', label: 'Original (tab + panel)' },
+      { value: 'timeline', label: 'Timeline akordeon' },
+    ],
+  },
+] as const satisfies readonly TweakGroup<keyof Tweaks>[]
+
+export const TOOLS_GROUPS = [
+  {
+    key: 'toolsLayout',
+    title: 'Layout Tools',
+    options: [
+      { value: 'original', label: 'Original (sel + fade)' },
+      { value: 'tiles', label: 'Ubin monogram + sorot' },
+    ],
+  },
+] as const satisfies readonly TweakGroup<keyof Tweaks>[]
+
+export const MENTOR_LAYOUT_GROUPS = [
+  {
+    key: 'mentorLayout',
+    title: 'Layout Mentor',
+    options: [
+      { value: 'original', label: 'Original (kartu potret)' },
+      { value: 'spotlight', label: 'Sorotan satu mentor' },
+    ],
+  },
+] as const satisfies readonly TweakGroup<keyof Tweaks>[]
+
+export const JOURNEY_GROUPS = [
+  {
+    key: 'journeyGoal',
+    title: 'Fase tujuan akhir',
+    options: [
+      { value: 'plain', label: 'Sama seperti fase lain' },
+      { value: 'highlight', label: 'Kotak pembeda (ungu + pil kuning)' },
+    ],
+  },
+] as const satisfies readonly TweakGroup<keyof Tweaks>[]
+
+export const FAQ_LAYOUT_GROUPS = [
+  {
+    key: 'faqLayout',
+    title: 'Layout FAQ',
+    options: [
+      { value: 'original', label: 'Original (baris bergaris)' },
+      { value: 'cards', label: 'Kartu + pil kategori' },
+    ],
+  },
+] as const satisfies readonly TweakGroup<keyof Tweaks>[]
+
+export const PROGRAM_CTA_GROUPS = [
+  {
+    key: 'programCta',
+    title: 'CTA penutup (footer Lembar)',
+    options: [
+      { value: 'hidden', label: 'Sembunyikan' },
+      { value: 'shown', label: 'Tampilkan' },
+    ],
+  },
+] as const satisfies readonly TweakGroup<keyof Tweaks>[]
+
+export const NAV_CONTAINER_GROUPS = [
+  {
+    key: 'navContainer',
+    title: 'Daftar isi di kiri (layar lebar)',
+    options: [
+      { value: 'plain', label: 'Melayang tanpa latar' },
+      { value: 'boxed', label: 'Dalam kontainer berlatar' },
+    ],
+  },
+] as const satisfies readonly TweakGroup<keyof Tweaks>[]
+
+type AnyGroups = readonly TweakGroup<keyof Tweaks>[]
+
+/** Bagian panel per halaman, berurutan. Navbar serta CTA dan footer dipakai kedua halaman, jadi muncul di keduanya. */
+export const SCOPE_SECTIONS: Readonly<Record<TweakScope, readonly { title: string; groups: AnyGroups }[]>> = {
+  home: [
+    { title: 'Struktur halaman', groups: ORDER_GROUPS as AnyGroups },
+    { title: 'Apa itu scareer', groups: WHAT_IS_GROUPS as AnyGroups },
+    { title: 'Masalah', groups: PROBLEM_GROUPS as AnyGroups },
+    { title: 'Hero', groups: HERO_GROUPS as AnyGroups },
+    { title: 'Navbar (semua halaman)', groups: NAV_GROUPS as AnyGroups },
+    { title: 'Program', groups: PROGRAM_GROUPS as AnyGroups },
+    { title: 'Kenapa scareer', groups: WHY_GROUPS as AnyGroups },
+    { title: 'Cara belajar', groups: LEARN_GROUPS as AnyGroups },
+    { title: 'Karya', groups: WORKS_GROUPS as AnyGroups },
+    { title: 'Mentor dan FAQ', groups: SECTION_VISIBILITY_GROUPS as AnyGroups },
+    { title: 'CTA dan footer (semua halaman)', groups: END_GROUPS as AnyGroups },
+  ],
+  detail: [
+    { title: 'Navigasi halaman', groups: NAV_CONTAINER_GROUPS as AnyGroups },
+    { title: 'Hero', groups: PROGRAM_HERO_GROUPS as AnyGroups },
+    { title: 'Kenapa kami', groups: WHY_US_GROUPS as AnyGroups },
+    { title: 'Kurikulum', groups: CURRICULUM_GROUPS as AnyGroups },
+    { title: 'Tools', groups: TOOLS_GROUPS as AnyGroups },
+    { title: 'Mentor', groups: MENTOR_LAYOUT_GROUPS as AnyGroups },
+    { title: 'Jadwal', groups: JOURNEY_GROUPS as AnyGroups },
+    { title: 'FAQ', groups: FAQ_LAYOUT_GROUPS as AnyGroups },
+    { title: 'CTA penutup', groups: PROGRAM_CTA_GROUPS as AnyGroups },
+    { title: 'Harga', groups: PRICING_GROUPS as AnyGroups },
+    { title: 'Navbar (semua halaman)', groups: NAV_GROUPS as AnyGroups },
+    { title: 'Footer (semua halaman)', groups: END_GROUPS as AnyGroups },
+  ],
+}
+
+/** Key tweak yang dikelola panel suatu halaman. */
+export const scopeKeys = (scope: TweakScope): readonly (keyof Tweaks)[] =>
+  SCOPE_SECTIONS[scope].flatMap((s) => s.groups.map((g) => g.key))
+
+export const ALL_GROUPS: AnyGroups = [
   ...HERO_GROUPS,
   ...NAV_GROUPS,
   ...PROGRAM_GROUPS,
@@ -269,4 +449,14 @@ export const ALL_GROUPS: readonly TweakGroup<keyof Tweaks>[] = [
   ...WHAT_IS_GROUPS,
   ...PROBLEM_GROUPS,
   ...ORDER_GROUPS,
+  ...PRICING_GROUPS,
+  ...PROGRAM_HERO_GROUPS,
+  ...WHY_US_GROUPS,
+  ...CURRICULUM_GROUPS,
+  ...TOOLS_GROUPS,
+  ...MENTOR_LAYOUT_GROUPS,
+  ...JOURNEY_GROUPS,
+  ...FAQ_LAYOUT_GROUPS,
+  ...PROGRAM_CTA_GROUPS,
+  ...NAV_CONTAINER_GROUPS,
 ] as never

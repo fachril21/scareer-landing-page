@@ -1,18 +1,11 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Plus } from 'lucide-react'
 import { Button } from '../ui/Button'
 import { SectionLabel } from '../ui/Primitives'
 import { Section } from '../layout/Section'
 import { CONSULT_MESSAGES, FAQ, type FaqItem } from '../../content/content'
 import { waLink, type WaSource } from '../../lib/whatsapp'
-import { OPEN_FAQ_EVENT } from '../../lib/sectionLink'
+import { useFaqState } from '../../hooks/useFaqState'
 import './faq.css'
-
-/** Deep-link `#faq-nama` membuka butir dan menggulung ke sana. */
-function idFromHash(hash: string, ids: ReadonlySet<string>): string | null {
-  const id = hash.replace(/^#faq-/, '')
-  return hash.startsWith('#faq-') && ids.has(id) ? id : null
-}
 
 interface FaqProps {
   items?: readonly FaqItem[]
@@ -27,48 +20,7 @@ interface FaqProps {
 }
 
 export function Faq({ items = FAQ, heading = 'Pertanyaan yang sering muncul', waSource = 'FAQ', onOpen, tone = 'surface', onAsk }: FaqProps) {
-  const ids = useMemo(() => new Set(items.map((f) => f.id)), [items])
-  const [open, setOpen] = useState<ReadonlySet<string>>(() => {
-    const id = idFromHash(window.location.hash, ids)
-    return new Set(id ? [id] : [])
-  })
-
-  const toggle = useCallback(
-    (id: string) => {
-      if (!open.has(id)) onOpen?.(id)
-      setOpen((prev) => {
-        const next = new Set(prev)
-        if (next.has(id)) next.delete(id)
-        else next.add(id)
-        return next
-      })
-    },
-    [open, onOpen],
-  )
-
-  // Dibuka dari bagian lain halaman (mis. "Perangkat minimum" di Program Detail).
-  useEffect(() => {
-    const onOpenFaq = (e: Event) => {
-      const id = (e as CustomEvent<{ id: string }>).detail.id
-      if (!ids.has(id)) return
-      onOpen?.(id)
-      setOpen((prev) => new Set(prev).add(id))
-    }
-    window.addEventListener(OPEN_FAQ_EVENT, onOpenFaq)
-    return () => window.removeEventListener(OPEN_FAQ_EVENT, onOpenFaq)
-  }, [ids, onOpen])
-
-  useEffect(() => {
-    const onHash = () => {
-      const id = idFromHash(window.location.hash, ids)
-      if (!id) return
-      setOpen((prev) => new Set(prev).add(id))
-      document.getElementById(`faq-${id}`)?.scrollIntoView({ block: 'center' })
-    }
-    window.addEventListener('hashchange', onHash)
-    if (idFromHash(window.location.hash, ids)) onHash()
-    return () => window.removeEventListener('hashchange', onHash)
-  }, [ids])
+  const { open, toggle } = useFaqState({ items, onOpen })
 
   return (
     <Section id="faq" tone={tone} labelledBy="faq-title">

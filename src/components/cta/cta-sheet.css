@@ -41,3 +41,7 @@
 }
 
 .cta-sheet__chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 8px; margin-top: 8px; }
+
+/* Halaman detail: section sebelumnya berlatar Paper */
+.cta-sheet--on-paper { background: var(--paper); }
+.cta-sheet__btn { display: inline-flex; align-items: center; gap: 8px; }

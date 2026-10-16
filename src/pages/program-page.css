@@ -1,4 +1,6 @@
 .pd-crumb { border-bottom: var(--hairline); background: var(--surface); }
+/* Navbar transparan lalu pill menimpa konten di bawahnya: breadcrumb diturunkan setinggi navbar. */
+html[data-nav-style="floating"] .pd-crumb { padding-top: var(--nav-h); }
 .pd-crumb .breadcrumb { padding-block: 4px; }
 .pd-spy-end { height: 1px; margin-top: -1px; }
 
