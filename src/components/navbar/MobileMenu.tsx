@@ -3,9 +3,6 @@ import { ChevronDown } from 'lucide-react'
 import { Button } from '../ui/Button'
 import { CONSULT_MESSAGES, NAV_ITEMS, PROGRAMS } from '../../content/content'
 import { waLink } from '../../lib/whatsapp'
-import { useHomeHref } from '../../app/router'
-import { useTweaks } from '../../tweaks/TweakContext'
-import { hiddenSectionIds } from '../../tweaks/sections'
 
 const FOCUSABLE = 'a[href], button:not([disabled])'
 
@@ -17,8 +14,6 @@ interface MobileMenuProps {
 /** Panel penuh: scroll halaman dikunci, fokus terkunci di dalam panel, Esc menutup. */
 export function MobileMenu({ open, onClose }: MobileMenuProps) {
   const [programOpen, setProgramOpen] = useState(false)
-  const home = useHomeHref()
-  const hidden = hiddenSectionIds(useTweaks().tweaks)
   const panelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -91,9 +86,9 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
             </ul>
           )}
         </li>
-        {NAV_ITEMS.filter((item) => !hidden.includes(item.id)).map((item) => (
+        {NAV_ITEMS.map((item) => (
           <li key={item.id}>
-            <a className="mobile-menu__item" href={home(`#${item.id}`)} onClick={onClose}>
+            <a className="mobile-menu__item" href={item.href} onClick={onClose}>
               {item.label}
             </a>
           </li>

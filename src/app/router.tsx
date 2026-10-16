@@ -12,17 +12,19 @@ const NAV_EVENT = 'scareer:navigate'
 interface Location {
   pathname: string
   hash: string
+  /** Query string termasuk tanda tanya, mis. `?q=sql`. */
+  search: string
 }
 
 let snapshot: Location = readLocation()
 
 function readLocation(): Location {
-  return { pathname: window.location.pathname.replace(/\/+$/, '') || '/', hash: window.location.hash }
+  return { pathname: window.location.pathname.replace(/\/+$/, '') || '/', hash: window.location.hash, search: window.location.search }
 }
 
 function refresh() {
   const next = readLocation()
-  if (next.pathname !== snapshot.pathname || next.hash !== snapshot.hash) snapshot = next
+  if (next.pathname !== snapshot.pathname || next.hash !== snapshot.hash || next.search !== snapshot.search) snapshot = next
   window.dispatchEvent(new Event(NAV_EVENT))
 }
 
@@ -39,7 +41,7 @@ function subscribe(onChange: () => void) {
 
 function getSnapshot(): Location {
   const next = readLocation()
-  if (next.pathname !== snapshot.pathname || next.hash !== snapshot.hash) snapshot = next
+  if (next.pathname !== snapshot.pathname || next.hash !== snapshot.hash || next.search !== snapshot.search) snapshot = next
   return snapshot
 }
 
@@ -50,6 +52,9 @@ export function useLocation(): Location {
 interface NavigateOptions {
   replace?: boolean
 }
+
+/** Tautan bertanda `data-keep-scroll` (mis. tab dan sidebar blog) pindah rute tanpa menggulung ke atas. */
+let keepScrollOnce = false
 
 /** Pindah rute tanpa memuat ulang. Posisi gulir halaman asal disimpan untuk tombol Kembali. */
 export function navigate(to: string, { replace = false }: NavigateOptions = {}) {
@@ -127,6 +132,7 @@ export function Router({ children }: RouterProps) {
       }
       if (!isInternalNavigation(a, e)) return
       e.preventDefault()
+      keepScrollOnce = a.hasAttribute('data-keep-scroll')
       const go = () => navigate(a.pathname + a.search + a.hash)
       const card = a.closest<HTMLElement>('.cell')
       if (card) navigateFromProgramCard(card, go)
@@ -138,6 +144,10 @@ export function Router({ children }: RouterProps) {
 
   // Gulir setelah halaman baru dirender (sebelum dilukis, supaya tidak berkedip dari atas).
   useLayoutEffect(() => {
+    if (keepScrollOnce) {
+      keepScrollOnce = false
+      return
+    }
     const saved = (window.history.state as { y?: number } | null)?.y
     if (hash && scrollToHash(hash)) return
     window.scrollTo({ top: saved ?? 0, behavior: 'instant' })

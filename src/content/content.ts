@@ -12,9 +12,10 @@ export const CONSULT_MESSAGES = {
 
 export const FACTS = ['Mulai dari ±Rp3 juta', 'Belajar lewat video + kelas live Zoom', 'Lanjut internship nyata'] as const
 
+/** Menu navbar selain Program (yang punya child menu). Tujuannya halaman sendiri; halaman Blog menyusul. */
 export const NAV_ITEMS = [
-  { id: 'kenapa-scareer', label: 'Kenapa scareer' },
-  { id: 'faq', label: 'FAQ' },
+  { id: 'tentang', label: 'Tentang kami', href: '/tentang' },
+  { id: 'blog', label: 'Blog', href: '/blog' },
 ] as const
 
 /* ---------- Program ---------- */
@@ -390,6 +391,8 @@ export const FOOTER_SHEET = {
     {
       title: 'Perusahaan',
       links: [
+        { label: 'Tentang scareer', href: '/tentang' },
+        { label: 'Blog', href: '/blog' },
         { label: 'Kenapa scareer', href: '#kenapa-scareer' },
         { label: 'Cara belajar', href: '#cara-belajar' },
       ],
@@ -416,6 +419,8 @@ export const FOOTER = {
     {
       title: 'Perusahaan',
       links: [
+        { label: 'Tentang scareer', href: '/tentang' },
+        { label: 'Blog', href: '/blog' },
         { label: 'Kenapa scareer', href: '#kenapa-scareer' },
         { label: 'Cara belajar', href: '#cara-belajar' },
         { label: 'FAQ', href: '#faq' },

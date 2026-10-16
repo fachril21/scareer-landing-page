@@ -1,0 +1,47 @@
+/* Halaman Tentang kami. Token dari tokens.css, garis tipis tanpa bayangan, tanpa gradasi. */
+.about-title { max-width: 18ch; font-family: var(--f-display); font-size: var(--t-h2); font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; text-wrap: balance; }
+.about-title--on-ink { color: var(--text-on-ink); }
+
+/* ---------- Hero ---------- */
+.about-hero { padding-block: clamp(32px, 5vw, 56px) clamp(56px, 8vw, 96px); background: var(--surface); }
+/* Navbar transparan lalu pill menimpa konten di bawahnya: hero diturunkan setinggi navbar. */
+html[data-nav-style="floating"] .about-hero { padding-top: calc(var(--nav-h) + clamp(32px, 5vw, 56px)); }
+.about-hero__grid { container-type: inline-size; display: grid; gap: 40px; }
+.about-hero__copy h1 { font-family: var(--f-display); font-size: clamp(2.25rem, 1.4rem + 3.2vw, 3.75rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; text-wrap: balance; }
+.about-hero__lead { max-width: 48ch; margin-top: 24px; color: var(--text-secondary); font-size: var(--t-lead); text-wrap: pretty; }
+.about-hero__actions { display: flex; flex-wrap: wrap; gap: 12px 16px; margin-top: 32px; }
+@media (max-width: 639px) { .about-hero__actions .btn { width: 100%; } }
+.about-hero__panel { position: relative; padding: clamp(12px, 2.4vw, 28px); border-radius: var(--r-panel); background: var(--purple); }
+.about-hero__photo { width: 100%; aspect-ratio: 4 / 3; border-radius: var(--r-media); object-fit: cover; }
+.about-hero__tag { position: absolute; top: clamp(24px, 3.4vw, 40px); left: clamp(24px, 3.4vw, 40px); padding: 2px 10px; border-radius: var(--r-pill); background: var(--surface); font-size: 13px; font-weight: 500; }
+@media (min-width: 1024px) {
+  .about-hero__grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 56px; align-items: center; }
+}
+
+/* ---------- Visi dan misi ---------- */
+.vm { display: grid; gap: 1px; margin-top: 40px; overflow: hidden; border: var(--hairline-on-ink); border-radius: var(--r-panel); background: var(--border-on-ink); }
+@media (min-width: 1024px) { .vm { grid-template-columns: 1fr 1fr; } }
+.vm__cell { display: grid; gap: 16px; align-content: start; padding: clamp(24px, 3vw, 40px); background: var(--ink-raised); }
+.vm__cell h3 { color: var(--text-on-ink-secondary); font-family: var(--f-body); font-size: var(--t-small); font-weight: 600; }
+.vm__statement { color: var(--text-on-ink); font-family: var(--f-display); font-size: clamp(1.75rem, 1.2rem + 2vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; text-wrap: balance; }
+.vm__mark { padding: 0.02em 0.16em; border-radius: 0.18em; background: var(--highlight); color: var(--ink); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.vm__list { display: grid; gap: 0; counter-reset: vm; }
+.vm__list li { position: relative; padding: 16px 0 16px 44px; border-top: var(--hairline-on-ink); color: var(--text-on-ink); counter-increment: vm; }
+.vm__list li:first-child { border-top: 0; padding-top: 0; }
+.vm__list li::before { content: counter(vm, decimal-leading-zero); position: absolute; left: 0; top: 16px; color: var(--text-on-ink-secondary); font-size: var(--t-small); font-weight: 700; font-variant-numeric: tabular-nums; }
+.vm__list li:first-child::before { top: 3px; }
+.vm__draft { margin-top: 16px; color: var(--text-on-ink-secondary); font-size: var(--t-small); }
+
+/* ---------- Alamat dan kontak ---------- */
+.contact { display: grid; gap: 16px; margin-top: 40px; }
+@media (min-width: 1024px) { .contact { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: stretch; } }
+.contact__card { display: grid; gap: 24px; align-content: start; padding: clamp(24px, 3vw, 36px); border: var(--hairline); border-radius: var(--r-panel); background: var(--surface); font-style: normal; }
+.contact__card dl { margin: 0; }
+.contact__card dl > div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; padding: 12px 0; border-top: var(--hairline); }
+.contact__card dl > div:first-child { border-top: 0; padding-top: 0; }
+.contact__card dt { color: var(--text-secondary); font-size: var(--t-small); }
+.contact__card dd { margin: 0; font-weight: 600; text-align: right; overflow-wrap: anywhere; }
+.contact__card dd a { text-decoration: underline; text-underline-offset: 3px; }
+.contact__actions { display: flex; flex-wrap: wrap; gap: 12px 16px; }
+@media (max-width: 639px) { .contact__actions .btn { width: 100%; } }
+.contact__map { height: 100%; min-height: 240px; border-radius: var(--r-panel); }

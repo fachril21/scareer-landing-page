@@ -1,6 +1,7 @@
 import { Button } from '../ui/Button'
 import { Section } from '../layout/Section'
 import { CONSULT_MESSAGES, WHAT_IS } from '../../content/content'
+import { useHomeHref } from '../../app/router'
 import { waLink } from '../../lib/whatsapp'
 import './what-is-scareer.css'
 
@@ -22,9 +23,10 @@ function Items() {
 }
 
 function Actions() {
+  const home = useHomeHref()
   return (
     <div className="what__actions">
-      <Button href="#program">Lihat program</Button>
+      <Button href={home('#program')}>Lihat program</Button>
       <Button variant="link" href={waLink('Apa itu scareer', CONSULT_MESSAGES.general)} target="_blank">
         Ngobrol dulu lewat WhatsApp
       </Button>
@@ -36,10 +38,10 @@ function Actions() {
  * Section "scareer itu apa" tepat di bawah hero. Tugasnya definisi: apa, untuk siapa, dapat apa.
  * Heading berupa pertanyaan yang bermakna supaya bisa dipindai (pola layer-cake).
  */
-export function WhatIsScareer({ variant }: { variant: Variant }) {
+export function WhatIsScareer({ variant, tone = 'surface' }: { variant: Variant; tone?: 'surface' | 'paper' }) {
   if (variant === 'sentence') {
     return (
-      <Section id="apa-itu-scareer" tone="surface" labelledBy="what-title" className="what what--sentence">
+      <Section id="apa-itu-scareer" tone={tone} labelledBy="what-title" className="what what--sentence">
         <h2 id="what-title" className="what__sentence">
           {WHAT_IS.sentence.map((part, i) =>
             'mark' in part ? (
@@ -57,7 +59,7 @@ export function WhatIsScareer({ variant }: { variant: Variant }) {
   }
 
   return (
-    <Section id="apa-itu-scareer" tone="surface" labelledBy="what-title" className="what what--definition">
+    <Section id="apa-itu-scareer" tone={tone} labelledBy="what-title" className="what what--definition">
       <div className="what__intro">
         <h2 id="what-title">{WHAT_IS.title}</h2>
         <p className="what__lead">{WHAT_IS.lead}</p>

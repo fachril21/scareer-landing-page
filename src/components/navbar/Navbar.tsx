@@ -13,16 +13,13 @@ import { useTweaks } from '../../tweaks/TweakContext'
 import { hiddenSectionIds } from '../../tweaks/sections'
 import './navbar.css'
 
-const SPY_IDS = ['program', 'kenapa-scareer', 'masalah', 'transparan', 'cara-belajar', 'karya', 'mentor', 'faq'] as const
+const SPY_IDS = ['program'] as const
 const OPEN_DELAY_MS = 120
 const CLOSE_DELAY_MS = 200
 
-/** Id section -> item menu yang ditandai aktif. */
+/** Id section -> item menu yang ditandai aktif (hanya Program yang dipantau scroll-spy). */
 function activeNavId(visible: ReadonlySet<string>): string | null {
-  if (visible.has('faq')) return 'faq'
-  if (visible.has('kenapa-scareer') || visible.has('masalah') || visible.has('transparan')) return 'kenapa-scareer'
-  if (visible.has('program')) return 'program'
-  return null
+  return visible.has('program') ? 'program' : null
 }
 
 export function Navbar() {
@@ -36,7 +33,8 @@ export function Navbar() {
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const timer = useRef<number | undefined>(undefined)
   const home = useHomeHref()
-  const onHome = useLocation().pathname === '/'
+  const { pathname } = useLocation()
+  const onHome = pathname === '/'
   // Scroll-spy hanya untuk homepage: id section halaman detail berbeda arti.
   // Beberapa section bisa disembunyikan lewat tweak: daftar dipantau mengikuti, supaya observer ikut terpasang saat ditampilkan.
   const hidden = hiddenSectionIds(tweaks)
@@ -113,17 +111,16 @@ export function Navbar() {
                 </button>
                 <ProgramMenu open={programOpen} onNavigate={() => closeProgram(false)} />
               </li>
-              {NAV_ITEMS.filter((item) => !hidden.includes(item.id)).map((item) => (
-                <li key={item.id} className="nav__item">
-                  <a
-                    className={`nav__link${active === item.id ? ' is-active' : ''}`}
-                    href={home(`#${item.id}`)}
-                    aria-current={active === item.id ? 'location' : undefined}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
+              {NAV_ITEMS.map((item) => {
+                const current = item.href === '/blog' ? pathname === '/blog' || pathname.startsWith('/blog/') : pathname === item.href
+                return (
+                  <li key={item.id} className="nav__item">
+                    <a className={`nav__link${current ? ' is-active' : ''}`} href={item.href} aria-current={current ? 'page' : undefined}>
+                      {item.label}
+                    </a>
+                  </li>
+                )
+              })}
             </ul>
           </nav>
 

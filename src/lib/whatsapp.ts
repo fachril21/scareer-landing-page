@@ -10,6 +10,7 @@ export type WaSource =
   | 'FAQ'
   | 'CTA penutup'
   | 'Footer'
+  | 'Tentang'
   | 'Bar sticky'
   | 'Detail: Hero'
   | 'Detail: Masalah'

@@ -1,0 +1,121 @@
+/* Blog. Token dari tokens.css; garis tipis tanpa bayangan; aksen ungu/Ink; judul Bricolage, isi Satoshi. */
+
+/* Navbar transparan lalu pill menimpa konten di bawahnya: bagian pertama diturunkan setinggi navbar. */
+html[data-nav-style="floating"] .blog-top { padding-top: calc(var(--nav-h) + 24px); }
+.blog-top { padding-top: 24px; }
+.blog-title { margin-top: 8px; font-family: var(--f-display); font-size: var(--t-h2); font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; text-wrap: balance; }
+.blog-lead { max-width: 60ch; margin-top: 8px; color: var(--text-secondary); text-wrap: pretty; }
+
+/* ---------- Kotak cari ---------- */
+.bsearch { position: relative; display: flex; align-items: center; margin-top: 24px; border: 1px solid var(--border-control); border-radius: var(--r-panel); background: var(--surface); }
+.bsearch:focus-within { outline: 3px solid var(--ink); outline-offset: 3px; }
+.bsearch__icon { position: absolute; left: 18px; color: var(--text-secondary); pointer-events: none; }
+.bsearch__input { flex: 1; min-width: 0; min-height: 52px; padding: 0 16px 0 50px; border: 0; background: none; color: var(--ink); font: inherit; outline: none; }
+.bsearch__input::placeholder { color: var(--text-secondary); }
+.bsearch__submit { margin: 6px; min-height: 40px; padding: 0 20px; border: 0; border-radius: var(--r-pill); background: var(--ink); color: var(--paper); font: inherit; font-size: var(--t-small); font-weight: 600; cursor: pointer; }
+@media (hover: hover) { .bsearch__submit:hover { background: var(--purple-dark); } }
+
+/* ---------- Tab grup ---------- */
+.btabs { margin-top: 24px; border-bottom: var(--hairline); }
+.btabs ul { display: flex; gap: 28px; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; }
+.btabs ul::-webkit-scrollbar { display: none; }
+.btabs a { position: relative; display: block; padding: 14px 0; color: var(--text-secondary); font-weight: 600; white-space: nowrap; text-decoration: none; scroll-snap-align: start; transition: color var(--dur-fast) var(--ease-out); }
+.btabs a::after { content: ""; position: absolute; inset: auto 0 -1px 0; height: 2px; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-fast) var(--ease-out); }
+.btabs a[aria-current="page"] { color: var(--ink); }
+.btabs a[aria-current="page"]::after { transform: scaleX(1); }
+@media (hover: hover) { .btabs a:hover { color: var(--ink); } }
+
+/* ---------- Badan: sidebar kategori + daftar ---------- */
+.blog-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; margin-top: 32px; }
+.blog-body > * { min-width: 0; }
+@media (min-width: 1024px) { .blog-body--side { grid-template-columns: 220px minmax(0, 1fr); gap: 48px; align-items: start; } }
+
+.bcats ul { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+.bcats ul::-webkit-scrollbar { display: none; }
+.bcats a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 1px solid var(--border-control); border-radius: var(--r-pill); color: var(--ink); font-size: var(--t-small); font-weight: 500; white-space: nowrap; text-decoration: none; }
+.bcats a[aria-current="page"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.bcats__count { color: var(--text-secondary); font-size: 12px; }
+.bcats a[aria-current="page"] .bcats__count { color: var(--text-on-ink-secondary); }
+@media (min-width: 1024px) {
+  .bcats { position: sticky; top: 96px; }
+  .bcats ul { flex-direction: column; gap: 0; overflow: visible; border-left: var(--hairline); }
+  .bcats a { position: relative; justify-content: space-between; min-height: 48px; margin-left: -1px; padding: 0 16px; border: 0; border-left: 2px solid transparent; border-radius: 0; font-size: 1rem; white-space: normal; }
+  .bcats a[aria-current="page"] { background: none; border-left-color: var(--ink); color: var(--ink); font-weight: 700; }
+  .bcats a[aria-current="page"] .bcats__count { color: var(--text-secondary); }
+}
+@media (hover: hover) { .bcats a:not([aria-current]):hover { background: var(--paper); } }
+
+/* ---------- Grid dan kartu ---------- */
+.agrid { display: grid; gap: 40px 24px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); }
+.agrid__more { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 16px; margin-top: 40px; padding-top: 20px; border-top: var(--hairline); color: var(--text-secondary); font-size: var(--t-small); }
+
+.acard { position: relative; display: grid; gap: 10px; align-content: start; height: 100%; }
+.acard__cover { overflow: hidden; border-radius: var(--r-media); background: var(--lavender); }
+.acard__cover img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.acard__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-top: 4px; color: var(--text-secondary); font-size: var(--t-small); }
+.amark { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--lavender); color: var(--purple-dark); font-size: 12px; font-weight: 700; }
+.acard__title { font-family: var(--f-display); font-size: 1.1875rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.3; text-wrap: balance; }
+.acard__title a { color: var(--ink); text-decoration: none; }
+.acard__title a::after { content: ""; position: absolute; inset: 0; } /* seluruh kartu bisa diklik */
+@media (hover: hover) { .acard__title a:hover { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; } }
+.acard__excerpt { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; color: var(--text-secondary); font-size: 15px; }
+.acard__cat { position: relative; z-index: 1; justify-self: start; color: var(--purple-dark); font-size: var(--t-small); font-weight: 600; text-decoration: none; }
+@media (hover: hover) { .acard__cat:hover { text-decoration: underline; text-underline-offset: 3px; } }
+
+/* Kata kunci pencarian: stabilo hanya di atas Ink/Ungu, jadi di sini memakai Lavender dengan teks Ink */
+.hl { border-radius: 3px; background: var(--lavender); color: var(--ink); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+
+/* ---------- Hasil pencarian ---------- */
+.bsummary { margin-bottom: 24px; color: var(--text-secondary); }
+.blog-list--search { margin-top: 32px; }
+.bempty { display: grid; gap: 14px; justify-items: start; max-width: 60ch; padding: 32px; border: var(--hairline); border-radius: var(--r-panel); }
+.bempty__headline { font-family: var(--f-display); font-size: var(--t-h3); font-weight: 700; }
+.bempty__hint { color: var(--text-secondary); }
+.bempty__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip-link { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid var(--border-control); border-radius: var(--r-pill); color: var(--ink); font-size: var(--t-small); font-weight: 500; text-decoration: none; }
+.bempty__chips--soft .chip-link { border-color: var(--border); background: var(--paper); }
+@media (hover: hover) { .chip-link:hover { background: var(--lavender); } }
+
+/* ---------- Detail artikel ---------- */
+.ahead { display: grid; gap: 12px; max-width: 760px; margin-top: 8px; }
+.ahead h1 { font-family: var(--f-display); font-size: clamp(2rem, 1.3rem + 2.8vw, 3.25rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; text-wrap: balance; }
+.ahead__lead { color: var(--text-secondary); font-size: var(--t-lead); text-wrap: pretty; }
+.acover { margin-top: 32px; overflow: hidden; border-radius: var(--r-panel); background: var(--lavender); }
+.acover img { display: block; width: 100%; aspect-ratio: 16 / 8; object-fit: cover; }
+
+.alayout { display: grid; gap: 32px; margin-top: 40px; }
+@media (min-width: 1024px) { .alayout { grid-template-columns: 220px minmax(0, 1fr); gap: 56px; align-items: start; } }
+
+.atoc { padding: 16px 0; border-block: var(--hairline); }
+@media (min-width: 1024px) { .atoc { position: sticky; top: 96px; padding: 0 0 0 16px; border: 0; border-left: var(--hairline); } }
+.atoc__title { margin-bottom: 10px; color: var(--text-secondary); font-size: var(--t-small); font-weight: 600; }
+.atoc ol { display: grid; gap: 4px; }
+.atoc a { display: block; padding: 6px 0; color: var(--text-secondary); font-size: var(--t-small); line-height: 1.4; text-decoration: none; }
+@media (hover: hover) { .atoc a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; } }
+
+/* Mode baca: kolom 65 sampai 70 karakter */
+.aarticle { min-width: 0; }
+.prose { max-width: 68ch; font-size: 1.0625rem; line-height: 1.7; }
+.prose > * + * { margin-top: 1.1em; }
+.prose h2 { margin-top: 2em; font-family: var(--f-display); font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.75rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; scroll-margin-top: 88px; }
+.prose ul { display: grid; gap: 8px; padding-left: 1.25em; list-style: disc; }
+.prose ul li::marker { color: var(--text-secondary); }
+.prose blockquote { margin-inline: 0; padding: 20px 24px; border-radius: var(--r-media); background: var(--lavender); font-family: var(--f-display); font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+
+.ashare { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; max-width: 68ch; margin-top: 48px; padding-top: 20px; border-top: var(--hairline); }
+.ashare > p { color: var(--text-secondary); font-size: var(--t-small); font-weight: 500; }
+.ashare__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.ashare__btn { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 1px solid var(--border-control); border-radius: var(--r-pill); background: var(--surface); color: var(--ink); font: inherit; font-size: var(--t-small); font-weight: 500; text-decoration: none; cursor: pointer; }
+@media (hover: hover) { .ashare__btn:hover { background: var(--paper); } }
+.ashare__status { min-width: 9ch; color: var(--text-secondary); font-size: var(--t-small); }
+
+.acta { display: grid; gap: 12px; justify-items: start; max-width: 68ch; margin-top: 32px; padding: 28px; border: var(--hairline); border-radius: var(--r-panel); background: var(--paper); }
+.acta h2 { font-family: var(--f-display); font-size: var(--t-h3); font-weight: 700; }
+.acta p { color: var(--text-secondary); }
+
+.arelated h2 { font-family: var(--f-display); font-size: var(--t-h2); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
+.agrid--related { margin-top: 28px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btabs a, .btabs a::after { transition: none; }
+}
