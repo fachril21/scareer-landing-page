@@ -4,6 +4,8 @@ import { FilterChip } from '../ui/Primitives'
 import { ProgramCell } from './ProgramCell'
 import { PROGRAM_CATEGORIES, type Program, type ProgramCategory } from '../../content/content'
 import { useFadeFilter } from '../../hooks/useFadeFilter'
+import { useInteractiveMotion } from '../../hooks/useInteractiveMotion'
+import { usePointerSpotlight } from '../../hooks/usePointerSpotlight'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 const ALL = 'Semua'
@@ -42,8 +44,36 @@ function useScrollEdges(trackRef: React.RefObject<HTMLUListElement | null>, depe
   return edges
 }
 
+/** Menulis seberapa jauh track tergeser (0 sampai 1) ke `--sp` di kontainer, untuk indikator progres. */
+function useTrackProgress(
+  rootRef: React.RefObject<HTMLElement | null>,
+  trackRef: React.RefObject<HTMLUListElement | null>,
+  enabled: boolean,
+  dependency: unknown,
+) {
+  useEffect(() => {
+    const root = rootRef.current
+    const track = trackRef.current
+    if (!root || !track || !enabled) return
+    const write = () => {
+      const ratio = (track.scrollLeft + track.clientWidth) / track.scrollWidth
+      root.style.setProperty('--sp', Math.min(1, ratio).toFixed(3))
+    }
+    write()
+    track.addEventListener('scroll', write, { passive: true })
+    window.addEventListener('resize', write, { passive: true })
+    return () => {
+      track.removeEventListener('scroll', write)
+      window.removeEventListener('resize', write)
+      root.style.removeProperty('--sp')
+    }
+  }, [rootRef, trackRef, enabled, dependency])
+}
+
 export function ProgramCarousel({ programs }: { programs: readonly Program[] }) {
   const reduced = useReducedMotion()
+  const interactive = useInteractiveMotion()
+  const rootRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLUListElement>(null)
   const { selected, applied, choose, fadingOut } = useFadeFilter<Filter>(ALL)
 
@@ -56,6 +86,8 @@ export function ProgramCarousel({ programs }: { programs: readonly Program[] }) 
 
   const visible = effectiveApplied === ALL ? programs : programs.filter((p) => p.category === effectiveApplied)
   const { canPrev, canNext } = useScrollEdges(trackRef, visible)
+  useTrackProgress(rootRef, trackRef, interactive, visible)
+  usePointerSpotlight(rootRef, '.pcar__item', interactive)
 
   useEffect(() => {
     trackRef.current?.scrollTo({ left: 0 })
@@ -70,7 +102,7 @@ export function ProgramCarousel({ programs }: { programs: readonly Program[] }) 
   const hasOverflow = canPrev || canNext
 
   return (
-    <div className="pcar">
+    <div ref={rootRef} className="pcar">
       <div className="pcar__bar">
         {showFilter && (
           <div className="filters" role="group" aria-label="Filter kategori program">
@@ -113,6 +145,12 @@ export function ProgramCarousel({ programs }: { programs: readonly Program[] }) 
           </a>
         </li>
       </ul>
+
+      {interactive && hasOverflow && (
+        <div className="pcar__progress" aria-hidden="true">
+          <span />
+        </div>
+      )}
     </div>
   )
 }

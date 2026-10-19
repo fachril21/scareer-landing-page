@@ -38,7 +38,7 @@ Rumusnya: **struktur yang tenang dan dewasa, dengan kehangatan dari foto candid,
 4. **Mobile dulu.** Semua keputusan dicek di layar 360 px dulu, di jaringan lambat.
 5. **Foto nyata di atas ilustrasi.** Kepercayaan datang dari wajah, ruang, dan karya asli.
 6. **Satu aksi utama per layar.** Hero, Program, dan CTA penutup masing-masing satu tombol utama. Section Program adalah jantung halaman.
-7. **Gerak hanya untuk memberi tahu.** Tidak ada auto-play, auto-scroll, atau animasi masuk per section.
+7. **Gerak memberi tahu dan menghidupkan.** *(Direvisi 19 Okt 2026.)* Gerak boleh hadir di tiap section selama pendek, terpicu oleh scroll atau aksi, dan tidak pernah menghalangi bacaan. Tetap tanpa auto-play, auto-scroll, dan konten yang hanya bisa dibaca setelah animasi selesai. Pembawa gerak: panel tweak "Gerak" (Dasar / Interaktif, bawaan Interaktif). Detail di bagian 6.2.
 
 ---
 
@@ -536,7 +536,9 @@ Ritme latar: terang, abu muda, terang, **gelap**, abu muda, **gelap**, abu muda,
 
 ## 6. Gerak dan interaksi
 
-Prinsip: **tanpa auto-play, tanpa auto-scroll, tanpa animasi masuk per section, tanpa parallax.** Gerak hanya untuk merespons aksi atau satu momen terorkestrasi. Hormati `prefers-reduced-motion`.
+### 6.1 Gerak dasar
+
+Prinsip: **tanpa auto-play dan tanpa auto-scroll.** *(Direvisi 19 Okt 2026: larangan "animasi masuk per section" dan "parallax" dicabut, lihat 6.2.)* Hormati `prefers-reduced-motion`. Bagian 6.1 berlaku untuk mode **Dasar** dan menjadi fondasi mode **Interaktif**.
 
 | Elemen | Pemicu | Efek | Durasi |
 | --- | --- | --- | --- |
@@ -560,6 +562,32 @@ Prinsip: **tanpa auto-play, tanpa auto-scroll, tanpa animasi masuk per section, 
 - **Hover vs sentuh:** efek hover hanya di `@media (hover: hover)`. Di layar sentuh diganti state tekan singkat. Informasi penting tidak boleh hanya muncul saat hover.
 - **Reduced motion:** animasi coretan, View Transition, animasi tinggi accordion, crossfade panel dimatikan, `scroll-behavior` kembali `auto`. Perubahan state tetap terlihat lewat warna, border, dan ikon.
 - **Performa gerak:** hanya `transform` dan `opacity` yang dianimasikan, kecuali tinggi accordion. Tidak ada animasi yang memicu layout shift.
+
+### 6.2 Lapisan gerak Interaktif (tweak "Gerak", bawaan)
+
+Tujuan: homepage terasa modern dan hidup tanpa mengubah konten maupun layout. Hasil benchmark 19 Okt 2026 (Dibimbing, Purwadhika, Hacktiv8, Le Wagon, customer.io): tidak ada yang memakai gerak mengikuti scroll atau efek kursor, dan tidak ada yang memakai library animasi. Jadi cukup CSS plus hook kecil.
+
+**Aturan umum**
+- Tanpa library animasi baru. CSS (`animation-timeline: view()` bila didukung, fallback IntersectionObserver) dan hook kecil di `src/hooks`.
+- Hanya `transform`, `opacity`, `clip-path`. Durasi 150 sampai 600 ms, easing `--ease-out`, stagger maksimal 4 langkah (`--reveal-step`).
+- Efek kursor (tilt, spotlight, magnetik) hanya di `@media (hover: hover) and (pointer: fine)`. Di layar sentuh diganti state tekan. Satu listener `pointermove` per kontainer, menulis CSS variable `--x` dan `--y` langsung ke elemen, bukan lewat state React.
+- Spotlight kursor hanya terlihat di permukaan gelap atau ungu. Di kartu Paper dan Lavender gunakan sorotan tepi (border menyala) atau tint lavender, jangan cahaya putih.
+- `prefers-reduced-motion: reduce` mematikan semua gerak di tabel ini. Konten tetap tampil penuh tanpa JS.
+- Konten tidak boleh tersembunyi sebelum animasi. Anggaran JS halaman tetap di bawah 150 kb gzip, CLS 0 dari gerak.
+
+| Section | Gerak | Pemicu |
+| --- | --- | --- |
+| Hero | Headline muncul per kata. Foto panggung: parallax maksimal 24 px dan zoom-out 1,05 → 1. Kartu lowongan miring mengikuti kursor (maksimal 4°). Tombol: efek magnetik dan kilau halus. Kata berganti di `RotatingHeadline` bertransisi masuk dan keluar. | Muat halaman / scroll / hover |
+| Strip bukti | Sel muncul bertahap, garis tepi menyala sekilas | Masuk viewport |
+| Apa itu scareer | Tiga poin muncul bertahap, garis atas tiap poin tergambar lalu menebal dan menyala ungu saat hover | Masuk viewport / hover |
+| Masalah (lingkaran) | Garis penghubung tergambar mengikuti scroll, node menyala berurutan, panah "putus" dan panah kembali menggambar diri | Scroll |
+| Program | Kartu: foto zoom 1,04 dan sorotan tepi saat hover. Carousel: indikator progres. Chip: feedback tekan | Hover / scroll / tekan |
+| Kenapa scareer | Stabilo `<mark>` tersapu kiri ke kanan. Kartu kutipan ungu bereaksi halus ke kursor. Garis atas tiga pilar tergambar bertahap | Masuk viewport / hover |
+| Cara belajar | Garis penghubung antar-kolom terisi saat scroll, nomor langkah menyala berurutan | Scroll |
+| CTA penutup | Panel ungu naik dengan `clip-path`, stabilo tersapu, tombol WhatsApp berdenyut sekali, chip muncul bertahap | Masuk viewport |
+| Global | Reveal bervariasi (fade-up, teks bertopeng, skala, wipe) menggantikan fade-up tunggal. Micro-interaction tombol dan tautan konsisten | Masuk viewport / hover |
+
+Tidak dibuat: marquee, pop-up promo, carousel otomatis, latar gradien atau blob, penghitung angka (strip bukti berisi teks, bukan angka). Footer dan section Karya, Mentor, FAQ di luar cakupan.
 
 ### Komponen yang bisa digeser
 
@@ -633,7 +661,7 @@ Prinsip: **tanpa auto-play, tanpa auto-scroll, tanpa animasi masuk per section, 
 **Performa**
 
 - Target mobile 4G: LCP < 2.5 detik, CLS < 0.1, INP < 200 ms.
-- JavaScript wajib hanya untuk: filter program, dropdown dan menu mobile, tab, akordeon foto, bar sticky, scroll-spy, dan animasi coretan. Sisanya HTML dan CSS (accordion native `<details>`, scroll-snap native).
+- JavaScript wajib hanya untuk: filter program, dropdown dan menu mobile, tab, akordeon foto, bar sticky, scroll-spy, animasi coretan, dan lapisan gerak Interaktif (6.2: reveal, progres scroll, efek kursor). Sisanya HTML dan CSS (accordion native `<details>`, scroll-snap native).
 - Font di-subset, maksimal 4 berkas. Total halaman di bawah 1 MB sebelum foto lazy-load.
 
 ---
@@ -645,7 +673,7 @@ Prinsip: **tanpa auto-play, tanpa auto-scroll, tanpa animasi masuk per section, 
 - Tombol hijau di sebelah tombol merah. Teks Langit di atas Paper. Stabilo sebagai warna teks.
 - Kata di H1 atau judul section yang diwarnai atau dimiringkan.
 - Huruf kapital semua untuk label. Eyebrow tanpa fungsi penunjuk section.
-- Auto-play, auto-scroll, marquee, animasi masuk per section, parallax, hover yang mengangkat kartu.
+- Auto-play, auto-scroll, marquee, pop-up promo, konten yang tersembunyi sampai animasi selesai. *(Animasi masuk per section, parallax tipis, dan hover pada kartu kini diizinkan lewat 6.2, dengan batas di sana.)*
 - Visual diskon, stock photo, testimoni atau angka karangan.
 - Lebih dari satu catatan tangan per section, atau Kalam dipakai untuk teks penting.
 - Tanda panah di akhir teks tombol.

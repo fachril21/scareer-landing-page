@@ -1,16 +1,25 @@
+import { useRef } from 'react'
 import { Button } from '../ui/Button'
 import { QuickChip } from '../ui/Primitives'
 import { CONSULT_MESSAGES, CTA_SHEET } from '../../content/content'
+import { useInViewOnce } from '../../hooks/useInView'
+import { useInteractiveMotion } from '../../hooks/useInteractiveMotion'
+import { useScrollProgress } from '../../hooks/useScrollProgress'
 import { waLink } from '../../lib/whatsapp'
 import './cta-sheet.css'
 
 /** CTA penutup varian "Lembar": panel ungu bersudut atas membulat. Footer menimpa tepi bawahnya. */
 export function ClosingCtaSheet() {
+  // Panel naik, stabilo tersapu, dan isi muncul bertahap saat CTA terlihat (hanya mode Interaktif).
+  const [sectionRef, seen] = useInViewOnce<HTMLElement>(0.2)
+  // Stabilo pada judul tersapu mengikuti scroll (--p), bukan berjalan sendiri.
+  const titleRef = useRef<HTMLHeadingElement>(null)
+  useScrollProgress(titleRef, useInteractiveMotion(), { start: 0.95, end: 0.66, smooth: true })
   return (
-    <section id="cta" className="cta-sheet" aria-labelledby="cta-title">
+    <section ref={sectionRef} id="cta" className={`cta-sheet${seen ? ' is-seen' : ''}`} aria-labelledby="cta-title">
       <div className="cta-sheet__panel on-ink">
         <div className="container container--content cta-sheet__inner">
-          <h2 id="cta-title" className="cta-sheet__title">
+          <h2 ref={titleRef} id="cta-title" className="cta-sheet__title">
             {CTA_SHEET.title.map((part, i) =>
               'mark' in part ? (
                 <mark key={i} className="cta-sheet__mark">{part.text}</mark>

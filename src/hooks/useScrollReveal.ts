@@ -14,6 +14,13 @@ interface Target {
   index: number
 }
 
+/** Jenis reveal. Judul section masuk dengan wipe naik; elemen lain bisa memilih lewat `data-reveal-kind`. */
+function revealKind(el: HTMLElement, interactive: boolean): string {
+  if (!interactive) return ''
+  if (el.matches('h1, h2')) return 'title'
+  return el.dataset.revealKind ?? ''
+}
+
 function collectTargets(): Target[] {
   const found = new Map<HTMLElement, number>()
   document.querySelectorAll<HTMLElement>(TARGETS).forEach((el) => {
@@ -38,7 +45,7 @@ function clear(el: HTMLElement) {
  * Atribut dipasang lewat DOM (bukan className) supaya render ulang React tidak menimpanya.
  * Tanpa JS, tanpa IntersectionObserver, atau dengan reduced-motion, konten tampil seperti biasa.
  */
-export function useScrollReveal(resetKey?: string) {
+export function useScrollReveal(resetKey?: string, interactive = false) {
   useLayoutEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduced || !('IntersectionObserver' in window)) return
@@ -62,7 +69,7 @@ export function useScrollReveal(resetKey?: string) {
 
     document.documentElement.classList.add(ROOT_CLASS)
     targets.forEach(({ el, index }) => {
-      el.dataset.reveal = ''
+      el.dataset.reveal = revealKind(el, interactive)
       el.style.setProperty('--reveal-i', String(index))
       observer.observe(el)
     })
@@ -73,5 +80,5 @@ export function useScrollReveal(resetKey?: string) {
       targets.forEach(({ el }) => clear(el))
       document.documentElement.classList.remove(ROOT_CLASS)
     }
-  }, [resetKey])
+  }, [resetKey, interactive])
 }

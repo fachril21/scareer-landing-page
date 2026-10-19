@@ -2,11 +2,13 @@ import { QuickChip, SectionLabel } from '../ui/Primitives'
 import { Section } from '../layout/Section'
 import { AllProgramsCell, ProgramCell } from './ProgramCell'
 import { ProgramCarousel } from './ProgramCarousel'
+import { ProgramFinder } from './ProgramFinder'
 import { CONSULT_MESSAGES } from '../../content/content'
 import { selectPrograms } from '../../lib/programs'
 import { waLink } from '../../lib/whatsapp'
 import { useTweaks } from '../../tweaks/TweakContext'
 import './program.css'
+import './program-finder.css'
 
 const COLS_TABLET = 2
 const COLS_DESKTOP = 2
@@ -25,6 +27,8 @@ export function Program() {
     <Section id="program" tone="paper" labelledBy="program-title">
       <SectionLabel>Program</SectionLabel>
       <h2 id="program-title">Pilih program yang cocok buat kamu</h2>
+
+      {tweaks.programFinder === 'on' && <ProgramFinder />}
 
       {tweaks.programLayout === 'carousel' ? (
         <ProgramCarousel programs={programs} />

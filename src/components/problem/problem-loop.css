@@ -89,6 +89,7 @@
   .loop__break {
     /* Di tengah garis antara langkah 3 dan 4: terlihat seperti titik putusnya lingkaran. */
     position: absolute;
+    z-index: 1; /* di atas garis putus dan garis ungu, supaya teks tidak tercoret */
     top: -10px;
     left: calc(50% + 16px);
     transform: translateX(-50%);

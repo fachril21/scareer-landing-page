@@ -1,0 +1,117 @@
+/*
+ * Lapisan gerak "Interaktif" (tweak "Gerak", Design.md 6.2).
+ * Semua aturan di sini hanya aktif dengan html[data-motion="interactive"] dan tanpa reduced-motion.
+ * Hanya transform, opacity, clip-path, dan translate/scale. Mode "Dasar" memakai reveal.css apa adanya.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  /* ---------- Reveal bervariasi: judul section naik dan mengambil fokus ----------
+     Tanpa clip-path pada elemen yang diamati: IntersectionObserver menganggap elemen berukuran nol dan tidak pernah memicu. */
+  html[data-motion="interactive"].js-reveal [data-reveal="title"] {
+    transform: translateY(28px);
+    filter: blur(8px);
+    transition:
+      opacity calc(var(--reveal-dur) * 0.8) var(--ease-out),
+      transform calc(var(--reveal-dur) * 1.2) var(--ease-out),
+      filter calc(var(--reveal-dur) * 1.2) var(--ease-out);
+  }
+  html[data-motion="interactive"].js-reveal [data-reveal="title"][data-revealed] {
+    transform: none;
+    filter: none;
+  }
+
+  /* ---------- Hero: muncul saat halaman dimuat ---------- */
+  @keyframes hero-rise {
+    from { opacity: 0; transform: translateY(18px); }
+  }
+  @keyframes stage-settle {
+    from { scale: 1.14; }
+  }
+
+  html[data-motion="interactive"] .rhead__pw,
+  html[data-motion="interactive"] .rhead__slot {
+    animation: hero-rise 700ms var(--ease-out) both;
+  }
+  html[data-motion="interactive"] .rhead__pw {
+    display: inline-block;
+    animation-delay: calc(var(--i, 0) * 70ms + 80ms);
+  }
+  html[data-motion="interactive"] .rhead__slot { animation-delay: 420ms; }
+
+  html[data-motion="interactive"] .hero__copy h1:not(.rhead),
+  html[data-motion="interactive"] .hero__lead,
+  html[data-motion="interactive"] .hero__actions,
+  html[data-motion="interactive"] .hero__facts {
+    animation: hero-rise 700ms var(--ease-out) both;
+  }
+  html[data-motion="interactive"] .hero__lead { animation-delay: 520ms; }
+  html[data-motion="interactive"] .hero__actions { animation-delay: 620ms; }
+  html[data-motion="interactive"] .hero__facts { animation-delay: 720ms; }
+
+  /* Foto panggung: zoom-out saat muncul, lalu bergeser tipis mengikuti scroll (--p dari useScrollProgress). */
+  html[data-motion="interactive"] .stage { --p: 0.5; }
+  html[data-motion="interactive"] .stage__photo {
+    scale: 1.06;
+    translate: 0 calc((var(--p) - 0.5) * -24px);
+    animation: stage-settle 1400ms var(--ease-out) both;
+  }
+
+  /* Kartu lowongan naik sambil muncul saat foto mencapai tengah layar (`translate` terpisah dari `transform` miring). */
+  html[data-motion="interactive"] .job__card {
+    translate: 0 28px;
+    transition:
+      opacity 450ms var(--ease-out),
+      translate 700ms var(--ease-out);
+  }
+  html[data-motion="interactive"] .job.is-drawn .job__card { translate: 0 0; }
+
+  /* Strip bukti: sel muncul bertahap saat strip masuk viewport. */
+  html[data-motion="interactive"].js-reveal .proof__cell {
+    transition:
+      opacity 500ms var(--ease-out),
+      transform 500ms var(--ease-out);
+  }
+  html[data-motion="interactive"].js-reveal .proof[data-reveal]:not([data-revealed]) .proof__cell {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  html[data-motion="interactive"].js-reveal .proof__cell:nth-child(2) { transition-delay: 90ms; }
+  html[data-motion="interactive"].js-reveal .proof__cell:nth-child(3) { transition-delay: 180ms; }
+  html[data-motion="interactive"].js-reveal .proof__cell:nth-child(4) { transition-delay: 270ms; }
+
+  /* ---------- Tombol besar: kilau satu kali saat hover, geser tipis ke arah kursor ---------- */
+  html[data-motion="interactive"] .btn--lg:not(.btn--link) {
+    overflow: hidden;
+    translate: var(--mx, 0px) var(--my, 0px);
+    transition:
+      background-color var(--dur-fast) var(--ease-out),
+      box-shadow var(--dur-fast) var(--ease-out),
+      transform var(--dur-press) var(--ease-out),
+      translate 200ms var(--ease-out);
+  }
+  html[data-motion="interactive"] .btn--lg:not(.btn--link)::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 36%;
+    background: currentColor;
+    opacity: 0.14;
+    pointer-events: none;
+    transform: translateX(-160%) skewX(-18deg);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    html[data-motion="interactive"] .btn--lg:not(.btn--link):hover::before {
+      transform: translateX(420%) skewX(-18deg);
+      transition: transform 700ms var(--ease-out);
+    }
+
+    /* Kartu lowongan miring mengikuti kursor di atas panggung (--tx, --ty dari usePointerTilt). */
+    html[data-motion="interactive"] .job__card {
+      transform: perspective(900px) rotateX(calc(var(--ty, 0) * -4deg)) rotateY(calc(var(--tx, 0) * 4deg));
+      transition:
+        opacity 450ms var(--ease-out),
+        translate 700ms var(--ease-out),
+        transform 300ms var(--ease-out);
+    }
+  }
+}

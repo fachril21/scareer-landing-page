@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState, type RefObject } from 'react'
 
-/** Menandai sekali saja saat elemen terlihat sedikitnya `threshold` di viewport. */
-export function useInViewOnce<T extends Element>(threshold = 0.6): [RefObject<T | null>, boolean] {
+/**
+ * Menandai sekali saja saat elemen terlihat sedikitnya `threshold` di viewport.
+ * `rootMargin` menggeser garis pemicu, mis. `'0px 0px -50% 0px'` = saat sisi atas elemen mencapai tengah layar.
+ * Elemen yang sudah terlewat di atas viewport (loncat lewat anchor) juga dianggap terlihat.
+ */
+export function useInViewOnce<T extends Element>(threshold = 0.6, rootMargin = '0px'): [RefObject<T | null>, boolean] {
   const ref = useRef<T | null>(null)
   const [seen, setSeen] = useState(false)
 
@@ -10,16 +14,16 @@ export function useInViewOnce<T extends Element>(threshold = 0.6): [RefObject<T 
     if (!el || seen) return
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
+        if (entries.some((e) => e.isIntersecting || e.boundingClientRect.bottom < 0)) {
           setSeen(true)
           observer.disconnect()
         }
       },
-      { threshold },
+      { threshold, rootMargin },
     )
     observer.observe(el)
     return () => observer.disconnect()
-  }, [seen, threshold])
+  }, [seen, threshold, rootMargin])
 
   return [ref, seen]
 }

@@ -114,8 +114,125 @@
   .job__note { position: absolute; top: -56px; left: 0; max-width: none; transform: rotate(-2deg); }
 }
 
+/* Opsi "bisa di-refresh": tombol sorot di dasar kartu, pencarian disimulasikan dengan rangka berdenyut. */
+.job__stack { display: grid; }
+.job__stack > * { grid-area: 1 / 1; }
+
+.job__refresh {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 16px;
+  border: 0;
+  border-radius: var(--r-paper);
+  background: var(--purple);
+  color: #fff;
+  font: inherit;
+  font-size: var(--t-small);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out), translate var(--dur-fast) var(--ease-out);
+}
+.job__refresh:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.job__refresh:disabled { cursor: progress; }
+@media (hover: hover) {
+  .job__refresh:not(:disabled):hover { background: var(--purple-dark); }
+  .job__refresh:not(:disabled):hover svg { rotate: 90deg; }
+}
+.job__refresh:not(:disabled):active { translate: 0 1px; }
+.job__refresh svg { transition: rotate 300ms var(--ease-out); }
+
+/* Simulasi menelusuri situs lowongan: kursor, kolom cari yang diketik, daftar hasil. */
+.jbrowse { position: relative; }
+.jbrowse__search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1.5px solid var(--lavender);
+  border-radius: var(--r-paper);
+  color: var(--text-secondary);
+  font-size: 15px;
+  transition: border-color 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+}
+.jbrowse__search.is-focused { border-color: var(--purple); box-shadow: 0 2px 10px rgba(123, 47, 247, 0.16); }
+.jbrowse__query { color: var(--ink); white-space: nowrap; overflow: hidden; }
+.jbrowse__placeholder { color: var(--text-secondary); }
+.jbrowse__caret { display: inline-block; width: 1.5px; height: 1.1em; margin-left: 1px; vertical-align: text-bottom; background: var(--purple); }
+.jbrowse__rows { margin-top: 10px; }
+.jbrowse__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--lavender);
+  transition: background-color 160ms var(--ease-out), scale 160ms var(--ease-out);
+}
+.jbrowse__title { flex: none; font-size: 15px; font-weight: 600; }
+.jbrowse__company { min-width: 0; overflow: hidden; color: var(--text-secondary); font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
+.jbrowse__row.is-hover { background: var(--lavender); }
+.jbrowse__row.is-pressed { scale: 0.985; }
+
+.jbrowse__cursor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 20px;
+  height: 22px;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 3px rgba(23, 24, 26, 0.25));
+  transition: translate 430ms cubic-bezier(0.45, 0, 0.2, 1);
+}
+.jbrowse__ripple {
+  position: absolute;
+  top: -9px;
+  left: -9px;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--purple);
+  border-radius: 50%;
+  opacity: 0;
+}
+
+@keyframes job-leave { to { opacity: 0; transform: translateY(-6px); filter: blur(3px); } }
+@keyframes job-rise { from { opacity: 0; transform: translateY(10px); filter: blur(3px); } }
+@keyframes jbrowse-blink { 50% { opacity: 0; } }
+@keyframes jbrowse-ripple { from { opacity: 0.9; transform: scale(0.3); } to { opacity: 0; transform: scale(1.5); } }
+@keyframes job-skel-in { from { opacity: 0; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Isi lama keluar, tampilan situs lowongan masuk. */
+  .job__card.is-searching .job__body { animation: job-leave 220ms var(--ease-out) forwards; }
+  .jbrowse { animation: job-skel-in 220ms var(--ease-out) 120ms backwards; }
+  .jbrowse__caret { animation: jbrowse-blink 900ms steps(1) infinite; }
+  .jbrowse__row { animation: job-rise 380ms var(--ease-out) backwards; }
+  .jbrowse__row:nth-child(2) { animation-delay: 70ms; }
+  .jbrowse__row:nth-child(3) { animation-delay: 140ms; }
+  .jbrowse__ripple { animation: jbrowse-ripple 420ms var(--ease-out); }
+  /* Lowongan baru: tiap bagian naik berurutan. */
+  .job__card--refresh .job__body > :not(.job__list), .job__card--refresh .job__item { animation: job-rise 480ms var(--ease-out) backwards; }
+  .job__card--refresh .job__company { animation-delay: 60ms; }
+  .job__card--refresh .job__heading { animation-delay: 120ms; }
+  .job__card--refresh .job__item:nth-child(1) { animation-delay: 170ms; }
+  .job__card--refresh .job__item:nth-child(2) { animation-delay: 230ms; }
+  .job__card--refresh .job__item:nth-child(3) { animation-delay: 290ms; }
+  .job__card--refresh .job__item { animation-name: job-rise; }
+  /* Reset sesaat: coretan dan catatan kosong, lalu dilepas supaya tergambar lagi setelah baris tampil. */
+  .job.is-drawn.is-redraw .job__strike path { stroke-dashoffset: 1; transition: none; }
+  .job.is-drawn.is-redraw .job__note { opacity: 0; transition: none; }
+  .job.is-drawn:not(.is-redraw) .job__card--refresh .job__strike path { transition-delay: 520ms; }
+  .job.is-drawn:not(.is-redraw) .job__card--refresh ~ .job__note { transition-delay: 1100ms; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .job__card, .job__note { opacity: 1; transition: none; }
+  .job__refresh svg, .job__refresh { transition: none; }
   .job__strike path { stroke-dashoffset: 0; transition: none; }
 }
 
@@ -146,3 +263,6 @@
   .proof { overflow: visible; }
   .proof__cell { flex: 1 1 0; }
 }
+
+/* Lebar kartu tetap supaya tidak melebar-menyempit mengikuti panjang judul tiap lowongan. */
+@media (min-width: 640px) { .job__card--refresh { width: 380px; } }

@@ -21,7 +21,9 @@ export function ProgramCell({ program, fading, className = '' }: ProgramCellProp
   return (
     <li className={`cell${fading ? ' is-fading' : ''}${className && ` ${className}`}`} onClick={onCellClick}>
       <article aria-labelledby={titleId} className="cell__body">
-        <Photo name={program.image} alt="" width={2752} height={1536} sizes="(min-width: 1024px) 300px, 90vw" className="cell__photo" />
+        <div className="cell__media">
+          <Photo name={program.image} alt="" width={2752} height={1536} sizes="(min-width: 1024px) 300px, 90vw" className="cell__photo" />
+        </div>
         <h3 id={titleId}>{program.name}</h3>
         <p className="cell__audience">{program.audience}</p>
         <ul className="cell__tags" aria-label="Ringkasan program">

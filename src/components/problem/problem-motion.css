@@ -1,0 +1,71 @@
+/*
+ * Section masalah, gerak Interaktif: garis penghubung tergambar dan node menyala mengikuti scroll.
+ * --p (0 sampai 1) ditulis useScrollProgress ke .loop; --i dan --n ada di tiap langkah.
+ * Tanpa JS atau tanpa mode Interaktif, tidak ada aturan di sini yang berlaku.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-motion="interactive"] .loop { --p: 1; }
+
+  html[data-motion="interactive"] .loop__step {
+    /* Isi garis langkah ini (0 sampai 1) dan tajam-tidaknya node menyala. */
+    --fill: clamp(0, calc(var(--p) * var(--n) - var(--i)), 1);
+    --lit: clamp(0, calc((var(--p) * var(--n) - var(--i) + 0.12) * 6), 1);
+  }
+
+  /* Garis ungu menimpa garis putus-putus. Mobile: vertikal. */
+  html[data-motion="interactive"] .loop__step::after {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 6px;
+    bottom: -6px;
+    border-left: 2px solid var(--purple);
+    transform: scaleY(var(--fill));
+    transform-origin: top;
+  }
+  html[data-motion="interactive"] .loop__step:last-child::after { display: none; }
+
+  html[data-motion="interactive"] .loop__node::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    border-radius: 50%;
+    background: var(--purple);
+    opacity: var(--lit);
+    transform: scale(calc(0.4 + var(--lit) * 0.6));
+  }
+
+  /* Pil "putus" muncul saat garis menjangkaunya. */
+  html[data-motion="interactive"] .loop__break {
+    --pill: clamp(0, calc((var(--fill) - 0.5) * 3), 1);
+    opacity: var(--pill);
+    scale: calc(0.9 + var(--pill) * 0.1);
+  }
+
+  /* Panah kembali masuk sekali saat terlihat. */
+  html[data-motion="interactive"] .loop__return {
+    opacity: 0;
+    transform: translateX(-12px);
+    transition:
+      opacity 600ms var(--ease-out),
+      transform 600ms var(--ease-out);
+  }
+  html[data-motion="interactive"] .loop__return.is-seen {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (min-width: 1024px) {
+    html[data-motion="interactive"] .loop__step::after {
+      left: 0;
+      right: -32px;
+      top: 7px;
+      bottom: auto;
+      height: 0;
+      border-left: 0;
+      border-top: 2px solid var(--purple);
+      transform: scaleX(var(--fill));
+      transform-origin: left;
+    }
+  }
+}

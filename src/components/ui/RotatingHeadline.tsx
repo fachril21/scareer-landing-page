@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 import './rotating-headline.css'
 
@@ -79,7 +79,14 @@ export function RotatingHeadline({ prefix, words, loop, id }: Props) {
     >
       <span className="sr-only">{`${prefix} ${words[0]}`}</span>
       <span className="rhead__visual" aria-hidden="true">
-        <span className="rhead__prefix">{prefix}</span>
+        <span className="rhead__prefix">
+          {prefix.split(' ').map((word, i) => (
+            <Fragment key={i}>
+              {i > 0 && ' '}
+              <span className="rhead__pw" style={{ '--i': i } as React.CSSProperties}>{word}</span>
+            </Fragment>
+          ))}
+        </span>
         <span className="rhead__slot">
           {words.map((word, i) => (
             <span

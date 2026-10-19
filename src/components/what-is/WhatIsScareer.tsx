@@ -9,7 +9,7 @@ type Variant = 'definition' | 'sentence'
 
 function Items() {
   return (
-    <ul className="what__items">
+    <ul className="what__items" data-reveal-item="" data-reveal-group="">
       {WHAT_IS.items.map((item) => (
         <li key={item.question} className="what__item">
           <h3>{item.question}</h3>

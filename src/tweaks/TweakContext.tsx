@@ -75,6 +75,7 @@ function applyAttributes(tweaks: Tweaks) {
   root.navWidth = tweaks.navWidth
   root.wordStyle = tweaks.wordStyle
   root.whyTilt = tweaks.whyTilt
+  root.motion = tweaks.motion
 }
 
 export function TweakProvider({ children }: { children: ReactNode }) {

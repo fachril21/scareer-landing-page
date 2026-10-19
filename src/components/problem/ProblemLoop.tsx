@@ -1,18 +1,28 @@
+import { useRef } from 'react'
 import { ArrowRight, CornerDownLeft } from 'lucide-react'
+import { useInteractiveMotion } from '../../hooks/useInteractiveMotion'
+import { useInViewOnce } from '../../hooks/useInView'
+import { useScrollProgress } from '../../hooks/useScrollProgress'
 import { Button } from '../ui/Button'
 import { useHomeHref } from '../../app/router'
 import { Section } from '../layout/Section'
 import { PROBLEM } from '../../content/content'
 import './problem-loop.css'
+import './problem-motion.css'
 
 type Variant = 'loop' | 'sides'
 
 function Loop() {
+  const listRef = useRef<HTMLOListElement>(null)
+  const [returnRef, returnSeen] = useInViewOnce<HTMLParagraphElement>(0.9)
+  // --p (0 sampai 1) menggambar garis penghubung dan menyalakan node mengikuti scroll.
+  useScrollProgress(listRef, useInteractiveMotion(), { start: 0.85, end: 0.4, smooth: true })
+
   return (
     <>
-      <ol className="loop">
+      <ol ref={listRef} className="loop">
         {PROBLEM.steps.map((step, i) => (
-          <li key={step.title} className="loop__step">
+          <li key={step.title} className="loop__step" style={{ '--i': i, '--n': PROBLEM.steps.length } as React.CSSProperties}>
             <span className="loop__node" aria-hidden="true" />
             <span className="loop__num num" aria-hidden="true">{i + 1}</span>
             <h3>{step.title}</h3>
@@ -26,7 +36,7 @@ function Loop() {
           </li>
         ))}
       </ol>
-      <p className="loop__return" aria-hidden="true">
+      <p ref={returnRef} className={`loop__return${returnSeen ? ' is-seen' : ''}`} aria-hidden="true">
         <CornerDownLeft size={18} strokeWidth={1.75} />
         {PROBLEM.returnLabel}
       </p>

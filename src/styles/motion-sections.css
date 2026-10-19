@@ -1,0 +1,203 @@
+/*
+ * Gerak Interaktif per section (Design.md 6.2): Program, Kenapa scareer, Cara belajar.
+ * Aktif hanya dengan html[data-motion="interactive"] dan tanpa reduced-motion.
+ * Hanya transform, opacity, scale, translate, dan mask.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  /* ---------- Chip: umpan balik tekan ---------- */
+  html[data-motion="interactive"] .filter-chip,
+  html[data-motion="interactive"] .quick-chip {
+    transition:
+      background-color var(--dur-fast) var(--ease-out),
+      color var(--dur-fast) var(--ease-out),
+      scale var(--dur-press) var(--ease-out);
+  }
+  html[data-motion="interactive"] .filter-chip:active,
+  html[data-motion="interactive"] .quick-chip:active { scale: 0.96; }
+
+  /* ---------- Program ---------- */
+  html[data-motion="interactive"] .pcar__item { position: relative; }
+  html[data-motion="interactive"] .cell__photo { transition: scale 600ms var(--ease-out); }
+
+  /* Indikator progres geser di bawah track. */
+  html[data-motion="interactive"] .pcar__progress {
+    height: 3px;
+    margin-top: 20px;
+    overflow: hidden;
+    border-radius: var(--r-pill);
+    background: var(--border);
+  }
+  html[data-motion="interactive"] .pcar__progress span {
+    display: block;
+    height: 100%;
+    background: var(--purple);
+    transform: scaleX(var(--sp, 0));
+    transform-origin: left;
+    transition: transform 150ms var(--ease-out);
+  }
+
+  /* ---------- Kenapa scareer ---------- */
+  /* Stabilo tersapu kiri ke kanan saat kartu terlihat. Warna teks berpindah ke Tinta setelah sapuan lewat. */
+  html[data-motion="interactive"] .why-ed__card .why-ed__mark {
+    background: linear-gradient(var(--highlight), var(--highlight)) no-repeat 0 0 / 0% 100%;
+    color: #fff;
+  }
+  html[data-motion="interactive"] .why-ed__card.is-seen .why-ed__mark {
+    background-size: 100% 100%;
+    color: var(--ink);
+    transition:
+      background-size 800ms var(--ease-out) 500ms,
+      color 200ms var(--ease-out) 900ms;
+  }
+
+  /* Garis atas tiap pilar tergambar saat pilar muncul. */
+  html[data-motion="interactive"] .why-ed__pillar { position: relative; border-top-color: transparent; }
+  html[data-motion="interactive"] .why-ed__pillar::before {
+    content: "";
+    position: absolute;
+    inset: -1px 0 auto 0;
+    height: 1px;
+    background: var(--border-control);
+    transform-origin: left;
+    transition: transform 900ms var(--ease-out) 150ms;
+  }
+  html[data-motion="interactive"].js-reveal .why-ed__pillar[data-reveal]:not([data-revealed])::before {
+    transform: scaleX(0);
+  }
+
+  /* ---------- Cara belajar ---------- */
+  html[data-motion="interactive"] .lcol { --p: 1; }
+  html[data-motion="interactive"] .lcol__item {
+    --fill: clamp(0, calc(var(--p) * var(--n) - var(--i)), 1);
+    --lit: clamp(0, calc((var(--p) * var(--n) - var(--i) + 0.1) * 10), 1);
+    position: relative;
+    border-top-color: var(--border);
+  }
+  /* Garis ungu menimpa garis putus-putus, terisi berurutan mengikuti scroll. */
+  html[data-motion="interactive"] .lcol__item::before {
+    content: "";
+    position: absolute;
+    inset: -2px 0 auto 0;
+    border-top: 2px solid var(--purple);
+    transform: scaleX(var(--fill));
+    transform-origin: left;
+  }
+  html[data-motion="interactive"] .lcol__num { opacity: calc(0.3 + var(--lit) * 0.7); }
+
+  /* ---------- Apa itu scareer: garis atas tiap poin tergambar, lalu menyala ungu saat hover ---------- */
+  html[data-motion="interactive"] .what__item { position: relative; border-top-color: transparent; }
+  html[data-motion="interactive"] .what__item::before {
+    content: "";
+    position: absolute;
+    inset: -1px 0 auto 0;
+    height: 1px;
+    background: var(--border-control);
+    transform-origin: left;
+    transition:
+      transform 900ms var(--ease-out) 150ms,
+      background-color var(--dur-base) var(--ease-out);
+  }
+  html[data-motion="interactive"].js-reveal .what__item[data-reveal]:not([data-revealed])::before {
+    transform: scaleX(0);
+  }
+  @media (hover: hover) {
+    html[data-motion="interactive"] .what__item:hover::before { height: 2px; background: var(--purple); }
+  }
+
+  /* ---------- Tautan panah: panah bergeser saat hover ---------- */
+  html[data-motion="interactive"] .btn__arrow { transition: translate 200ms var(--ease-out); }
+  @media (hover: hover) {
+    html[data-motion="interactive"] .btn--link:hover .btn__arrow { translate: 3px 0; }
+  }
+
+  /* ---------- CTA penutup ---------- */
+  @keyframes cta-heartbeat {
+    40% { scale: 1.06; }
+  }
+
+  /* Panel naik dan terbuka dari tengah. */
+  html[data-motion="interactive"] .cta-sheet__panel {
+    clip-path: inset(14% 5% 0 5% round var(--sheet-r) var(--sheet-r) 0 0);
+    transition: clip-path 1000ms var(--ease-out);
+  }
+  html[data-motion="interactive"] .cta-sheet.is-seen .cta-sheet__panel {
+    clip-path: inset(0 0 0 0 round var(--sheet-r) var(--sheet-r) 0 0);
+  }
+
+  /* Isi muncul berurutan setelah panel mulai terbuka. */
+  html[data-motion="interactive"] .cta-sheet__inner > * {
+    transition:
+      opacity 700ms var(--ease-out),
+      translate 700ms var(--ease-out);
+  }
+  html[data-motion="interactive"] .cta-sheet:not(.is-seen) .cta-sheet__inner > * {
+    opacity: 0;
+    translate: 0 22px;
+  }
+  html[data-motion="interactive"] .cta-sheet__inner > :nth-child(1) { transition-delay: 250ms; }
+  html[data-motion="interactive"] .cta-sheet__inner > :nth-child(2) { transition-delay: 350ms; }
+  html[data-motion="interactive"] .cta-sheet__inner > :nth-child(3) { transition-delay: 450ms; }
+  html[data-motion="interactive"] .cta-sheet__inner > :nth-child(4) { transition-delay: 550ms; }
+
+  /* Stabilo tersapu mengikuti scroll: --p (0 sampai 1) ditulis useScrollProgress ke judul; tanpa itu bernilai 1 (penuh).
+   * Tiga lapis latar: tinta (terpotong ke teks) dan stabilo, sama-sama selebar --p, di atas teks putih penuh.
+   * Jadi huruf yang sudah dilewati stabilo langsung gelap, yang belum tetap putih, tanpa warna abu di tengah. */
+  html[data-motion="interactive"] .cta-sheet__mark {
+    --wipe: calc(var(--p, 1) * 100%);
+    background:
+      linear-gradient(var(--ink), var(--ink)) no-repeat 0 0 / var(--wipe) 100%,
+      linear-gradient(#fff, #fff) no-repeat 0 0 / 100% 100%,
+      linear-gradient(var(--highlight), var(--highlight)) no-repeat 0 0 / var(--wipe) 100%;
+    -webkit-background-clip: text, text, border-box;
+    background-clip: text, text, border-box;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Tombol WhatsApp berdetak satu kali setelah semuanya muncul. */
+  html[data-motion="interactive"] .cta-sheet.is-seen .btn--whatsapp {
+    animation: cta-heartbeat 700ms var(--ease-out) 1500ms 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  /* Zoom foto kartu program saat hover. */
+  html[data-motion="interactive"] .cell:hover .cell__photo { scale: 1.05; }
+
+  /* Sorotan tepi mengikuti kursor di kartu program (--sx, --sy dari usePointerSpotlight). */
+  html[data-motion="interactive"] .pcar__item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1.5px solid var(--purple);
+    border-radius: inherit;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 250ms var(--ease-out);
+    -webkit-mask-image: radial-gradient(200px circle at var(--sx, 50%) var(--sy, 50%), #000, transparent);
+    mask-image: radial-gradient(200px circle at var(--sx, 50%) var(--sy, 50%), #000, transparent);
+  }
+  html[data-motion="interactive"] .pcar__item:hover::after { opacity: 1; }
+
+  html[data-motion="interactive"] .pcar__more-link svg { transition: translate 250ms var(--ease-out); }
+  html[data-motion="interactive"] .pcar__more-link:hover svg { translate: 4px 0; }
+
+  /* Kartu kutipan ungu: cahaya lembut mengikuti kursor (--tx, --ty dari usePointerTilt). */
+  html[data-motion="interactive"] .why-ed__card { position: relative; }
+  html[data-motion="interactive"] .why-ed__card > * { position: relative; }
+  html[data-motion="interactive"] .why-ed__card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      320px circle at calc((var(--tx, 0) + 1) * 50%) calc((var(--ty, 0) + 1) * 50%),
+      rgba(255, 255, 255, 0.16),
+      transparent 70%
+    );
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 300ms var(--ease-out);
+  }
+  html[data-motion="interactive"] .why-ed__card:hover::before { opacity: 1; }
+}

@@ -32,6 +32,12 @@ export type Tweaks = {
   whatIs: 'hidden' | 'definition' | 'sentence'
   problem: 'hidden' | 'loop' | 'sides'
   pageOrder: 'story' | 'previous'
+  /** Homepage: lapisan gerak (reveal bervariasi, progres scroll, efek kursor). Dasar = fade-up lama. */
+  motion: 'basic' | 'interactive'
+  /** Homepage Hero: kartu lowongan statis, atau bisa diganti contoh lowongan lain lewat tombol refresh. */
+  heroJobs: 'static' | 'refresh'
+  /** Homepage Program: kotak "Cari program yang cocok" (profil mengetik sendiri, chip, rekomendasi). */
+  programFinder: 'off' | 'on'
   /** Halaman detail bootcamp: section Harga. */
   pricingLayout: 'original' | 'tiers' | 'glass' | 'aligned' | 'aligned-light' | 'table'
   /** Halaman detail bootcamp: hero. */
@@ -40,6 +46,8 @@ export type Tweaks = {
   whyUsLayout: 'original' | 'bento'
   /** Halaman detail bootcamp: section Kurikulum. */
   curriculumLayout: 'original' | 'timeline'
+  /** Halaman detail bootcamp: tombol unduh silabus. */
+  syllabusGate: 'direct' | 'form'
   /** Halaman detail bootcamp: section Tools. */
   toolsLayout: 'original' | 'tiles'
   /** Halaman detail bootcamp: section Mentor. */
@@ -79,10 +87,14 @@ export const DEFAULT_TWEAKS: Tweaks = {
   whatIs: 'definition',
   problem: 'loop',
   pageOrder: 'story',
+  motion: 'interactive',
+  heroJobs: 'static',
+  programFinder: 'off',
   pricingLayout: 'aligned',
   programHeroLayout: 'split',
   whyUsLayout: 'bento',
   curriculumLayout: 'timeline',
+  syllabusGate: 'form',
   toolsLayout: 'tiles',
   mentorLayout: 'spotlight',
   journeyGoal: 'highlight',
@@ -124,6 +136,14 @@ export const HERO_GROUPS = [
     options: [
       { value: 'infinite', label: 'Terus' },
       { value: 'three', label: '3 putaran' },
+    ],
+  },
+  {
+    key: 'heroJobs',
+    title: 'Kartu lowongan di foto',
+    options: [
+      { value: 'static', label: 'Satu contoh (bawaan)' },
+      { value: 'refresh', label: 'Bisa di-refresh (lowongan acak)' },
     ],
   },
 ] as const satisfies readonly TweakGroup<keyof Tweaks>[]
@@ -172,6 +192,14 @@ export const PROGRAM_GROUPS = [
       { value: 'two', label: '2 program' },
       { value: 'real', label: '4 (asli)' },
       { value: 'many', label: '12 (dummy)' },
+    ],
+  },
+  {
+    key: 'programFinder',
+    title: 'Kotak "Cari program yang cocok"',
+    options: [
+      { value: 'off', label: 'Sembunyikan (bawaan)' },
+      { value: 'on', label: 'Tampilkan' },
     ],
   },
 ] as const satisfies readonly TweakGroup<keyof Tweaks>[]
@@ -290,6 +318,17 @@ export const ORDER_GROUPS = [
   },
 ] as const satisfies readonly TweakGroup<keyof Tweaks>[]
 
+export const MOTION_GROUPS = [
+  {
+    key: 'motion',
+    title: 'Gerak halaman',
+    options: [
+      { value: 'basic', label: 'Dasar (fade-up)' },
+      { value: 'interactive', label: 'Interaktif' },
+    ],
+  },
+] as const satisfies readonly TweakGroup<keyof Tweaks>[]
+
 export const PRICING_GROUPS = [
   {
     key: 'pricingLayout',
@@ -334,6 +373,14 @@ export const CURRICULUM_GROUPS = [
     options: [
       { value: 'original', label: 'Original (tab + panel)' },
       { value: 'timeline', label: 'Timeline akordeon' },
+    ],
+  },
+  {
+    key: 'syllabusGate',
+    title: 'Unduh silabus',
+    options: [
+      { value: 'direct', label: 'Langsung unduh' },
+      { value: 'form', label: 'Form dulu (popup)' },
     ],
   },
 ] as const satisfies readonly TweakGroup<keyof Tweaks>[]
@@ -410,6 +457,7 @@ type AnyGroups = readonly TweakGroup<keyof Tweaks>[]
 export const SCOPE_SECTIONS: Readonly<Record<TweakScope, readonly { title: string; groups: AnyGroups }[]>> = {
   home: [
     { title: 'Struktur halaman', groups: ORDER_GROUPS as AnyGroups },
+    { title: 'Gerak', groups: MOTION_GROUPS as AnyGroups },
     { title: 'Apa itu scareer', groups: WHAT_IS_GROUPS as AnyGroups },
     { title: 'Masalah', groups: PROBLEM_GROUPS as AnyGroups },
     { title: 'Hero', groups: HERO_GROUPS as AnyGroups },
@@ -453,6 +501,7 @@ export const ALL_GROUPS: AnyGroups = [
   ...WHAT_IS_GROUPS,
   ...PROBLEM_GROUPS,
   ...ORDER_GROUPS,
+  ...MOTION_GROUPS,
   ...PRICING_GROUPS,
   ...PROGRAM_HERO_GROUPS,
   ...WHY_US_GROUPS,

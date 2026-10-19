@@ -19,11 +19,15 @@ import { ClosingCtaSheet } from '../components/cta/ClosingCtaSheet'
 import { TweakPanel } from '../tweaks/TweakPanel'
 import { useFocusOnAnchor } from '../hooks/useFocusOnAnchor'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { useInteractiveMotion } from '../hooks/useInteractiveMotion'
+import { useMagneticButtons } from '../hooks/useMagneticButtons'
 
 export function HomePage() {
   useFocusOnAnchor()
-  useScrollReveal()
   const { tweaks } = useTweaks()
+  const interactive = useInteractiveMotion()
+  useScrollReveal(tweaks.pageOrder + tweaks.problem, interactive)
+  useMagneticButtons(interactive)
 
   const story = tweaks.pageOrder === 'story'
 

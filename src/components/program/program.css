@@ -35,7 +35,8 @@
 .cell__body { display: flex; flex: 1; flex-direction: column; padding: 24px; }
 @media (hover: hover) { .cell:not(.cell--all):hover { cursor: pointer; background: var(--paper); } }
 
-.cell__photo { margin-bottom: 20px; aspect-ratio: 16 / 10; }
+.cell__media { margin-bottom: 20px; overflow: hidden; border-radius: var(--r-media); }
+.cell__photo { aspect-ratio: 16 / 10; }
 .cell h3 { text-wrap: pretty; }
 .cell__audience { margin-top: 6px; color: var(--text-secondary); font-size: var(--t-small); }
 
