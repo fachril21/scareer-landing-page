@@ -1,6 +1,6 @@
 /* ---------- Offset gulir dan penataan gutter ---------- */
-/* HP dan tablet: navbar + switcher 52 px + 16 px. Desktop (sidebar atau rail): 96 px. */
-:root { --scroll-offset: calc(var(--nav-h) + 52px + 16px); --aside-top: 96px; }
+/* HP dan tablet: navbar + celah pill 8 px + switcher 52 px + ruang napas 24 px. Desktop (sidebar atau rail): 96 px. */
+:root { --scroll-offset: calc(var(--nav-h) + 8px + 52px + 24px); --aside-top: 96px; }
 @media (min-width: 1440px), (min-width: 1280px) and (hover: hover) {
   :root { --scroll-offset: 96px; }
 }
@@ -173,6 +173,32 @@ html.is-program-page { scroll-padding-top: var(--scroll-offset); }
   transition: transform 150ms var(--ease-out);
 }
 @keyframes switcher-fade { from { opacity: 0; } }
+
+/*
+ * Navbar Floating: bar section ikut menjadi pill dan berubah selaras dengan pill navbar lewat --nav-p (0 sampai 1, ditulis ke <html>).
+ * Di puncak halaman (--nav-p 0) bentuknya tetap strip datar seperti biasa; makin di-scroll makin menyempit, membulat, dan transparan.
+ * Hanya `top` yang berubah saat menempel, jadi tidak ada loncatan tata letak.
+ */
+html[data-nav-style="floating"] .switcher {
+  --p: var(--nav-p, 0);
+  top: calc(var(--nav-h) + 8px * var(--p));
+  width: calc(100% + (min(var(--pill-max), 100% - 24px) - 100%) * var(--p));
+  margin-inline: auto;
+  overflow: clip;
+  border: 1px solid rgba(23, 24, 26, calc(0.1 * var(--p)));
+  border-bottom-color: var(--border);
+  border-radius: calc(26px * var(--p));
+  background: rgba(255, 255, 255, calc(1 - 0.2 * var(--p)));
+  box-shadow: 0 8px 24px -12px rgba(23, 24, 26, calc(0.25 * var(--p)));
+  -webkit-backdrop-filter: blur(calc(var(--nav-blur) * var(--p))) saturate(calc(1 + 0.5 * var(--p)));
+  backdrop-filter: blur(calc(var(--nav-blur) * var(--p))) saturate(calc(1 + 0.5 * var(--p)));
+}
+html[data-nav-style="floating"] .switcher__progress { inset: auto 0 0 0; }
+/* Di atas foto, abu-abu sekunder tidak cukup kontras: pakai warna teks utama. */
+html[data-nav-style="floating"] .switcher__count { color: var(--text); }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  html[data-nav-style="floating"] .switcher { background: rgba(255, 255, 255, 0.96); }
+}
 
 .sheet { position: fixed; inset: 0; z-index: 70; }
 .sheet__scrim { position: absolute; inset: 0; background: rgba(23, 24, 26, 0.45); opacity: 0; transition: opacity 200ms var(--ease-out); }

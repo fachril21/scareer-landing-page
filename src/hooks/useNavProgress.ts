@@ -23,7 +23,13 @@ export function useNavProgress(ref: RefObject<HTMLElement | null>, enabled: bool
     const target = () => clamp01(window.scrollY / RANGE_PX)
     let current = target()
     let frame = 0
-    const apply = () => el.style.setProperty('--nav-p', current.toFixed(3))
+    const root = document.documentElement
+    // Juga ditulis ke <html> supaya komponen lain (bar section di halaman detail) berubah selaras dengan pill navbar.
+    const apply = () => {
+      const value = current.toFixed(3)
+      el.style.setProperty('--nav-p', value)
+      root.style.setProperty('--nav-p', value)
+    }
 
     const tick = () => {
       const goal = target()
@@ -48,6 +54,7 @@ export function useNavProgress(ref: RefObject<HTMLElement | null>, enabled: bool
       window.removeEventListener('scroll', onScroll)
       cancelAnimationFrame(frame)
       el.style.removeProperty('--nav-p')
+      root.style.removeProperty('--nav-p')
     }
   }, [ref, enabled, reduced])
 }
