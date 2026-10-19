@@ -1,7 +1,9 @@
-import { Button } from '../../ui/Button'
 import { CONSULT_MESSAGES } from '../../../content/content'
 import type { ProgramDetail } from '../../../content/program-detail.types'
 import { track } from '../../../lib/track'
+import { useTweaks } from '../../../tweaks/TweakContext'
+import { SYLLABUS_FORM } from '../../../content/syllabus-form'
+import { SyllabusDownload } from './SyllabusDownload'
 import { waLink } from '../../../lib/whatsapp'
 
 /** Ilustrasi lembar silabus: garis 1,5 px bergaya coretan dengan satu isian lavender (Design.md 4.15). Dekoratif. */
@@ -16,19 +18,17 @@ function SheetIllustration() {
   )
 }
 
-/** Kartu silabus PDF. Tanpa form: unduh langsung, atau minta lewat WhatsApp. */
+/** Kartu silabus PDF. Unduh lewat form singkat (atau langsung, sesuai tweak), atau minta lewat WhatsApp. */
 export function SyllabusCard({ program }: { program: ProgramDetail }) {
-  const { syllabus } = program.curriculum
+  const { tweaks } = useTweaks()
   return (
     <section className="syl" aria-labelledby="syl-title">
       <SheetIllustration />
       <div className="syl__info">
         <h3 id="syl-title">Silabus lengkap (PDF)</h3>
-        <p>Gratis. [ISI: cukup isi nama dan email / tanpa form]</p>
+        <p>Gratis. {tweaks.syllabusGate === 'form' ? SYLLABUS_FORM.intro : SYLLABUS_FORM.introDirect}</p>
         <div className="syl__actions">
-          <Button href={syllabus.href} download onClick={() => track('download_syllabus', { program: program.slug })}>
-            Unduh silabus
-          </Button>
+          <SyllabusDownload program={program} />
           <a
             className="syl__wa"
             href={waLink('Detail: Kurikulum', `${CONSULT_MESSAGES.general}: aku mau silabus ${program.name} lewat WhatsApp`)}

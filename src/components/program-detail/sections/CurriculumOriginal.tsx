@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { Check, FileText } from 'lucide-react'
-import { Button } from '../../ui/Button'
 import { SectionLabel } from '../../ui/Primitives'
 import { Section } from '../../layout/Section'
 import type { CurriculumModule, ProgramDetail } from '../../../content/program-detail.types'
@@ -9,6 +8,7 @@ import { useMediaQuery } from '../../../hooks/useMediaQuery'
 import { SELECT_MODULE_EVENT, requestSection } from '../../../lib/sectionLink'
 import { track } from '../../../lib/track'
 import { waLink } from '../../../lib/whatsapp'
+import { SyllabusDownload } from './SyllabusDownload'
 import './curriculum.css'
 
 const MODULE_HASH = /^#kurikulum-(modul-\d+)$/
@@ -204,13 +204,7 @@ export function CurriculumOriginal({ program }: { program: ProgramDetail }) {
             Mau silabus lewat WhatsApp?
             <span className="sr-only"> (membuka WhatsApp di tab baru)</span>
           </a>
-          <Button
-            href={syllabus.href}
-            download
-            onClick={() => track('download_syllabus', { program: program.slug })}
-          >
-            Unduh silabus
-          </Button>
+          <SyllabusDownload program={program} />
         </div>
       </div>
     </Section>

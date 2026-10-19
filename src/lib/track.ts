@@ -9,6 +9,8 @@ export type TrackEvent =
   | 'toc_click'
   | 'curriculum_module_open'
   | 'download_syllabus'
+  | 'open_syllabus_form'
+  | 'submit_syllabus_form'
   | 'select_plan'
   | 'faq_open'
   | 'portfolio_open'
