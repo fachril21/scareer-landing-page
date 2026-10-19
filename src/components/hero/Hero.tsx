@@ -2,6 +2,7 @@ import { Button } from '../ui/Button'
 import { CheckRow, Photo } from '../ui/Primitives'
 import { RotatingHeadline } from '../ui/RotatingHeadline'
 import { JobCard } from './JobCard'
+import { HeroVibrant } from './HeroVibrant'
 import { CONSULT_MESSAGES, FACTS, HERO, HERO_WORD_SETS, PROOF_CELLS } from '../../content/content'
 import { useInViewOnce } from '../../hooks/useInView'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
@@ -20,11 +21,14 @@ export function Hero() {
   const scrollable = useMediaQuery('(max-width: 1023px)')
   const { tweaks } = useTweaks()
   const centered = tweaks.heroLayout === 'centered'
+  const vibrant = tweaks.heroLayout === 'vibrant-stage' ? 'stage' : tweaks.heroLayout === 'vibrant-poster' ? 'poster' : null
   const wordSet = HERO_WORD_SETS[tweaks.wordSet]
   const interactive = useInteractiveMotion()
   // Foto bergeser tipis mengikuti scroll (--p) dan kartu lowongan miring mengikuti kursor (--tx, --ty).
   useScrollProgress(stageRef, interactive, { start: 1, end: 0 })
   usePointerTilt(stageRef, interactive)
+
+  if (vibrant) return <HeroVibrant variant={vibrant} showJob={vibrant === 'stage' && tweaks.vibrantJobCard === 'on'} refreshable={tweaks.heroJobs === 'refresh'} />
 
   return (
     <section id="beranda" className={`hero${centered ? ' hero--centered' : ''}`} aria-labelledby="hero-title">

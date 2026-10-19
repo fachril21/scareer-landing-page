@@ -44,11 +44,14 @@ export function Navbar() {
   // Varian transparan lalu pill berlaku di homepage dan halaman detail (pengaturannya bersama).
   const floating = tweaks.navStyle === 'floating'
   useNavProgress(headerRef, floating)
+  // Hero vibrant panggung berlatar ungu: navbar transparan memakai logo dan teks terang sampai pill muncul.
+  const onHeroInk = floating && onHome && tweaks.heroLayout === 'vibrant-stage'
   const navClass = [
     'nav',
     scrolled && 'nav--scrolled',
     floating && 'nav--floating',
     floating && mobileOpen && 'nav--menu-open',
+    onHeroInk && 'nav--on-hero-ink',
   ]
     .filter(Boolean)
     .join(' ')
@@ -85,7 +88,7 @@ export function Navbar() {
       <div ref={sentinelRef} className="nav-sentinel" aria-hidden="true" />
       <header ref={headerRef} className={navClass}>
         <div className="container container--wide nav__inner">
-          <Logo />
+          <Logo adaptive={onHeroInk} />
 
           <nav className="nav__menu" aria-label="Utama">
             <ul>

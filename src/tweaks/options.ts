@@ -12,7 +12,7 @@ export interface TweakGroup<K extends keyof Tweaks> {
 }
 
 export type Tweaks = {
-  heroLayout: 'original' | 'centered'
+  heroLayout: 'original' | 'centered' | 'vibrant-stage' | 'vibrant-poster'
   wordSet: 'tuntutan' | 'jawaban' | 'santai'
   wordStyle: 'ungu' | 'stabilo' | 'lavender'
   wordLoop: 'infinite' | 'three'
@@ -36,6 +36,8 @@ export type Tweaks = {
   motion: 'basic' | 'interactive'
   /** Homepage Hero: kartu lowongan statis, atau bisa diganti contoh lowongan lain lewat tombol refresh. */
   heroJobs: 'static' | 'refresh'
+  /** Hero vibrant panggung: kartu lowongan menimpa tepi foto (isinya mengikuti `heroJobs`). */
+  vibrantJobCard: 'off' | 'on'
   /** Homepage Program: kotak "Cari program yang cocok" (profil mengetik sendiri, chip, rekomendasi). */
   programFinder: 'off' | 'on'
   /** Halaman detail bootcamp: section Harga. */
@@ -89,6 +91,7 @@ export const DEFAULT_TWEAKS: Tweaks = {
   pageOrder: 'story',
   motion: 'interactive',
   heroJobs: 'static',
+  vibrantJobCard: 'off',
   programFinder: 'off',
   pricingLayout: 'aligned',
   programHeroLayout: 'split',
@@ -109,7 +112,9 @@ export const HERO_GROUPS = [
     title: 'Layout hero',
     options: [
       { value: 'original', label: 'Original' },
-      { value: 'centered', label: 'Terpusat' },
+      { value: 'centered', label: 'Terpusat (bawaan)' },
+      { value: 'vibrant-stage', label: 'Vibrant: panggung ungu' },
+      { value: 'vibrant-poster', label: 'Vibrant: poster' },
     ],
   },
   {
@@ -144,6 +149,14 @@ export const HERO_GROUPS = [
     options: [
       { value: 'static', label: 'Satu contoh (bawaan)' },
       { value: 'refresh', label: 'Bisa di-refresh (lowongan acak)' },
+    ],
+  },
+  {
+    key: 'vibrantJobCard',
+    title: 'Kartu lowongan di hero vibrant panggung',
+    options: [
+      { value: 'off', label: 'Tanpa kartu (bawaan)' },
+      { value: 'on', label: 'Tampilkan di tepi foto' },
     ],
   },
 ] as const satisfies readonly TweakGroup<keyof Tweaks>[]

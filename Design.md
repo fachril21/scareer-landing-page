@@ -512,6 +512,16 @@ Tinggi 64 px, menempel di dasar layar, menghormati `env(safe-area-inset-bottom)`
 
 ---
 
+
+### Hero vibrant (opsi tweak, untuk pasar mahasiswa)
+
+Dua varian opsional di panel tweak "Layout hero"; default tetap Terpusat. Palet tidak bertambah: rasa "fun" datang dari proporsi ungu yang lebih luas, penanda stabilo, stiker, dan gerak.
+- **Panggung ungu:** latar `--purple`, foto di kanan dengan tepi kiri melengkung, bar fakta `--ink` yang menimpa tepi bawah hero, navbar transparan berlogo putih sampai pill muncul.
+- **Poster:** latar `--paper`, foto miring (-2,5°) di atas lingkaran `--purple`, fakta sebagai pil `--ink` yang sedikit miring.
+- Judul memakai kalimat hero yang ada; frasa "pengalaman 2 tahun?" ditandai (`--highlight` di atas Ungu, `--purple` di atas Kertas, teks berganti warna mengikuti sapuan). Catatan "#PengalamanPertama" dan stiker (bintang, burst, squiggle) murni dekoratif, `aria-hidden`.
+- Gerak hanya di mode Interaktif: stiker membal masuk sekali lalu bergeser mengikuti kursor, foto parallax tipis. Tanpa gerak berulang otomatis.
+- Tanpa eyebrow di atas judul dan tanpa font tulisan tangan (catatan memakai Satoshi bold).
+
 ## 5. Urutan section
 
 | # | Section | Komponen | Latar | Lebar |

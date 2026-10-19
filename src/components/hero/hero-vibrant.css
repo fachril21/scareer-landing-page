@@ -1,0 +1,263 @@
+/*
+ * Hero "vibrant" (tweak "Layout hero"), untuk pasar mahasiswa. Dua varian: --stage (ungu penuh) dan --poster (kertas).
+ * Warna hanya dari palet. Kuning Stabilo hanya di atas Ungu atau Tinta; di atas Kertas, penanda memakai Ungu.
+ */
+.hero-v {
+  position: relative;
+  overflow-x: clip;
+  padding-top: 40px;
+}
+/* Navbar transparan menimpa bagian atas hero, jadi hero memberi ruang setinggi navbar. */
+html[data-nav-style="floating"] .hero-v { padding-top: calc(var(--nav-h) + 40px); }
+.hero-v__inner { display: grid; gap: 40px; }
+.hero-v__copy { position: relative; z-index: 1; }
+
+.hero-v__title {
+  font-size: clamp(2.5rem, 1.4rem + 4vw, 4.25rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.hero-v__lead { max-width: 46ch; margin-top: 24px; font-size: var(--t-lead); line-height: 1.5; }
+.hero-v__actions { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+@media (min-width: 640px) { .hero-v__actions { flex-direction: row; } }
+
+/* ---------- Penanda judul: tiga lapis latar (huruf yang dilewati penanda berganti warna tanpa warna abu di tengah) ---------- */
+.hero-v__mark {
+  padding: 0.02em 0.14em;
+  border-radius: 0.16em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 100% 100%, 100% 100%, 100% 100%;
+  -webkit-background-clip: text, text, border-box;
+  background-clip: text, text, border-box;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.hero-v--stage .hero-v__mark {
+  background-image:
+    linear-gradient(var(--ink), var(--ink)),
+    linear-gradient(#fff, #fff),
+    linear-gradient(var(--highlight), var(--highlight));
+}
+.hero-v--poster .hero-v__mark {
+  background-image:
+    linear-gradient(#fff, #fff),
+    linear-gradient(var(--ink), var(--ink)),
+    linear-gradient(var(--purple), var(--purple));
+}
+
+/* ---------- Visual: foto dan stiker ---------- */
+.hero-v__visual { position: relative; }
+.hero-v__photo { position: relative; overflow: hidden; }
+.hero-v__photo picture { display: contents; }
+.hero-v__img { width: 100%; height: 100%; border-radius: 0; object-fit: cover; object-position: 50% 30%; }
+
+.sticker { position: absolute; z-index: 2; pointer-events: none; }
+.sticker--a { width: 52px; top: -18px; left: 6%; rotate: -8deg; --d: 18; }
+.sticker--b { width: 64px; bottom: 14%; right: 5%; rotate: 12deg; --d: -14; }
+.sticker--c { width: 116px; top: 6%; right: 10%; rotate: 6deg; --d: 10; }
+.hero-v--stage .sticker--c { top: auto; right: auto; bottom: 8%; left: 18%; }
+.sticker--d { width: 34px; bottom: 36%; left: 3%; rotate: 14deg; --d: -20; }
+
+.hero-v__note {
+  position: absolute;
+  z-index: 3;
+  top: 12%;
+  right: 6%;
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+  rotate: -4deg;
+  pointer-events: none;
+}
+.hero-v__note span {
+  padding: 8px 16px;
+  border-radius: var(--r-paper);
+  font-family: var(--f-note);
+  font-size: var(--t-note);
+  font-weight: 700;
+  line-height: 1.2;
+}
+.hero-v__arrow { position: static; width: 56px; rotate: 18deg; }
+
+/* ---------- Fakta ---------- */
+.hero-v__facts { position: relative; z-index: 2; }
+.hero-v__fact { display: flex; align-items: center; gap: 12px; font-size: var(--t-small); font-weight: 500; }
+
+/* ============ Varian A: panggung ungu ============ */
+.hero-v--stage {
+  margin-bottom: 96px;
+  background: var(--purple);
+  color: #fff;
+}
+.hero-v--stage .hero-v__inner { padding-bottom: 0; }
+.hero-v--stage .hero-v__photo {
+  height: 360px;
+  margin-top: 8px;
+  border-radius: 28px;
+}
+.hero-v--stage .hero-v__cta { background: var(--highlight); border-color: var(--highlight); color: var(--ink); --btn-ring: 0 0 0 4px rgba(255, 225, 77, 0.22); --btn-ring-hover: 0 0 0 6px rgba(255, 225, 77, 0.22); --btn-ring-active: 0 0 0 2px rgba(255, 225, 77, 0.22); }
+@media (hover: hover) { .hero-v--stage .hero-v__cta:hover { background: var(--paper); border-color: var(--paper); } }
+.hero-v--stage .hero-v__note span { background: var(--highlight); color: var(--ink); }
+.hero-v--stage .hero-v__arrow { color: #fff; }
+
+.hero-v--stage .hero-v__facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 16px;
+  width: min(1100px, 100%);
+  margin: 16px auto 0;
+  padding: 22px 20px;
+  border-radius: var(--r-panel);
+  background: var(--ink);
+  color: var(--paper);
+  translate: 0 50%;
+}
+.hero-v--stage .hero-v__fact svg { flex: none; box-sizing: content-box; padding: 9px; border-radius: 10px; background: var(--ink-raised); color: var(--highlight); }
+
+@media (min-width: 1024px) {
+  .hero-v--stage { margin-bottom: 56px; }
+  .hero-v--stage .hero-v__inner { grid-template-columns: 1fr; min-height: 600px; align-content: center; padding-block: 24px 120px; }
+  .hero-v--stage .hero-v__copy { max-width: 52%; }
+  .hero-v--stage .hero-v__visual { position: absolute; z-index: 0; inset: 0 0 0 auto; width: 46%; }
+  .hero-v--stage .hero-v__photo { position: absolute; inset: 0; height: auto; margin: 0; border-radius: 50% 0 0 50% / 50% 0 0 50%; }
+  .hero-v--stage .sticker--a { top: 14%; left: -2%; }
+  .hero-v--stage .sticker--d { bottom: 30%; left: 7%; }
+  .hero-v--stage .sticker--c { bottom: 24%; left: 24%; }
+  .hero-v--stage .hero-v__facts { grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 0; padding: 22px 8px; }
+  .hero-v--stage .hero-v__fact { padding-inline: 24px; }
+  .hero-v--stage .hero-v__fact + .hero-v__fact { border-left: var(--hairline-on-ink); }
+  .hero-v--stage { padding-bottom: 0; }
+  .hero-v--stage .hero-v__facts { position: absolute; left: 50%; bottom: 0; translate: -50% 50%; margin: 0; }
+}
+
+/* ============ Varian B: poster di atas kertas ============ */
+.hero-v--poster { background: var(--paper); color: var(--ink); padding-bottom: 56px; }
+.hero-v--poster .hero-v__visual { margin: 24px 12px 0; }
+.hero-v--poster .hero-v__visual::before {
+  content: "";
+  position: absolute;
+  top: -8%;
+  right: -10%;
+  width: 78%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--purple);
+}
+.hero-v--poster .hero-v__photo {
+  aspect-ratio: 4 / 4.4;
+  border: 1.5px solid var(--ink);
+  border-radius: 28px;
+  rotate: -2.5deg;
+  box-shadow: 0 28px 48px -20px rgba(23, 24, 26, 0.4);
+}
+.hero-v--poster .sticker--a { fill: var(--highlight); }
+.hero-v--poster .hero-v__note span { background: var(--purple); color: #fff; }
+.hero-v--poster .hero-v__arrow { color: var(--ink); }
+
+.hero-v__facts-wrap { position: relative; z-index: 2; }
+.hero-v--poster .hero-v__facts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
+.hero-v--poster .hero-v__fact {
+  padding: 10px 18px 10px 12px;
+  border-radius: var(--r-pill);
+  background: var(--ink);
+  color: var(--paper);
+}
+.hero-v--poster .hero-v__fact:nth-child(odd) { rotate: -1.5deg; }
+.hero-v--poster .hero-v__fact:nth-child(even) { rotate: 1.5deg; }
+.hero-v--poster .hero-v__fact svg { color: var(--highlight); }
+
+@media (min-width: 1024px) {
+  .hero-v--poster { padding-bottom: 96px; }
+  .hero-v--poster .hero-v__inner { grid-template-columns: 1.1fr 0.9fr; align-items: center; gap: 56px; }
+  .hero-v--poster .hero-v__visual { margin: 0 24px 0 0; }
+  .hero-v--poster .hero-v__photo { aspect-ratio: 4 / 4.8; }
+}
+
+/* ============ Gerak (hanya mode Interaktif; Dasar dan reduced-motion tampil utuh dan diam) ============ */
+@keyframes hero-v-wipe {
+  from { background-size: 0% 100%, 100% 100%, 0% 100%; }
+}
+@keyframes hero-v-pop {
+  0% { scale: 0.2; opacity: 0; }
+  60% { scale: 1.14; opacity: 1; }
+  100% { scale: 1; }
+}
+@keyframes hero-v-note-in {
+  from { opacity: 0; translate: 0 14px; }
+}
+@keyframes hero-v-fact-in {
+  from { opacity: 0; translate: 0 10px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-motion="interactive"] .hero-v__title,
+  html[data-motion="interactive"] .hero-v__lead,
+  html[data-motion="interactive"] .hero-v__actions { animation: hero-rise 700ms var(--ease-out) both; }
+  html[data-motion="interactive"] .hero-v__lead { animation-delay: 160ms; }
+  html[data-motion="interactive"] .hero-v__actions { animation-delay: 260ms; }
+
+  /* Penanda tersapu setelah judul muncul. */
+  html[data-motion="interactive"] .hero-v__mark { animation: hero-v-wipe 800ms var(--ease-out) 650ms backwards; }
+
+  /* Foto bergeser tipis mengikuti scroll (--p dari useScrollProgress). */
+  html[data-motion="interactive"] .hero-v__photo { --p: 0.5; }
+  html[data-motion="interactive"] .hero-v__img {
+    scale: 1.08;
+    translate: 0 calc((var(--p) - 0.5) * -28px);
+  }
+
+  /* Stiker membal masuk satu kali, lalu bergeser mengikuti kursor dengan kedalaman berbeda (--d). */
+  html[data-motion="interactive"] .sticker {
+    translate: calc(var(--tx, 0) * var(--d, 10) * 1px) calc(var(--ty, 0) * var(--d, 10) * 1px);
+    transition: translate 500ms var(--ease-out);
+    animation: hero-v-pop 600ms var(--ease-out) backwards;
+  }
+  html[data-motion="interactive"] .sticker--a { animation-delay: 700ms; }
+  html[data-motion="interactive"] .sticker--b { animation-delay: 820ms; }
+  html[data-motion="interactive"] .sticker--c { animation-delay: 940ms; }
+  html[data-motion="interactive"] .sticker--d { animation-delay: 1060ms; }
+  html[data-motion="interactive"] .hero-v__note { animation: hero-v-note-in 600ms var(--ease-out) 1150ms backwards; }
+
+  html[data-motion="interactive"] .hero-v__fact { animation: hero-v-fact-in 600ms var(--ease-out) calc(500ms + var(--i, 0) * 90ms) backwards; }
+}
+
+/* ============ Kartu lowongan di tepi foto (tweak "Kartu lowongan di hero vibrant panggung") ============ */
+/* Mobile dan tablet: kartu masuk alur, naik menimpa bagian bawah foto. */
+.hero-v--has-job .hero-v__visual .job {
+  position: relative;
+  inset: auto;
+  z-index: 3;
+  display: block;
+  margin: -88px 12px 0;
+  transform: none;
+}
+.hero-v--has-job .hero-v__visual .job__card { max-width: none; }
+.hero-v--has-job .hero-v__visual .job__note { top: -56px; }
+.hero-v--has-job .hero-v__note, .hero-v--has-job .sticker--c, .hero-v--has-job .sticker--d { display: none; }
+.hero-v--has-job .hero-v__facts { margin-top: 112px; }
+
+@media (min-width: 640px) {
+  .hero-v--has-job .hero-v__visual .job__note { position: static; top: auto; max-width: 14ch; }
+}
+
+@media (min-width: 1024px) {
+  /* Desktop: kartu menimpa garis lengkung, separuh di atas ungu dan separuh di atas foto. Catatan di sisi kanan kartu. */
+  .hero-v--has-job .hero-v__visual .job {
+    position: absolute;
+    inset: auto auto 76px -64px;
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+    margin: 0;
+  }
+  .hero-v--has-job .hero-v__visual .job__card { width: 380px; }
+  .hero-v--has-job .hero-v__facts { margin-top: 0; }
+}
+
+/* Kartu lowongan berlatar putih: teksnya Tinta, bukan putih warisan panggung ungu. */
+.hero-v--has-job .job__card { color: var(--ink); }

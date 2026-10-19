@@ -213,3 +213,20 @@ html[data-nav-width="wide"] { --pill-max: 960px; }
 @media (min-width: 1024px) {
   .mobile-menu { display: none !important; }
 }
+
+/* ---------- Di atas hero ungu (hero vibrant panggung): terang di puncak halaman, kembali gelap saat pill muncul ---------- */
+.nav--on-hero-ink {
+  --ink-t: clamp(0, calc((var(--nav-p) - 0.3) * 3.3), 1); /* 0 = terang, 1 = gelap */
+}
+.nav--on-hero-ink .logo { position: relative; }
+.nav--on-hero-ink .logo__img { opacity: var(--ink-t); }
+.nav--on-hero-ink .logo__img--white { position: absolute; left: 0; top: 50%; translate: 0 -50%; opacity: calc(1 - var(--ink-t)); }
+.nav--on-hero-ink:not(.nav--menu-open) .nav__link,
+.nav--on-hero-ink:not(.nav--menu-open) .nav__burger {
+  color: color-mix(in srgb, var(--ink) calc(var(--ink-t) * 100%), #fff);
+}
+.nav--on-hero-ink:not(.nav--menu-open) .nav__actions .btn--primary {
+  background: color-mix(in srgb, var(--purple) calc(var(--ink-t) * 100%), var(--highlight));
+  border-color: color-mix(in srgb, var(--purple) calc(var(--ink-t) * 100%), var(--highlight));
+  color: color-mix(in srgb, #fff calc(var(--ink-t) * 100%), var(--ink));
+}
