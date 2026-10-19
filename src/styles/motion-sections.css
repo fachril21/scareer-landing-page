@@ -161,8 +161,15 @@
 }
 
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
-  /* Zoom foto kartu program saat hover. */
-  html[data-motion="interactive"] .cell:hover .cell__photo { scale: 1.05; }
+  /*
+   * Foto kartu program: zoom dan bergeser berlawanan arah kursor (--tx, --ty dari usePointerSpotlight), jadi terasa berlapis.
+   * Geser maksimal 14 px dengan zoom 1,18: sisa zoom di tiap sisi (selebar foto ±300 px) lebih besar dari geser, tepi foto tidak pernah terbuka.
+   */
+  html[data-motion="interactive"] .cell:hover .cell__photo {
+    scale: 1.18;
+    translate: calc(var(--tx, 0) * -14px) calc(var(--ty, 0) * -14px);
+    transition: scale 600ms var(--ease-out), translate 260ms var(--ease-out);
+  }
 
   /* Sorotan tepi mengikuti kursor di kartu program (--sx, --sy dari usePointerSpotlight). */
   html[data-motion="interactive"] .pcar__item::after {

@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { QuickChip, SectionLabel } from '../ui/Primitives'
 import { Section } from '../layout/Section'
 import { AllProgramsCell, ProgramCell } from './ProgramCell'
@@ -6,6 +7,8 @@ import { ProgramFinder } from './ProgramFinder'
 import { CONSULT_MESSAGES } from '../../content/content'
 import { selectPrograms } from '../../lib/programs'
 import { waLink } from '../../lib/whatsapp'
+import { useInteractiveMotion } from '../../hooks/useInteractiveMotion'
+import { usePointerSpotlight } from '../../hooks/usePointerSpotlight'
 import { useTweaks } from '../../tweaks/TweakContext'
 import './program.css'
 import './program-finder.css'
@@ -18,6 +21,9 @@ const remainder = (count: number, cols: number) => (count % cols === 0 ? 0 : col
 
 export function Program() {
   const { tweaks } = useTweaks()
+  const gridRef = useRef<HTMLUListElement>(null)
+  // Foto kartu mengikuti kursor (--tx, --ty) di mode grid; mode carousel memasang hook yang sama sendiri.
+  usePointerSpotlight(gridRef, '.cell', useInteractiveMotion())
   const programs = selectPrograms(tweaks.programCount)
   const tabletSpan = remainder(programs.length, COLS_TABLET)
   const desktopSpan = remainder(programs.length, COLS_DESKTOP)
@@ -33,7 +39,7 @@ export function Program() {
       {tweaks.programLayout === 'carousel' ? (
         <ProgramCarousel programs={programs} />
       ) : (
-        <ul className="program-grid" data-reveal-group="">
+        <ul ref={gridRef} className="program-grid" data-reveal-group="">
           {programs.map((p) => (
             <ProgramCell key={p.slug} program={p} fading={false} />
           ))}
