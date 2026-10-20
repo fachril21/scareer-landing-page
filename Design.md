@@ -244,6 +244,7 @@ Rata kiri adalah default. **Dua pengecualian rata tengah:** kalimat pernyataan d
 - Menu di **tengah**, dengan chevron pada Program. Kanan: tombol outline (WhatsApp) dan tombol terisi merah (Lihat program), tinggi 40 px.
 - Dropdown Program berupa panel putih (mega menu sederhana): daftar program dalam 2 kolom (maksimal 8 item) dan tautan "Lihat semua program".
 - Mobile: logo dan tombol menu. Menu membuka panel penuh dengan item setinggi 56 px dan tombol WhatsApp di dasar.
+- **Puncak homepage (tweak "Navbar di puncak homepage", bawaan Bar putih terpisah):** di scroll 0 navbar adalah bar putih selebar layar di alur dokumen dengan hairline `--border`, hero mulai di bawahnya (tidak menimpa). Makin discroll (96 px) bar menyusut kontinu jadi pill glass: latar header memudar ke transparan, radius, lebar, border, dan blur naik bersama `--nav-p`. Tinggi tetap 64 px, jadi tanpa layout shift. Halaman lain tetap transparan lalu pill.
 
 ### 4.2 Tombol pil dengan cincin halo
 
@@ -357,6 +358,8 @@ Tiga kolom dipisah **garis vertikal 1 px**, tanpa kartu. Ikon garis bergaya core
 - Sentuh: kartu menekan ke 0.985 saat disentuh.
 - `prefers-reduced-motion`: semua gerak mati, kartu statis.
 Pilihan "Polos (lama)" tetap menampilkan baris garis di atas.
+
+**Kartu di samping judul (tweak `whyCard`, bawaan Foto + ornamen):** kutipan ungu diganti foto `learn-mentor-session` (sudut `--r-panel`, miring tipis seperti kartu lama) dengan empat ornamen yang sama dengan hero (Sparkle, Burst, Squiggle) menempel di sudutnya. Tanpa teks kutipan. Mode Interaktif + mouse: kartu miring 3D mengikuti kursor, foto zoom dan bergeser berlawanan arah, sorot cahaya lembut, ornamen bergeser berkedalaman (`--d`) dan berputar saat hover; ornamen membal masuk berurutan. Sentuh dan reduced-motion: diam. Kutipan ungu tetap tersedia sebagai pilihan lama.
 
 ### 4.8 Program: grid sel berborder (inti halaman)
 
@@ -528,7 +531,7 @@ Tinggi 64 px, menempel di dasar layar, menghormati `env(safe-area-inset-bottom)`
 ### Hero vibrant (opsi tweak, untuk pasar mahasiswa)
 
 Dua varian opsional di panel tweak "Layout hero"; default tetap Terpusat. Palet tidak bertambah: rasa "fun" datang dari proporsi ungu yang lebih luas, penanda stabilo, stiker, dan gerak.
-- **Panggung ungu:** latar `--purple`, foto di kanan dengan tepi kiri melengkung, bar fakta `--ink` yang menimpa tepi bawah hero, navbar transparan berlogo putih sampai pill muncul.
+- **Panggung ungu:** latar `--purple`, foto di kanan dengan tepi kiri melengkung, bar fakta `--ink` (teks `--t-body`) yang menimpa tepi bawah hero dan menyambung mulus ke section berikutnya tanpa garis pemisah, navbar transparan berlogo putih sampai pill muncul (hanya bila tweak navbar puncak = Transparan menimpa hero; bawaannya bar putih terpisah).
 - **Poster:** latar `--paper`, foto miring (-2,5°) di atas lingkaran `--purple`, fakta sebagai pil `--ink` yang sedikit miring.
 - Judul memakai kalimat hero yang ada; frasa "pengalaman 2 tahun?" ditandai (`--highlight` di atas Ungu, `--purple` di atas Kertas, teks berganti warna mengikuti sapuan). Catatan "#PengalamanPertama" dan stiker (bintang, burst, squiggle) murni dekoratif, `aria-hidden`.
 - Gerak hanya di mode Interaktif: stiker membal masuk sekali lalu bergeser mengikuti kursor, foto parallax tipis. Tanpa gerak berulang otomatis.
@@ -542,7 +545,7 @@ Dua varian opsional di panel tweak "Layout hero"; default tetap Terpusat. Palet 
 | 2 | Hero + panggung + strip bukti | 4.4, 4.5 | `--surface` | 1024, panggung 1320 |
 | 2b | Scareer itu apa | tweak "Apa itu scareer" | `--surface` | 1024 |
 | 3 | Kenapa Scareer: pernyataan dan pilar (varian Editorial: `--paper`) | 4.6, 4.7 | `--surface` | 1024 |
-| 4 | Masalah yang ingin diselesaikan (Lingkaran atau Dua sisi) | tweak "Masalah" | `--surface` | 1024 |
+| 4 | Masalah yang ingin diselesaikan (Siklus lingkaran bawaan, Garis lurus lama, atau Dua sisi) | tweak "Masalah" | `--surface` | 1024 |
 | 5 | **Program** (inti halaman) | 4.8, 4.12 | `--paper` | 1024 |
 | 5b | Kenapa Scareer: panel transparansi (opsional, disembunyikan secara bawaan) | 4.9 | `--ink` | 1024 |
 | 6 | Cara belajar (varian 4 kolom: `--surface`) | 4.11, 4.12 | `--paper` | 1024 |
@@ -602,7 +605,7 @@ Tujuan: homepage terasa modern dan hidup tanpa mengubah konten maupun layout. Ha
 | Hero | Headline muncul per kata. Foto panggung: parallax maksimal 24 px dan zoom-out 1,05 → 1. Kartu lowongan miring mengikuti kursor (maksimal 4°). Tombol: efek magnetik dan kilau halus. Kata berganti di `RotatingHeadline` bertransisi masuk dan keluar. | Muat halaman / scroll / hover |
 | Strip bukti | Sel muncul bertahap, garis tepi menyala sekilas | Masuk viewport |
 | Apa itu scareer | Tiga poin muncul bertahap, garis atas tiap poin tergambar lalu menebal dan menyala ungu saat hover | Masuk viewport / hover |
-| Masalah (lingkaran) | Garis penghubung tergambar mengikuti scroll, node menyala berurutan, panah "putus" dan panah kembali menggambar diri | Scroll |
+| Masalah (siklus lingkaran, 20 Okt 2026) | Empat langkah di cincin searah jarum jam dari jam 12 (teks di luar cincin di desktop, daftar bernomor di bawah cincin kecil di mobile). Busur ungu langkah 1 sampai 3 tergambar sekali (1,1 detik, ease masuk-keluar) begitu section menyentuh pita tengah layar, bukan terikat scroll; node dan panah menyala tepat saat busur sampai, sisanya putus-putus. Pil "scareer masuk di sini" dan panah keluar muncul di titik putus antara langkah 3 dan 4. Setelah penuh, satu titik mengorbit pelan. Tanpa baris "kembali ke langkah 1" karena cincin sudah menutup | Section di tengah layar |
 | Program | Kartu: foto zoom 1,04 dan sorotan tepi saat hover. Carousel: indikator progres. Chip: feedback tekan | Hover / scroll / tekan |
 | Kenapa scareer | Stabilo `<mark>` tersapu kiri ke kanan. Kartu kutipan ungu bereaksi halus ke kursor. Garis atas tiga pilar tergambar bertahap | Masuk viewport / hover |
 | Cara belajar | Garis penghubung antar-kolom terisi saat scroll, nomor langkah menyala berurutan | Scroll |

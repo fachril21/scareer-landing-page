@@ -9,7 +9,7 @@
 .hero--centered .hero__facts { justify-content: center; }
 
 /* Navbar transparan menimpa bagian atas hero, jadi hero memberi ruang setinggi navbar. */
-html[data-nav-style="floating"] .hero { padding-top: calc(var(--nav-h) + 56px); }
+html[data-nav-style="floating"]:not([data-nav-top="bar"]) .hero { padding-top: calc(var(--nav-h) + 56px); }
 @media (min-width: 1024px) {
-  html[data-nav-style="floating"] .hero { padding-top: calc(var(--nav-h) + 80px); }
+  html[data-nav-style="floating"]:not([data-nav-top="bar"]) .hero { padding-top: calc(var(--nav-h) + 80px); }
 }

@@ -129,6 +129,17 @@ html[data-nav-width="wide"] { --pill-max: 960px; }
 /* Menu mobile terbuka: area di atas panel harus solid supaya hero tidak tembus. */
 .nav--floating.nav--menu-open { background: var(--surface); pointer-events: auto; }
 
+/* Puncak homepage = bar putih di alur dokumen (hero mulai di bawahnya); makin discroll makin menyusut jadi pill glass.
+   Header memudar dari putih ke transparan dan hairline-nya ikut hilang, sementara inner berubah dari bar ke pill. Semua dari --nav-p. */
+.nav--floating.nav--bar-top {
+  margin-bottom: 0;
+  background: rgba(255, 255, 255, calc(1 - var(--nav-p)));
+  border-bottom-color: rgba(23, 24, 26, calc(0.1 * (1 - var(--nav-p))));
+  transition: none;
+}
+.nav--floating.nav--bar-top .nav__inner { border-radius: calc(var(--nav-p) * 28px); }
+.nav--floating.nav--bar-top.nav--menu-open { background: var(--surface); }
+
 /* ---------- Dropdown Program ---------- */
 .program-menu {
   position: absolute;

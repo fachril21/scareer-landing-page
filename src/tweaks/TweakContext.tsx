@@ -71,6 +71,7 @@ const withScope = (base: Tweaks, source: Tweaks, scope: TweakScope): Tweaks => {
 function applyAttributes(tweaks: Tweaks) {
   const root = document.documentElement.dataset
   root.navStyle = tweaks.navStyle
+  root.navTop = tweaks.navTop
   root.navBlur = tweaks.navBlur
   root.navWidth = tweaks.navWidth
   root.wordStyle = tweaks.wordStyle

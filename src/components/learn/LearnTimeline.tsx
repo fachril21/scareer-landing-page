@@ -13,10 +13,10 @@ export function LearnTimeline({ tone = 'paper' }: { tone?: 'paper' | 'surface' }
   const listRef = useRef<HTMLOListElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
   const interactive = useInteractiveMotion()
-  // --p (0 sampai 1) mengisi garis antar titik dan menyalakan titiknya mengikuti scroll.
-  useScrollProgress(listRef, interactive, { start: 0.85, end: 0.45 })
+  // --p (0 sampai 1) mengisi garis antar titik dan menyalakan titiknya mengikuti scroll; penuh saat atas daftar di 65% layar (sebelum section sampai di tengah).
+  useScrollProgress(listRef, interactive, { start: 1, endTop: 0.65 })
   // Stabilo di judul tersapu mengikuti scroll, sama seperti judul CTA penutup.
-  useScrollProgress(titleRef, interactive, { start: 0.95, end: 0.66, smooth: true })
+  useScrollProgress(titleRef, interactive, { start: 1, end: 0.85, smooth: true })
 
   return (
     <Section id="cara-belajar" tone={tone} labelledBy="learn-title">

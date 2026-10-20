@@ -8,7 +8,7 @@
   padding-top: 40px;
 }
 /* Navbar transparan menimpa bagian atas hero, jadi hero memberi ruang setinggi navbar. */
-html[data-nav-style="floating"] .hero-v { padding-top: calc(var(--nav-h) + 40px); }
+html[data-nav-style="floating"]:not([data-nav-top="bar"]) .hero-v { padding-top: calc(var(--nav-h) + 40px); }
 .hero-v__inner { display: grid; gap: 40px; }
 .hero-v__copy { position: relative; z-index: 1; }
 
@@ -117,6 +117,9 @@ html[data-nav-style="floating"] .hero-v { padding-top: calc(var(--nav-h) + 40px)
   color: var(--paper);
   translate: 0 50%;
 }
+.hero-v--stage .hero-v__fact { font-size: var(--t-body); }
+/* Garis atas section di bawah hero dihilangkan: kotak hitam menyambung mulus ke section berikutnya. */
+.hero-v--stage + .section { border-top: 0; }
 .hero-v--stage .hero-v__fact svg { flex: none; box-sizing: content-box; padding: 9px; border-radius: 10px; background: var(--ink-raised); color: var(--highlight); }
 
 @media (min-width: 1024px) {

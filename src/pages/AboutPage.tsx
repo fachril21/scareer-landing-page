@@ -23,7 +23,7 @@ export function AboutPage() {
         <AboutHero />
         <WhatIsScareer variant="definition" tone="paper" />
         <AboutVision />
-        <ProblemLoop variant="loop" />
+        <ProblemLoop variant="cycle" />
         <AboutContact />
       </main>
       <Footer />

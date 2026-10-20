@@ -17,11 +17,14 @@ export type Tweaks = {
   wordStyle: 'ungu' | 'stabilo' | 'lavender'
   wordLoop: 'infinite' | 'three'
   navStyle: 'original' | 'floating'
+  navTop: 'overlay' | 'bar'
   navBlur: 'low' | 'mid' | 'high'
   navWidth: 'compact' | 'wide'
   programLayout: 'grid' | 'carousel'
   whyLayout: 'original' | 'editorial'
   whyTilt: 'tilted' | 'straight'
+  /** Homepage Kenapa scareer (layout editorial): kartu kutipan ungu, atau foto dengan ornamen. */
+  whyCard: 'quote' | 'photo'
   whyPanel: 'hidden' | 'shown'
   /** Homepage Kenapa scareer (layout editorial): tiga pilar polos, atau kartu berwarna dengan ikon. */
   whyPillars: 'plain' | 'cards'
@@ -31,7 +34,7 @@ export type Tweaks = {
   faqSection: 'hidden' | 'shown'
   endLayout: 'original' | 'sheet'
   whatIs: 'hidden' | 'definition' | 'sentence'
-  problem: 'hidden' | 'loop' | 'sides'
+  problem: 'hidden' | 'cycle' | 'loop' | 'sides'
   pageOrder: 'story' | 'previous'
   /** Homepage: lapisan gerak (reveal bervariasi, progres scroll, efek kursor). Dasar = fade-up lama. */
   motion: 'basic' | 'interactive'
@@ -75,11 +78,13 @@ export const DEFAULT_TWEAKS: Tweaks = {
   wordStyle: 'ungu',
   wordLoop: 'infinite',
   navStyle: 'floating',
+  navTop: 'bar',
   navBlur: 'mid',
   navWidth: 'compact',
   programLayout: 'carousel',
   whyLayout: 'editorial',
   whyTilt: 'tilted',
+  whyCard: 'photo',
   whyPanel: 'hidden',
   whyPillars: 'cards',
   learnLayout: 'timeline',
@@ -88,7 +93,7 @@ export const DEFAULT_TWEAKS: Tweaks = {
   faqSection: 'hidden',
   endLayout: 'sheet',
   whatIs: 'hidden',
-  problem: 'loop',
+  problem: 'cycle',
   pageOrder: 'story',
   motion: 'interactive',
   heroJobs: 'static',
@@ -172,6 +177,14 @@ export const NAV_GROUPS = [
     ],
   },
   {
+    key: 'navTop',
+    title: 'Navbar di puncak homepage',
+    options: [
+      { value: 'overlay', label: 'Transparan menimpa hero (lama)' },
+      { value: 'bar', label: 'Bar putih terpisah (bawaan)' },
+    ],
+  },
+  {
     key: 'navBlur',
     title: 'Blur pill',
     options: [
@@ -219,8 +232,16 @@ export const WHY_GROUPS = [
     ],
   },
   {
+    key: 'whyCard',
+    title: 'Kartu di samping judul (layout editorial)',
+    options: [
+      { value: 'quote', label: 'Kutipan ungu (lama)' },
+      { value: 'photo', label: 'Foto + ornamen (bawaan)' },
+    ],
+  },
+  {
     key: 'whyTilt',
-    title: 'Kartu ungu (layout editorial)',
+    title: 'Kemiringan kartu kutipan (layout editorial)',
     options: [
       { value: 'tilted', label: 'Miring' },
       { value: 'straight', label: 'Lurus' },
@@ -315,7 +336,8 @@ export const PROBLEM_GROUPS = [
     title: 'Section masalah (di bawah Kenapa scareer)',
     options: [
       { value: 'hidden', label: 'Sembunyikan' },
-      { value: 'loop', label: 'Lingkaran' },
+      { value: 'cycle', label: 'Siklus lingkaran (bawaan)' },
+      { value: 'loop', label: 'Garis lurus (lama)' },
       { value: 'sides', label: 'Dua sisi' },
     ],
   },

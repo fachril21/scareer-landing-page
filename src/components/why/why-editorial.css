@@ -176,3 +176,83 @@ html[data-motion="interactive"] .why-ed__pillars--cards .why-ed__pillar::before 
   /* Layar sentuh: kartu menekan sedikit saat disentuh. */
   .why-pc:active { transform: scale(0.985); transition-duration: var(--dur-press); }
 }
+
+/* ---------- Foto + ornamen (tweak "Kartu di samping judul") ---------- */
+.why-photo { --tilt: -1deg; position: relative; margin: 0; transform: rotate(var(--tilt)); }
+@media (min-width: 1024px) { .why-photo { --tilt: -1.5deg; } }
+html[data-why-tilt="straight"] .why-photo { --tilt: 0deg; }
+
+.why-photo__frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--r-panel);
+  background: var(--lavender);
+  box-shadow: 0 18px 40px -18px rgba(94, 22, 209, 0.55);
+}
+.why-photo__img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; }
+
+/* Ornamen: bentuk yang sama dengan hero, menempel di sudut dan sedikit keluar dari tepi foto. */
+.why-st { position: absolute; z-index: 2; pointer-events: none; }
+.why-st--a { width: 44px; top: -14px; left: 6%; rotate: -8deg; --d: 18; }
+.why-st--b { width: 52px; bottom: 12%; right: -10px; rotate: 12deg; --d: -14; }
+.why-st--c { width: 88px; top: -12px; right: 10%; rotate: 6deg; --d: 10; }
+.why-st--d { width: 28px; bottom: 30%; left: 2px; rotate: 14deg; --d: -20; }
+@media (min-width: 1024px) {
+  .why-st--a { width: 56px; top: -20px; left: 8%; }
+  .why-st--b { width: 68px; right: -22px; }
+  .why-st--c { width: 112px; top: -16px; }
+  .why-st--d { width: 36px; left: -16px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Ornamen membal masuk berurutan saat foto terlihat. */
+  @keyframes why-st-pop {
+    0% { scale: 0.2; opacity: 0; }
+    60% { scale: 1.14; opacity: 1; }
+    100% { scale: 1; }
+  }
+  html[data-motion="interactive"] .why-photo:not(.is-seen) .why-st { opacity: 0; }
+  html[data-motion="interactive"] .why-photo.is-seen .why-st { animation: why-st-pop 600ms var(--ease-out) backwards; }
+  html[data-motion="interactive"] .why-photo.is-seen .why-st--a { animation-delay: 300ms; }
+  html[data-motion="interactive"] .why-photo.is-seen .why-st--b { animation-delay: 420ms; }
+  html[data-motion="interactive"] .why-photo.is-seen .why-st--c { animation-delay: 540ms; }
+  html[data-motion="interactive"] .why-photo.is-seen .why-st--d { animation-delay: 660ms; }
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  /* Kartu miring 3D mengikuti kursor, lalu lurus lagi saat kursor keluar. */
+  html[data-motion="interactive"] .why-photo {
+    transform: perspective(1000px) rotateX(calc(var(--ty, 0) * -5deg)) rotateY(calc(var(--tx, 0) * 6deg)) rotate(var(--tilt));
+    transition: transform 400ms var(--ease-out);
+  }
+  /* Foto zoom dan bergeser berlawanan arah kursor, jadi terasa berlapis di dalam bingkai. */
+  html[data-motion="interactive"] .why-photo__img {
+    scale: 1.12;
+    translate: calc(var(--tx, 0) * -12px) calc(var(--ty, 0) * -10px);
+    transition: translate 300ms var(--ease-out);
+  }
+  /* Sorot cahaya lembut mengikuti kursor. */
+  html[data-motion="interactive"] .why-photo__frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      340px circle at calc((var(--tx, 0) + 1) * 50%) calc((var(--ty, 0) + 1) * 50%),
+      rgba(255, 255, 255, 0.22),
+      transparent 70%
+    );
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 300ms var(--ease-out);
+  }
+  html[data-motion="interactive"] .why-photo:hover .why-photo__frame::after { opacity: 1; }
+  /* Ornamen bergeser dengan kedalaman berbeda (--d); sparkle dan burst berputar saat kartu di-hover. */
+  html[data-motion="interactive"] .why-st {
+    translate: calc(var(--tx, 0) * var(--d, 10) * 1px) calc(var(--ty, 0) * var(--d, 10) * 1px);
+    transition: translate 500ms var(--ease-out), rotate 600ms var(--ease-out);
+  }
+  html[data-motion="interactive"] .why-photo:hover .why-st--a { rotate: 20deg; }
+  html[data-motion="interactive"] .why-photo:hover .why-st--d { rotate: -30deg; }
+  html[data-motion="interactive"] .why-photo:hover .why-st--b { rotate: 36deg; }
+}

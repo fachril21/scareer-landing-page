@@ -45,12 +45,14 @@ export function Navbar() {
   const floating = tweaks.navStyle === 'floating'
   useNavProgress(headerRef, floating)
   // Hero vibrant panggung berlatar ungu: navbar transparan memakai logo dan teks terang sampai pill muncul.
-  const onHeroInk = floating && onHome && tweaks.heroLayout === 'vibrant-stage'
+  const barTop = floating && onHome && tweaks.navTop === 'bar'
+  const onHeroInk = floating && onHome && !barTop && tweaks.heroLayout === 'vibrant-stage'
   const navClass = [
     'nav',
     scrolled && 'nav--scrolled',
     floating && 'nav--floating',
     floating && mobileOpen && 'nav--menu-open',
+    barTop && 'nav--bar-top',
     onHeroInk && 'nav--on-hero-ink',
   ]
     .filter(Boolean)

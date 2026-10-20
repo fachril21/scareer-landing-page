@@ -1,0 +1,165 @@
+/*
+ * Section masalah, gaya "Siklus lingkaran" (tweak "Section masalah", bawaan).
+ * Empat langkah di cincin searah jarum jam dari jam 12. Busur ungu (1 sampai 3) menggambar diri sekali saat section di tengah layar, sisanya putus-putus
+ * karena di titik itu scareer memutus siklus. Mobile dan tablet: cincin kecil lalu daftar langkah bernomor.
+ * Tanpa mode Interaktif cincin tampil penuh dan diam; gerak Interaktif auto-play sekali saat section di tengah layar.
+ */
+.cyc { display: grid; gap: 32px; margin-top: 48px; }
+
+/* ---------- Cincin ---------- */
+.cyc__ring { position: relative; width: min(100%, 260px); aspect-ratio: 1; margin-inline: auto; }
+.cyc__svg { display: block; width: 100%; height: 100%; overflow: visible; }
+
+.cyc__track { fill: none; stroke: var(--border-control); stroke-width: 2; stroke-dasharray: 1 1.2; }
+.cyc__arc { fill: none; stroke: var(--purple); stroke-width: 3; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.cyc__chev { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.cyc__chev--on { stroke: var(--purple); }
+.cyc__chev--off { stroke: var(--text-secondary); }
+.cyc__exit { fill: none; stroke: var(--purple); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+.cyc__node-bg { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+.cyc__node--off .cyc__node-bg { stroke: var(--text-secondary); }
+.cyc__node-fill {
+  fill: var(--purple);
+  opacity: var(--lit, 1);
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(calc(0.4 + var(--lit, 1) * 0.6));
+}
+.cyc__node-num {
+  fill: color-mix(in srgb, #fff calc(var(--lit, 1) * 100%), var(--ink));
+  font-family: var(--f-display);
+  font-size: 15px;
+  font-weight: 800;
+}
+.cyc__node--off .cyc__node-num { fill: var(--text-secondary); }
+
+.cyc__orbit { display: none; }
+.cyc__core { position: absolute; inset: 0; margin: auto; color: var(--purple-light); opacity: 0.55; }
+
+/* Pil dan panah keluar hanya di desktop; di mobile pil jadi chip di bawah langkah 3. */
+.cyc__pill, .cyc__exit { display: none; }
+
+/* ---------- Langkah ---------- */
+.cyc__steps { display: grid; gap: 24px; }
+.cyc__step { display: grid; gap: 6px; align-content: start; padding-left: 48px; position: relative; }
+.cyc__step h3 { font-size: var(--t-h3); }
+.cyc__step p { color: var(--text-secondary); max-width: 34ch; }
+.cyc__num {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  font-family: var(--f-display);
+  font-size: var(--t-small);
+  font-weight: 800;
+}
+.cyc__step--4 .cyc__num { border-color: var(--text-secondary); color: var(--text-secondary); }
+.cyc__step:not(.cyc__step--4) .cyc__num { background: var(--purple); border-color: var(--purple); color: #fff; }
+.cyc__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: start;
+  margin-top: 10px;
+  padding: 6px 14px;
+  border-radius: var(--r-pill);
+  background: var(--purple);
+  color: #fff;
+  font-size: var(--t-small);
+  font-weight: 600;
+}
+
+/* ---------- Desktop: teks mengelilingi cincin ---------- */
+@media (min-width: 1024px) {
+  .cyc {
+    grid-template-columns: 1fr 340px 1fr;
+    grid-template-rows: auto auto auto;
+    align-items: center;
+    gap: 24px 40px;
+    margin-top: 64px;
+  }
+  .cyc__ring { grid-area: 2 / 2; width: 340px; }
+  .cyc__steps { display: contents; }
+  .cyc__step { padding-left: 0; gap: 8px; }
+  .cyc__num { display: none; }
+  .cyc__step--1 { grid-area: 1 / 2; text-align: center; justify-items: center; }
+  .cyc__step--2 { grid-area: 2 / 3; }
+  .cyc__step--3 { grid-area: 3 / 2; text-align: center; justify-items: center; }
+  .cyc__step--4 { grid-area: 2 / 1; text-align: right; justify-items: end; }
+  .cyc__node-num { font-size: 16px; }
+
+  /* Chip di daftar tetap terbaca pembaca layar, tapi tampil sebagai pil di cincin. */
+  .cyc__chip { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); padding: 0; margin: 0; white-space: nowrap; }
+  .cyc__exit { display: block; }
+  .cyc__pill {
+    position: absolute;
+    top: 298px;
+    right: calc(100% - 6px);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: var(--r-pill);
+    background: var(--purple);
+    color: #fff;
+    font-size: var(--t-small);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+}
+
+/* ---------- Gerak Interaktif: jalan sekali saat section di tengah layar (.is-seen) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Keadaan awal: busur kosong, node padam, pil belum muncul. */
+  html[data-motion="interactive"] .cyc:not(.is-seen) .cyc__arc { stroke-dashoffset: 1; }
+  html[data-motion="interactive"] .cyc__node { --lit: 0; }
+  html[data-motion="interactive"] .cyc__node--off { --lit: 1; }
+  html[data-motion="interactive"] .cyc:not(.is-seen) .cyc__chev--on,
+  html[data-motion="interactive"] .cyc:not(.is-seen) .cyc__pill,
+  html[data-motion="interactive"] .cyc:not(.is-seen) .cyc__exit,
+  html[data-motion="interactive"] .cyc:not(.is-seen) .cyc__orbit { opacity: 0; }
+
+  /* Busur tergambar 1100 ms (ease masuk-keluar) dari jam 12 ke jam 6; node dan panah menyala tepat saat busur sampai. */
+  html[data-motion="interactive"] .cyc.is-seen .cyc__arc { transition: stroke-dashoffset 1100ms cubic-bezier(0.4, 0, 0.2, 1); }
+  html[data-motion="interactive"] .cyc.is-seen .cyc__node:not(.cyc__node--off) { --lit: 1; }
+  html[data-motion="interactive"] .cyc__node-fill,
+  html[data-motion="interactive"] .cyc__node-num {
+    transition: opacity 250ms var(--ease-out), transform 300ms var(--ease-out), fill 250ms var(--ease-out);
+    transition-delay: var(--nd, 0ms);
+  }
+  html[data-motion="interactive"] .cyc__node--2 { --nd: 450ms; }
+  html[data-motion="interactive"] .cyc__node--3 { --nd: 1000ms; }
+  html[data-motion="interactive"] .cyc__chev--on { transition: opacity 250ms var(--ease-out) var(--cd, 0ms); }
+
+  /* Setelah busur sampai: pil dan panah keluar muncul, lalu satu titik mengorbit pelan (siklus terus berulang). */
+  html[data-motion="interactive"] .cyc__pill,
+  html[data-motion="interactive"] .cyc__exit { transition: opacity 350ms var(--ease-out) 1150ms; }
+  html[data-motion="interactive"] .cyc__pill { transform-origin: right center; }
+  html[data-motion="interactive"] .cyc:not(.is-seen) .cyc__pill { scale: 0.9; }
+  html[data-motion="interactive"] .cyc.is-seen .cyc__pill { scale: 1; transition: opacity 350ms var(--ease-out) 1150ms, scale 450ms var(--ease-out) 1150ms; }
+  html[data-motion="interactive"] .cyc__orbit {
+    display: block;
+    transform-origin: 170px 170px;
+    transition: opacity 300ms var(--ease-out) 1450ms;
+  }
+  html[data-motion="interactive"] .cyc.is-seen .cyc__orbit { animation: cyc-orbit 14s linear 1450ms infinite backwards; }
+  @keyframes cyc-orbit { to { transform: rotate(360deg); } }
+  html[data-motion="interactive"] .cyc__orbit circle { fill: var(--ink); }
+
+  html[data-motion="interactive"] .cyc__step h3 { transition: color var(--dur-fast) var(--ease-out); }
+  html[data-motion="interactive"] .cyc__node-bg { transform-box: fill-box; transform-origin: center; transition: transform var(--dur-fast) var(--ease-out); }
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .cyc__step:hover h3 { color: var(--purple); }
+  .cyc:has(.cyc__step--1:hover) .cyc__node--1 .cyc__node-bg,
+  .cyc:has(.cyc__step--2:hover) .cyc__node--2 .cyc__node-bg,
+  .cyc:has(.cyc__step--3:hover) .cyc__node--3 .cyc__node-bg,
+  .cyc:has(.cyc__step--4:hover) .cyc__node--4 .cyc__node-bg { transform: scale(1.18); }
+}

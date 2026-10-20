@@ -1,4 +1,6 @@
 import { Section } from '../layout/Section'
+import { Photo } from '../ui/Primitives'
+import { Burst, Sparkle, Squiggle } from '../hero/HeroStickers'
 import { Doodle, type DoodleName } from './Doodles'
 import { WHY } from '../../content/content'
 import { useTweaks } from '../../tweaks/TweakContext'
@@ -9,13 +11,56 @@ import './why-editorial.css'
 
 const { editorial: e } = WHY
 
+/** Kartu kutipan ungu (varian lama). Kartu terlihat: stabilo tersapu. Kursor di atas kartu: cahaya mengikuti (--tx, --ty). */
+function WhyQuoteCard({ interactive }: { interactive: boolean }) {
+  const [cardRef, seen] = useInViewOnce<HTMLQuoteElement>(0.5)
+  usePointerTilt(cardRef, interactive)
+  return (
+    <blockquote ref={cardRef} className={`why-ed__card${seen ? ' is-seen' : ''}`}>
+      <p>
+        “
+        {e.quote.map((part, i) =>
+          'mark' in part ? (
+            <mark key={i} className="why-ed__mark">{part.text}</mark>
+          ) : (
+            <span key={i}>{part.text}</span>
+          ),
+        )}
+        ”
+      </p>
+    </blockquote>
+  )
+}
+
+/** Foto dengan ornamen ala hero. Kursor menggerakkan miring, geser foto, sorot cahaya, dan ornamen (--tx, --ty). */
+function WhyPhotoCard({ interactive }: { interactive: boolean }) {
+  const [ref, seen] = useInViewOnce<HTMLDivElement>(0.35)
+  usePointerTilt(ref, interactive)
+  return (
+    <div ref={ref} className={`why-photo${seen ? ' is-seen' : ''}`}>
+      <div className="why-photo__frame">
+        <Photo
+          name="learn-mentor-session"
+          alt="Mentor mendampingi dua peserta belajar di depan laptop."
+          width={2400}
+          height={1792}
+          sizes="(min-width: 1024px) 540px, 90vw"
+          className="why-photo__img"
+        />
+      </div>
+      <Sparkle className="why-st why-st--a" />
+      <Burst className="why-st why-st--b" fill="var(--purple)" />
+      <Squiggle className="why-st why-st--c" stroke="var(--purple)" />
+      <Sparkle className="why-st why-st--d" fill="var(--purple-light)" />
+    </div>
+  )
+}
+
 /** Varian layout "Kenapa scareer": heading + kartu kutipan ungu, lalu tiga pilar bertingkat. */
 export function WhyEditorial() {
   const interactive = useInteractiveMotion()
-  const cards = useTweaks().tweaks.whyPillars === 'cards'
-  // Kartu terlihat: stabilo tersapu. Kursor di atas kartu: cahaya mengikuti (--tx, --ty).
-  const [cardRef, seen] = useInViewOnce<HTMLQuoteElement>(0.5)
-  usePointerTilt(cardRef, interactive)
+  const { tweaks } = useTweaks()
+  const cards = tweaks.whyPillars === 'cards'
 
   return (
     <Section id="kenapa-scareer" tone="paper" labelledBy="kenapa-title">
@@ -26,19 +71,7 @@ export function WhyEditorial() {
           </h2>
           <p className="why-ed__lead">{e.lead}</p>
         </div>
-        <blockquote ref={cardRef} className={`why-ed__card${seen ? ' is-seen' : ''}`}>
-          <p>
-            “
-            {e.quote.map((part, i) =>
-              'mark' in part ? (
-                <mark key={i} className="why-ed__mark">{part.text}</mark>
-              ) : (
-                <span key={i}>{part.text}</span>
-              ),
-            )}
-            ”
-          </p>
-        </blockquote>
+        {tweaks.whyCard === 'photo' ? <WhyPhotoCard interactive={interactive} /> : <WhyQuoteCard interactive={interactive} />}
       </div>
 
       <ul className={`why-ed__pillars${cards ? ' why-ed__pillars--cards' : ''}`} data-reveal-group="">

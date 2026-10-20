@@ -7,6 +7,11 @@ interface Range {
   start?: number
   /** Posisi bawah elemen (pecahan tinggi viewport) saat progres 1. */
   end?: number
+  /**
+   * Alternatif `end`: progres 1 saat sisi ATAS elemen mencapai posisi ini (pecahan tinggi viewport).
+   * Tidak bergantung pada tinggi elemen, jadi titik selesainya sama di desktop dan mobile.
+   */
+  endTop?: number
   /** Nilai `--p` menyusul posisi scroll dengan easing, bukan melompat tiap event scroll. */
   smooth?: boolean
 }
@@ -23,7 +28,7 @@ const SETTLE_EPSILON = 0.0006
 export function useScrollProgress<T extends HTMLElement>(
   ref: RefObject<T | null>,
   enabled: boolean,
-  { start = 0.8, end = 0.6, smooth = false }: Range = {},
+  { start = 0.8, end = 0.6, endTop, smooth = false }: Range = {},
 ) {
   useLayoutEffect(() => {
     const el = ref.current
@@ -46,7 +51,8 @@ export function useScrollProgress<T extends HTMLElement>(
       frame = 0
       const { top, height } = el.getBoundingClientRect()
       const vh = window.innerHeight
-      const target = clamp01((vh * start - top) / (height + vh * (start - end)))
+      const span = endTop === undefined ? height + vh * (start - end) : vh * (start - endTop)
+      const target = clamp01((vh * start - top) / span)
       if (!smooth || shown === null) {
         write(target)
         return
@@ -83,5 +89,5 @@ export function useScrollProgress<T extends HTMLElement>(
       if (frame) window.cancelAnimationFrame(frame)
       el.style.removeProperty('--p')
     }
-  }, [ref, enabled, start, end, smooth])
+  }, [ref, enabled, start, end, endTop, smooth])
 }
