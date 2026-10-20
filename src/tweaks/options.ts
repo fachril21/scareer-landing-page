@@ -18,6 +18,8 @@ export type Tweaks = {
   wordLoop: 'infinite' | 'three'
   navStyle: 'original' | 'floating'
   navTop: 'overlay' | 'bar'
+  /** Dropdown Program di navbar: daftar teks, atau kartu berikon. */
+  programMenu: 'list' | 'cards'
   navBlur: 'low' | 'mid' | 'high'
   navWidth: 'compact' | 'wide'
   programLayout: 'grid' | 'carousel'
@@ -79,6 +81,7 @@ export const DEFAULT_TWEAKS: Tweaks = {
   wordLoop: 'infinite',
   navStyle: 'floating',
   navTop: 'bar',
+  programMenu: 'cards',
   navBlur: 'mid',
   navWidth: 'compact',
   programLayout: 'carousel',
@@ -182,6 +185,14 @@ export const NAV_GROUPS = [
     options: [
       { value: 'overlay', label: 'Transparan menimpa hero (lama)' },
       { value: 'bar', label: 'Bar putih terpisah (bawaan)' },
+    ],
+  },
+  {
+    key: 'programMenu',
+    title: 'Dropdown Program',
+    options: [
+      { value: 'list', label: 'Daftar teks (lama)' },
+      { value: 'cards', label: 'Kartu ikon (bawaan)' },
     ],
   },
   {

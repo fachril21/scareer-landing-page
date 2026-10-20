@@ -171,6 +171,88 @@ html[data-nav-width="wide"] { --pill-max: 960px; }
   .program-menu__list a:hover { background: var(--paper); }
 }
 
+/* ---------- Dropdown Program: kartu (tweak "Dropdown Program") ---------- */
+.program-menu--cards {
+  top: calc(100% + 10px);
+  left: -16px;
+  width: 400px;
+  padding: 10px;
+  box-shadow: 0 22px 44px -22px rgba(94, 22, 209, 0.35), 0 4px 12px rgba(23, 24, 26, 0.08);
+  /* Disembunyikan lewat visibility (bukan display) supaya penutupan bisa dianimasikan. */
+  visibility: hidden;
+  opacity: 0;
+  translate: 0 6px;
+  pointer-events: none;
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    translate var(--dur-base) var(--ease-out),
+    visibility 0s linear var(--dur-base);
+}
+.program-menu--cards[data-open="true"] {
+  visibility: visible;
+  opacity: 1;
+  translate: 0 0;
+  pointer-events: auto;
+  transition-delay: 0s;
+  animation: none;
+}
+/* Jembatan hover: kursor tidak "putus" saat menyeberangi celah antara tombol dan panel. */
+.program-menu--cards::before { content: ""; position: absolute; inset: -12px 0 auto 0; height: 12px; }
+
+/* Selektor dilipat dengan .program-menu: .nav__menu ul (flex) lebih spesifik daripada kelas tunggal. */
+.program-menu .program-menu__cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pm-card {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  padding: 14px;
+  border: var(--hairline);
+  border-radius: var(--r-media);
+  background: var(--surface);
+  color: var(--ink);
+  text-decoration: none;
+  transition:
+    translate var(--dur-base) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+.pm-card:focus-visible { outline: none; box-shadow: var(--ring-primary); }
+.pm-card__top { display: flex; align-items: center; justify-content: space-between; }
+.pm-card__icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--lavender);
+  color: var(--purple);
+}
+.pm-card__name { font-family: var(--f-display); font-size: 1.0625rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }
+.pm-card__go {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: var(--text-secondary);
+  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), translate var(--dur-base) var(--ease-out);
+}
+.pm-card:active { scale: 0.98; transition-duration: var(--dur-press); }
+
+@media (hover: hover) {
+  .pm-card:hover { translate: 0 -2px; border-color: var(--purple); background: var(--paper); }
+  .pm-card:hover .pm-card__go { background: var(--purple); color: #fff; translate: 2px 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes pm-card-in { from { opacity: 0; translate: 0 8px; } }
+  .program-menu--cards[data-open="true"] li { animation: pm-card-in 300ms var(--ease-out) calc(60ms + var(--i, 0) * 40ms) backwards; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .program-menu--cards, .pm-card, .pm-card__go { transition: none; }
+}
+
 /* ---------- Menu mobile ---------- */
 .mobile-menu {
   position: fixed;

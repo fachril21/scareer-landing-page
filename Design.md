@@ -242,7 +242,7 @@ Rata kiri adalah default. **Dua pengecualian rata tengah:** kalimat pernyataan d
 
 - Tinggi 64 px, latar `--surface`, garis bawah 1 px `--border`, lebar isi 1320 px. Sticky.
 - Menu di **tengah**, dengan chevron pada Program. Kanan: tombol outline (WhatsApp) dan tombol terisi merah (Lihat program), tinggi 40 px.
-- Dropdown Program berupa panel putih (mega menu sederhana): daftar program dalam 2 kolom (maksimal 8 item) dan tautan "Lihat semua program".
+- Dropdown Program (tweak "Dropdown Program", bawaan Kartu ikon): panel putih selebar isi (400 px) berisi dua kartu program bersisian, tanpa foto. Tiap kartu: kotak ikon lavender (ShieldCheck, BarChart3), panah kecil di kanan atas, dan nama program. Hover: kartu naik 2 px, border ungu, panah terisi ungu. Panel disembunyikan lewat visibility dan muncul fade + naik 6 px dengan kartu masuk berurutan. Tidak ada tautan "Lihat semua program" (hanya dua program). Pilihan lama: daftar teks.
 - Mobile: logo dan tombol menu. Menu membuka panel penuh dengan item setinggi 56 px dan tombol WhatsApp di dasar.
 - **Puncak homepage (tweak "Navbar di puncak homepage", bawaan Bar putih terpisah):** di scroll 0 navbar adalah bar putih selebar layar di alur dokumen dengan hairline `--border`, hero mulai di bawahnya (tidak menimpa). Makin discroll (96 px) bar menyusut kontinu jadi pill glass: latar header memudar ke transparan, radius, lebar, border, dan blur naik bersama `--nav-p`. Tinggi tetap 64 px, jadi tanpa layout shift. Halaman lain tetap transparan lalu pill.
 
