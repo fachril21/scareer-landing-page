@@ -99,7 +99,7 @@ export const DEFAULT_TWEAKS: Tweaks = {
   heroJobs: 'refresh',
   vibrantJobCard: 'on',
   programFinder: 'off',
-  pricingLayout: 'glass',
+  pricingLayout: 'aligned',
   programHeroLayout: 'split',
   whyUsLayout: 'bento',
   curriculumLayout: 'timeline',
