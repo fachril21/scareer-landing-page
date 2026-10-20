@@ -1,6 +1,6 @@
-import { useEffect, useLayoutEffect, useSyncExternalStore, type ReactNode } from 'react'
+import { useEffect, useLayoutEffect, useRef, useSyncExternalStore, type ReactNode } from 'react'
 import { scrollTargetFor, scrollToElement } from '../lib/scrollTo'
-import { navigateFromProgramCard } from '../lib/viewTransition'
+import { navigateBackToProgramCard, navigateFromProgramCard } from '../lib/viewTransition'
 
 /**
  * Router kecil untuk dua rute (`/` dan `/program/:slug`). Tidak ada dependensi baru.
@@ -8,6 +8,8 @@ import { navigateFromProgramCard } from '../lib/viewTransition'
  */
 
 const NAV_EVENT = 'scareer:navigate'
+/** Slug program dari jalur halaman detail, atau null di rute lain. */
+const PROGRAM_PATH = /^\/program\/([^/]+)\/?$/
 
 interface Location {
   pathname: string
@@ -29,11 +31,9 @@ function refresh() {
 }
 
 function subscribe(onChange: () => void) {
-  window.addEventListener('popstate', onChange)
   window.addEventListener('hashchange', onChange)
   window.addEventListener(NAV_EVENT, onChange)
   return () => {
-    window.removeEventListener('popstate', onChange)
     window.removeEventListener('hashchange', onChange)
     window.removeEventListener(NAV_EVENT, onChange)
   }
@@ -112,6 +112,11 @@ interface RouterProps {
  */
 export function Router({ children }: RouterProps) {
   const { pathname, hash } = useLocation()
+  // Rute yang sedang tampil di layar (bukan URL terbaru): dasar transisi saat tombol Kembali ditekan.
+  const shownPath = useRef(pathname)
+  useLayoutEffect(() => {
+    shownPath.current = pathname
+  }, [pathname])
 
   useEffect(() => {
     window.history.scrollRestoration = 'manual'
@@ -135,11 +140,25 @@ export function Router({ children }: RouterProps) {
       keepScrollOnce = a.hasAttribute('data-keep-scroll')
       const go = () => navigate(a.pathname + a.search + a.hash)
       const card = a.closest<HTMLElement>('.cell')
+      const fromSlug = PROGRAM_PATH.exec(shownPath.current)?.[1]
       if (card) navigateFromProgramCard(card, go)
+      else if (fromSlug && a.pathname === '/') navigateBackToProgramCard(fromSlug, go)
       else go()
     }
+    // Tombol Kembali: satu-satunya pendengar popstate untuk store rute (subscribe tidak mendengarnya), jadi dari
+    // halaman detail ke homepage transisi foto bisa dimulai sebelum React merender, bukan render dulu lalu transisi
+    // tanpa keadaan awal.
+    const onPopState = () => {
+      const fromSlug = PROGRAM_PATH.exec(shownPath.current)?.[1]
+      if (fromSlug && readLocation().pathname === '/') navigateBackToProgramCard(fromSlug, refresh)
+      else refresh()
+    }
     document.addEventListener('click', onClick)
-    return () => document.removeEventListener('click', onClick)
+    window.addEventListener('popstate', onPopState)
+    return () => {
+      document.removeEventListener('click', onClick)
+      window.removeEventListener('popstate', onPopState)
+    }
   }, [])
 
   // Gulir setelah halaman baru dirender (sebelum dilukis, supaya tidak berkedip dari atas).

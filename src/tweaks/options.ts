@@ -25,7 +25,7 @@ export type Tweaks = {
   programLayout: 'grid' | 'carousel'
   whyLayout: 'original' | 'editorial'
   whyTilt: 'tilted' | 'straight'
-  /** Homepage Kenapa scareer (layout editorial): kartu kutipan ungu, atau foto dengan ornamen. */
+  /** Homepage Kenapa scareer (layout editorial): kartu kutipan, atau foto dengan ornamen. */
   whyCard: 'quote' | 'photo'
   whyPanel: 'hidden' | 'shown'
   /** Homepage Kenapa scareer (layout editorial): tiga pilar polos, atau kartu berwarna dengan ikon. */
@@ -122,7 +122,7 @@ export const HERO_GROUPS = [
     options: [
       { value: 'original', label: 'Original' },
       { value: 'centered', label: 'Terpusat (bawaan)' },
-      { value: 'vibrant-stage', label: 'Vibrant: panggung ungu' },
+      { value: 'vibrant-stage', label: 'Vibrant: panggung merah' },
       { value: 'vibrant-poster', label: 'Vibrant: poster' },
     ],
   },
@@ -139,9 +139,9 @@ export const HERO_GROUPS = [
     key: 'wordStyle',
     title: 'Gaya sorotan kata',
     options: [
-      { value: 'ungu', label: 'Teks ungu' },
+      { value: 'ungu', label: 'Teks merah' },
       { value: 'stabilo', label: 'Stabilo' },
-      { value: 'lavender', label: 'Lavender' },
+      { value: 'lavender', label: 'Putih Tulang' },
     ],
   },
   {
@@ -246,7 +246,7 @@ export const WHY_GROUPS = [
     key: 'whyCard',
     title: 'Kartu di samping judul (layout editorial)',
     options: [
-      { value: 'quote', label: 'Kutipan ungu (lama)' },
+      { value: 'quote', label: 'Kutipan (lama)' },
       { value: 'photo', label: 'Foto + ornamen (bawaan)' },
     ],
   },
@@ -397,7 +397,7 @@ export const PROGRAM_HERO_GROUPS = [
     title: 'Layout hero',
     options: [
       { value: 'original', label: 'Original (foto lebar)' },
-      { value: 'split', label: 'Terbelah + panel ungu' },
+      { value: 'split', label: 'Terbelah + panel merah' },
     ],
   },
 ] as const satisfies readonly TweakGroup<keyof Tweaks>[]
@@ -460,7 +460,7 @@ export const JOURNEY_GROUPS = [
     title: 'Fase tujuan akhir',
     options: [
       { value: 'plain', label: 'Sama seperti fase lain' },
-      { value: 'highlight', label: 'Kotak pembeda (ungu + pil kuning)' },
+      { value: 'highlight', label: 'Kotak pembeda (merah + pil kuning)' },
     ],
   },
 ] as const satisfies readonly TweakGroup<keyof Tweaks>[]

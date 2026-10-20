@@ -41,11 +41,13 @@
 .pcell__actions .btn--lg { width: 100%; white-space: normal; text-align: center; }
 .pcell__actions .btn--link { justify-content: center; min-height: 44px; }
 
-/* Paket yang direkomendasikan: satu-satunya sel berwarna. Teks sekunder memakai Paper penuh (abu tidak cukup kontras di atas ungu). */
-.pcell--rec { --t-fg: #fff; --t-fg2: var(--paper); --t-line: rgba(245, 245, 240, 0.3); background: var(--purple); color: #fff; }
-.pcell--rec .pcell__name { border-color: rgba(245, 245, 240, 0.45); }
-.on-ink .pcell :focus-visible { outline-color: var(--purple-light); }
-.on-ink .pcell--rec :focus-visible { outline-color: var(--paper); }
+/* Paket yang direkomendasikan: satu-satunya sel berwarna. Kuning dengan teks Ink (paragraf tidak boleh di atas Merah Nyala). */
+.pcell--rec { --t-fg: var(--ink); --t-fg2: color-mix(in srgb, var(--ink) 80%, transparent); --t-line: rgba(23, 24, 26, 0.25); background: var(--highlight); color: var(--ink); }
+.pcell--rec .pcell__name { border-color: rgba(23, 24, 26, 0.45); }
+.pcell--rec .btn--link { color: var(--ink); }
+.pcell--rec .pcell__rec { background: var(--ink); color: var(--highlight); }
+.on-ink .pcell :focus-visible { outline-color: var(--highlight); }
+.on-ink .pcell--rec :focus-visible { outline-color: var(--ink); }
 
 /* Mobile: sel ditumpuk, tanpa subgrid */
 @media (max-width: 767px) {
@@ -74,7 +76,7 @@
 .ptable__mark svg { display: block; }
 .ptable__cta { padding-block: 20px 24px; }
 .ptable__cta .btn { width: 100%; white-space: normal; text-align: center; }
-.ptable .is-rec { background: var(--lavender); }
+.ptable .is-rec { background: var(--paper); }
 .ptable tfoot td { border-top: 1px solid var(--t-line); }
 @media (max-width: 639px) {
   .ptable th, .ptable td { padding: 12px 10px; font-size: 14px; }

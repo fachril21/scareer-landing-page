@@ -6,7 +6,7 @@ import { useHomeHref } from '../../app/router'
 import { waLink } from '../../lib/whatsapp'
 import './about.css'
 
-/** 1. Hero Tentang kami: rata kiri, foto di panel ungu. Statis, tanpa animasi masuk. */
+/** 1. Hero Tentang kami: rata kiri, foto di panel merah. Statis, tanpa animasi masuk. */
 export function AboutHero() {
   const home = useHomeHref()
   return (

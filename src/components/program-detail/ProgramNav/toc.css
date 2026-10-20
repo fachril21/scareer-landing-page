@@ -64,7 +64,7 @@ html.is-program-page { scroll-padding-top: var(--scroll-offset); }
 @media (hover: hover) {
   .toc-side.is-ink .toc__link:hover { color: var(--text-on-ink); border-bottom-color: var(--border-on-ink); }
 }
-.toc-side.is-ink :focus-visible { outline-color: var(--purple-light); }
+.toc-side.is-ink :focus-visible { outline-color: var(--highlight); }
 
 .mini-cta {
   display: grid;
@@ -85,7 +85,7 @@ html.is-program-page { scroll-padding-top: var(--scroll-offset); }
 .toc-side--boxed { gap: 0; padding: 14px 10px 12px; border: var(--hairline); border-radius: var(--r-panel); background: var(--surface); color: var(--text); }
 .toc-side--boxed .toc { padding-left: 12px; }
 .toc-side--boxed .toc__link { border-radius: 8px; padding-right: 8px; }
-.toc-side--boxed .toc__link.is-active { background: var(--lavender); }
+.toc-side--boxed .toc__link.is-active { background: var(--paper); }
 @media (hover: hover) {
   .toc-side--boxed .toc__link:not(.is-active):hover { background: var(--paper); border-bottom-color: transparent; }
 }

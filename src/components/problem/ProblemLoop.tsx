@@ -57,7 +57,7 @@ const CHEVRONS = [
   { deg: 315, tone: 'off' },
 ] as const
 const CHEVRON_PATH = 'M-5 -5 L3 0 L-5 5'
-/** Kapan panah ungu di busur menyala (ms), menyesuaikan kurva ease busur 1100 ms di problem-cycle.css. */
+/** Kapan panah merah di busur menyala (ms), menyesuaikan kurva ease busur 1100 ms di problem-cycle.css. */
 const CHEVRON_DELAY_MS: Readonly<Record<number, number>> = { 45: 300, 135: 640 }
 /** Titik putus siklus: di antara langkah 3 (jam 6) dan 4 (jam 9). */
 const BREAK_DEG = 225
@@ -82,7 +82,7 @@ function Cycle() {
           <path className="cyc__arc" pathLength={1} d={`M${top.x} ${top.y} A${RING.r} ${RING.r} 0 0 1 ${bottom.x} ${bottom.y}`} />
           {CHEVRONS.map(({ deg, tone }) => {
             const { x, y } = ringPoint(deg)
-            // Panah muncul tepat saat busur ungu melewatinya.
+            // Panah muncul tepat saat busur merah melewatinya.
             const delay = `${CHEVRON_DELAY_MS[deg] ?? 0}ms`
             return <path key={deg} className={`cyc__chev cyc__chev--${tone}`} style={{ '--cd': delay } as React.CSSProperties} d={CHEVRON_PATH} transform={`translate(${x} ${y}) rotate(${deg})`} />
           })}

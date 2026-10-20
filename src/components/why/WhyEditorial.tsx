@@ -11,7 +11,7 @@ import './why-editorial.css'
 
 const { editorial: e } = WHY
 
-/** Kartu kutipan ungu (varian lama). Kartu terlihat: stabilo tersapu. Kursor di atas kartu: cahaya mengikuti (--tx, --ty). */
+/** Kartu kutipan (varian lama). Kartu terlihat: stabilo tersapu. Kursor di atas kartu: cahaya mengikuti (--tx, --ty). */
 function WhyQuoteCard({ interactive }: { interactive: boolean }) {
   const [cardRef, seen] = useInViewOnce<HTMLQuoteElement>(0.5)
   usePointerTilt(cardRef, interactive)
@@ -49,14 +49,14 @@ function WhyPhotoCard({ interactive }: { interactive: boolean }) {
         />
       </div>
       <Sparkle className="why-st why-st--a" />
-      <Burst className="why-st why-st--b" fill="var(--purple)" />
-      <Squiggle className="why-st why-st--c" stroke="var(--purple)" />
-      <Sparkle className="why-st why-st--d" fill="var(--purple-light)" />
+      <Burst className="why-st why-st--b" fill="var(--red)" />
+      <Squiggle className="why-st why-st--c" stroke="var(--red)" />
+      <Sparkle className="why-st why-st--d" fill="var(--highlight)" />
     </div>
   )
 }
 
-/** Varian layout "Kenapa scareer": heading + kartu kutipan ungu, lalu tiga pilar bertingkat. */
+/** Varian layout "Kenapa scareer": heading + kartu kutipan, lalu tiga pilar bertingkat. */
 export function WhyEditorial() {
   const interactive = useInteractiveMotion()
   const { tweaks } = useTweaks()
@@ -92,11 +92,11 @@ export function WhyEditorial() {
   )
 }
 
-/** Satu warna per pilar, semuanya dari palet merek: lavender, tinta, ungu. */
-const PILLAR_TONE: Partial<Record<DoodleName, 'lavender' | 'ink' | 'purple'>> = {
-  senior: 'lavender',
+/** Satu warna per pilar, semuanya dari palet merek: kuning, tinta, putih berlencana merah. */
+const PILLAR_TONE: Partial<Record<DoodleName, 'yellow' | 'ink' | 'red'>> = {
+  senior: 'yellow',
   support: 'ink',
-  price: 'purple',
+  price: 'red',
 }
 
 interface PillarCardProps {
@@ -112,7 +112,7 @@ function PillarCard({ icon, title, body, interactive }: PillarCardProps) {
   usePointerTilt(ref, interactive)
 
   return (
-    <div ref={ref} className={`why-pc why-pc--${PILLAR_TONE[icon] ?? 'lavender'}${seen ? ' is-seen' : ''}`}>
+    <div ref={ref} className={`why-pc why-pc--${PILLAR_TONE[icon] ?? 'yellow'}${seen ? ' is-seen' : ''}`}>
       <span className="why-pc__badge">
         <Doodle name={icon} size={36} />
       </span>

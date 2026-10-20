@@ -106,7 +106,7 @@ export function JourneySchedule({ program }: { program: ProgramDetail }) {
 
       <ol className="phases" aria-label="Alur belajar">
         {program.journey.map((phase, i) => {
-          // Fase terakhir = tujuan akhir: kotak pembeda (ungu, pil kuning). Pembedanya juga disampaikan lewat teks.
+          // Fase terakhir = tujuan akhir: kotak pembeda (merah, pil kuning). Pembedanya juga disampaikan lewat teks.
           const isGoal = tweaks.journeyGoal === 'highlight' && i === program.journey.length - 1
           return (
           <li key={phase.name} className={`phase${isGoal ? ' phase--goal' : ''}`}>

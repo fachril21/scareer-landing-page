@@ -1,6 +1,6 @@
 # Design.md: Homepage Scareer (varian "Structured")
 
-> **Pembaruan 14 Okt 2026: mengikuti `docs/Scareer-Brand-Guideline-Final.pdf`.** Bagian 3.1 (warna) dan 3.2 (tipografi) di bawah digantikan: palet Ungu Nyala `#7B2FF7`, Tinta `#17181A`, Kertas `#F5F5F0`, Kuning Stabilo `#FFE14D` (hanya di atas Tinta atau Ungu), Lavender `#ECE2FF`; heading Bricolage Grotesque 700/800 dengan tracking -2% sampai -3%; isi Satoshi 400/500/700 (self-host di `public/fonts/satoshi`). Merah, biru langit, Plus Jakarta Sans, dan Kalam tidak dipakai lagi. Sumber kebenaran token: `src/styles/tokens.css`.
+> **Pembaruan 20 Okt 2026: warna mengikuti Panduan Warna scareer (Brand Identity, Color Guideline).** Bagian 3.1 menggantikan palet ungu sebelumnya: Merah Nyala `#EE2B33` sebagai warna utama, Merah Tua `#C8161D` untuk teks merah, Kuning Hangat `#FFC629` sebagai sorotan, Biru Royal `#1F4FD8` sebagai aksen kecil, Putih Tulang `#F7F8F2` sebagai latar netral, dan Tinta `#17181A` sebagai teks utama. Ungu, lavender, dan biru langit tidak dipakai lagi. Tipografi tetap dari pembaruan 14 Okt 2026 (bagian 3.2): heading Bricolage Grotesque 700/800 tracking -2% sampai -3%, isi Satoshi 400/500/700. **Kode sudah dimigrasi (20 Okt 2026):** `src/styles/tokens.css` dan semua komponen memakai palet ini, tanpa opsi tweak untuk kembali ke ungu. Sumber kebenaran token: `src/styles/tokens.css`. File logo di `public/images/brand` masih versi lama dan menunggu aset baru.
 
 
 Varian desain homepage Scareer yang menggabungkan **bahasa komponen bergaya Customer.io** (rapi, lega, berbasis garis tipis dan sel) dengan **brand guideline Scareer** (hangat, jujur, kakak tingkat). Dokumen ini berdiri sendiri: berisi arah visual, token, komponen, aturan per section, gerak, aksesibilitas, dan aturan konten. Semua angka dan fakta program yang belum ada tetap `[ISI]`.
@@ -72,56 +72,94 @@ Referensi: homepage customer.io (dipelajari 13 Okt 2026, tampilan desktop). Yang
 
 ### 3.1 Warna
 
-Nama peran: **Paper** (halaman), **Ink** (teks dan section panggung), **Coretan Merah** (aksi), **Langit** (aksen sekunder), **Stabilo** (highlight).
+Sumber: Panduan Warna scareer. Prinsipnya: **Merah Nyala adalah suara utama** (berani, penuh semangat, percaya diri untuk langkah pertama), **Kuning jadi sorotan**, **Biru hanya aksen kecil**, sedangkan **Putih Tulang dan Tinta** menjaga semuanya tetap jelas dibaca.
+
+Nama peran: **Merah Nyala** (warna utama), **Merah Tua** (teks merah), **Kuning Hangat** (sorotan), **Biru Royal** (aksen), **Putih Tulang** (latar netral), **Tinta** (teks utama).
+
+| Peran | Nama | Hex | RGB | CMYK | Dipakai untuk |
+| --- | --- | --- | --- | --- | --- |
+| Warna utama | Merah Nyala | `#EE2B33` | 238 43 51 | 0 82 79 7 | Latar, blok besar, stiker, simbol logo |
+| Teks merah | Merah Tua | `#C8161D` | 200 22 29 | 0 89 86 22 | Judul dan kata penting di latar terang |
+| Sorotan | Kuning Hangat | `#FFC629` | 255 198 41 | 0 22 84 0 | Highlight kata, label, tombol kecil |
+| Aksen | Biru Royal | `#1F4FD8` | 31 79 216 | 86 63 0 15 | Label kecil, ikon, garis; maksimal 8% |
+| Latar netral | Putih Tulang | `#F7F8F2` | 247 248 242 | 0 0 2 3 | Latar konten minimalis dan berita |
+| Teks utama | Tinta | `#17181A` | 23 24 26 | 12 8 0 90 | Teks isi, judul, garis, ilustrasi |
 
 ```css
 :root {
-  /* Inti */
-  --paper: #FBFAF8;          /* latar utama */
+  /* Inti: enam warna dari Panduan Warna scareer */
+  --red: #EE2B33;            /* Merah Nyala: warna utama */
+  --red-dark: #C8161D;       /* Merah Tua: teks merah di latar terang, hover/pressed */
+  --highlight: #FFC629;      /* Kuning Hangat: sorotan */
+  --blue: #1F4FD8;           /* Biru Royal: aksen kecil, maks 8% */
+  --paper: #F7F8F2;          /* Putih Tulang: latar netral */
+  --ink: #17181A;            /* Tinta: teks, section panggung gelap */
+
+  /* Turunan netral (bukan warna baru): putih untuk kartu, tinta terangkat untuk kartu di atas Ink */
   --surface: #FFFFFF;        /* kartu di atas Paper */
-  --ink: #1F1B1C;            /* teks utama, section panggung */
-  --ink-raised: #2A2627;     /* kartu di atas Ink */
-  --red: #D92D20;            /* primary: CTA, Coretan Merah */
-  --red-dark: #B3261E;       /* hover/pressed, teks merah kecil */
-  --sky: #3AA8F0;            /* Langit: cincin, bentuk, aksen sekunder */
-  --sky-soft: #DDF1FF;       /* latar lembut */
-  --highlight: #E4F04A;      /* Stabilo */
+  --ink-raised: #232427;     /* kartu di atas Ink */
 
   /* Teks */
   --text: var(--ink);
-  --text-secondary: #615E5E;          /* Ink 70% di atas Paper, 6.15:1 */
+  --text-secondary: #5A5B5E;          /* turunan Tinta, sekitar 6.3:1 di atas Paper */
   --text-on-ink: var(--paper);
-  --text-on-ink-secondary: #B9B7B6;   /* Paper 70% di atas Ink, 8.53:1 */
+  --text-on-ink-secondary: #B8B9BC;
 
   /* Border */
-  --border: rgba(31, 27, 28, 0.10);          /* dekoratif (garis, tepi sel) */
-  --border-control: rgba(31, 27, 28, 0.55);  /* kontrol interaktif, 3.8:1 */
-  --border-on-ink: #4A4546;
+  --border: rgba(23, 24, 26, 0.10);          /* dekoratif (garis, tepi sel) */
+  --border-control: rgba(23, 24, 26, 0.55);  /* kontrol interaktif */
+  --border-on-ink: #3F4044;
 
   /* WhatsApp: hanya untuk ikon */
   --wa-icon: #25D366;
 }
 ```
 
+**Token lama yang dipensiunkan dan penggantinya**
+
+| Token lama | Ganti dengan |
+| --- | --- |
+| `--purple` (utama) | `--red` |
+| `--purple-dark` (hover, teks kecil) | `--red-dark` |
+| `--purple-light` (fokus di atas Tinta, bentuk) | `--highlight` |
+| `--lavender`, `--sky-soft` (latar lembut, kotak ikon, placeholder) | `--paper` (di atas Surface) atau `--surface` dengan border `--border` (di atas Paper) |
+| `--sky` (cincin halo, bentuk di belakang potret, kotak label di gelap) | cincin halo `--red` 28%, bentuk `--red` atau `--highlight`, kotak label `--highlight` |
+
 | Token | Peran |
 | --- | --- |
-| `--paper` | Latar band "abu muda" yang selang-seling dengan `--surface`. |
-| `--surface` | Latar band putih, sel grid, panggung kartu lowongan. |
-| `--ink` | Teks, section gelap, tombol WhatsApp, bayangan kartu lowongan. |
+| `--red` | Warna suara utama: tombol utama, panggung dan panel besar (hero, CTA penutup), stiker, simbol logo, angka langkah, coretan, garis progres. **Putih di atas Merah Nyala hanya 4.2:1**: boleh untuk judul besar, tombol (bobot 700, tidak di bawah 16 px), dan angka; lead di panel merah bobot 700 dan minimal sekitar 18.7 px; jangan untuk paragraf atau teks kecil di panel merah. Chip dan lencana kecil di panel merah memakai Kuning dengan teks Ink atau Tinta dengan teks Paper. |
+| `--red-dark` | Teks merah di latar terang (judul penting, kata ditandai, tautan teks; 5.5:1 di atas Paper), hover tombol utama. Harus tetap terlihat merah, **bukan maroon**: jangan digelapkan lagi dari `#C8161D`. |
+| `--highlight` | Sorotan: penanda kata kunci, label, chip tanya cepat, tombol panah akordeon, bentuk di belakang potret. **Selalu di belakang teks Ink** (Tinta di atas Kuning 11.3:1); boleh juga jadi teks atau ikon di atas Ink. Tidak pernah jadi teks di atas Paper (1.5:1), dan tidak boleh dengan teks putih (1.6:1). |
+| `--blue` | Aksen kecil: ikon label section, ikon, garis tipis. Teks putih di atas biru 6.6:1. **Jangan** jadi latar penuh, jangan lebih dari sekitar 8%, jangan berdampingan dengan teks atau bentuk merah. |
+| `--paper` | Latar halaman dan band netral yang selang-seling dengan `--surface`; panel lembut dan placeholder foto. |
+| `--surface` | Kartu di atas Paper, sel grid, panggung kartu lowongan. |
+| `--ink` | Teks isi dan judul, garis, ilustrasi, section gelap, tombol WhatsApp, bayangan kartu lowongan. |
 | `--ink-raised` | Sel dan kartu di atas latar Ink. |
-| `--red` | Tombol utama, ikon tag section, coretan, angka langkah, tanda kutip. Putih di atas merah sekitar 4.8:1. |
-| `--red-dark` | Hover tombol utama, teks merah kecil, tautan teks (sekitar 6.5:1 di atas Paper). |
-| `--sky` | Cincin halo tombol, bentuk di belakang potret, kotak label di section gelap, garis fokus di atas Ink. **Bukan untuk teks atau garis fokus di atas Paper** (kontras sekitar 2.5:1). |
-| `--sky-soft` | Latar chip, badge, kartu mentor, panel obrolan, isian ikon. |
-| `--highlight` | Stabilo: penanda kata kunci, chip tanya cepat, tombol panah akordeon. **Selalu di belakang teks Ink**, tidak pernah jadi warna teks. |
 | `--wa-icon` | Hanya ikon WhatsApp. |
+
+**Porsi warna** (acuan komposisi seluruh halaman, bukan tiap layar): **35% Merah Nyala, 30% Putih Tulang, 15% Tinta, 12% Kuning, 8% Biru**. Merah, biru, dan kuning tidak boleh berporsi sama dalam satu area atau satu garis pelangi.
+
+**Kombinasi teks dan latar** (minimal 3:1 untuk judul)
+
+| Pasangan | Kontras | Status |
+| --- | --- | --- |
+| Putih di Merah Nyala | 4.2:1 | Lolos untuk judul dan teks besar |
+| Merah Tua di Putih Tulang | 5.5:1 | Lolos |
+| Tinta di Kuning | 11.3:1 | Lolos |
+| Putih di Biru Royal | 6.6:1 | Lolos |
+| Kuning di Tinta | 11.3:1 | Lolos |
+| Biru di Merah (bergetar) | 1.6:1 | **Dilarang** |
+| Kuning di Putih Tulang | 1.5:1 | **Dilarang** |
+| Putih di Kuning | 1.6:1 | **Dilarang** |
+
+**Logo** (empat varian): simbol Merah Nyala di latar terang/gelap; putih di Tinta; putih di Merah Nyala; Tinta di Kuning. Urutan pilihan: latar terang atau gelap, simbol Merah Nyala, latar merah atau foto dengan logo putih, latar kuning dengan logo Tinta.
 
 **Aturan pakai**
 
-1. Proporsi per layar: sekitar 85% netral (Paper, Surface, Ink), 10% merah, 5% sisanya (Langit, Stabilo). Kalau terasa ramai, buang dulu Stabilo.
-2. **Merah = aksi dan koreksi.** Karena merah juga identik dengan galat, pesan galat selalu memakai ikon, teks yang jelas, dan `--red-dark`. Jangan menaruh pesan galat berdampingan dengan tombol merah.
-3. **WhatsApp tidak memakai fill hijau.** Hijau di sebelah merah sulit dibedakan pengguna buta warna merah-hijau. Tombol WhatsApp berlatar **Ink** dengan teks Paper (di atas Ink: latar Paper, teks Ink), dan hanya ikonnya yang hijau.
-4. Kontras teks minimal 4.5:1 (teks besar 3:1). Teks kecil memakai `--ink`, `--text-secondary`, atau `--red-dark`. `--red` boleh untuk teks besar dan teks putih di atas tombol merah.
+1. **Merah = aksi, semangat, dan koreksi.** Karena merah juga identik dengan galat, pesan galat selalu memakai ikon, teks yang jelas, dan `--red-dark`. Jangan menaruh pesan galat berdampingan dengan tombol merah.
+2. **WhatsApp tidak memakai fill hijau.** Hijau di sebelah merah sulit dibedakan pengguna buta warna merah-hijau. Tombol WhatsApp berlatar **Ink** dengan teks Paper (di atas Ink atau merah: latar Paper, teks Ink), dan hanya ikonnya yang hijau.
+3. Kontras teks minimal 4.5:1 (teks besar 3:1). Teks kecil memakai `--ink`, `--text-secondary`, atau `--red-dark`. `--red` hanya untuk teks besar, teks putih besar di atas panel merah, dan tombol.
+4. **Hindari:** ungu, maroon, tosca, oranye, atau hijau sebagai warna dominan; menggelapkan Merah Tua jadi maroon; biru lebih dari sekitar 8% atau sebagai latar penuh (terasa Dibimbing atau anak sekolah); teks merah di atas biru (bergetar) dan teks putih di atas kuning; merah, biru, dan kuning berporsi sama atau jadi garis pelangi.
 5. Mode gelap sistem tidak termasuk cakupan. Section Ink adalah keputusan desain, bukan mode gelap.
 
 ### 3.2 Tipografi
@@ -204,15 +242,15 @@ Rata kiri adalah default. **Dua pengecualian rata tengah:** kalimat pernyataan d
   --r-paper: 6px;        /* hanya kartu lowongan Hero */
 
   /* cincin halo tombol */
-  --ring-primary: 0 0 0 4px rgba(58, 168, 240, 0.35);        /* Langit 35% */
-  --ring-primary-hover: 0 0 0 6px rgba(58, 168, 240, 0.35);
-  --ring-neutral: 0 0 0 4px rgba(31, 27, 28, 0.06);
+  --ring-primary: 0 0 0 4px rgba(238, 43, 51, 0.28);        /* Merah Nyala 28% */
+  --ring-primary-hover: 0 0 0 6px rgba(238, 43, 51, 0.28);
+  --ring-neutral: 0 0 0 4px rgba(23, 24, 26, 0.06);
 
   /* satu-satunya bayangan solid: kartu lowongan Hero */
   --shadow-ink: 6px 6px 0 var(--ink);
 
   /* pola titik CTA penutup */
-  --dots: radial-gradient(rgba(31, 27, 28, 0.14) 1px, transparent 1px) 0 0 / 14px 14px;
+  --dots: radial-gradient(rgba(23, 24, 26, 0.14) 1px, transparent 1px) 0 0 / 14px 14px;
 
   /* gerak */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -221,7 +259,7 @@ Rata kiri adalah default. **Dua pengecualian rata tengah:** kalimat pernyataan d
 }
 
 :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
-.on-ink :focus-visible { outline-color: var(--sky); }
+.on-ink :focus-visible { outline-color: var(--highlight); }
 ```
 
 - Padding vertikal section: **128 px desktop, 72 px mobile**. Ruang lega adalah bagian utama dari karakter varian ini. Hero: 80 px atas, 96 px bawah.
@@ -242,7 +280,7 @@ Rata kiri adalah default. **Dua pengecualian rata tengah:** kalimat pernyataan d
 
 - Tinggi 64 px, latar `--surface`, garis bawah 1 px `--border`, lebar isi 1320 px. Sticky.
 - Menu di **tengah**, dengan chevron pada Program. Kanan: tombol outline (WhatsApp) dan tombol terisi merah (Lihat program), tinggi 40 px.
-- Dropdown Program (tweak "Dropdown Program", bawaan Kartu ikon): panel putih selebar isi (400 px) berisi dua kartu program bersisian, tanpa foto. Tiap kartu: kotak ikon lavender (ShieldCheck, BarChart3), panah kecil di kanan atas, dan nama program. Hover: kartu naik 2 px, border ungu, panah terisi ungu. Panel disembunyikan lewat visibility dan muncul fade + naik 6 px dengan kartu masuk berurutan. Tidak ada tautan "Lihat semua program" (hanya dua program). Pilihan lama: daftar teks.
+- Dropdown Program (tweak "Dropdown Program", bawaan Kartu ikon): panel putih selebar isi (400 px) berisi dua kartu program bersisian, tanpa foto. Tiap kartu: kotak ikon `--paper` (ShieldCheck, BarChart3), panah kecil di kanan atas, dan nama program. Hover: kartu naik 2 px, border merah, panah terisi merah. Panel disembunyikan lewat visibility dan muncul fade + naik 6 px dengan kartu masuk berurutan. Tidak ada tautan "Lihat semua program" (hanya dua program). Pilihan lama: daftar teks.
 - Mobile: logo dan tombol menu. Menu membuka panel penuh dengan item setinggi 56 px dan tombol WhatsApp di dasar.
 - **Puncak homepage (tweak "Navbar di puncak homepage", bawaan Bar putih terpisah):** di scroll 0 navbar adalah bar putih selebar layar di alur dokumen dengan hairline `--border`, hero mulai di bawahnya (tidak menimpa). Makin discroll (96 px) bar menyusut kontinu jadi pill glass: latar header memudar ke transparan, radius, lebar, border, dan blur naik bersama `--nav-p`. Tinggi tetap 64 px, jadi tanpa layout shift. Halaman lain tetap transparan lalu pill.
 
@@ -258,7 +296,7 @@ Rata kiri adalah default. **Dua pengecualian rata tengah:** kalimat pernyataan d
 State:
 - *Hover (pointer):* latar `--red-dark`, cincin melebar ke 6 px (150 ms).
 - *Active:* cincin menyusut ke 2 px, tombol turun 1 px (100 ms).
-- *Focus-visible:* outline 3 px `--ink` offset 3 px (di atas Ink: `--sky`). Dipisahkan dari cincin halo supaya fokus tetap terbaca.
+- *Focus-visible:* outline 3 px `--ink` offset 3 px (di atas Ink: `--highlight`). Dipisahkan dari cincin halo supaya fokus tetap terbaca.
 - Area sentuh minimal 48×48 px.
 
 Label tombol memakai kata kerja jelas dan konsisten di seluruh situs: "Lihat program", "Lihat detail", "Tanya via WhatsApp". Tidak ada "Klik di sini", tidak ada tanda panah di ujung teks tombol.
@@ -276,7 +314,7 @@ Syarat pemakaian agar tidak jadi hiasan kosong:
 - Sentence case, bukan huruf kapital.
 - Isi label = **nama menu navbar atau anchor** (Program, Kenapa Scareer, Cara belajar, Karya, Mentor, FAQ), sehingga berfungsi sebagai penunjuk posisi.
 - Tidak dipakai di Hero dan CTA penutup.
-- Ikon: tag/label bergaris 16 px, isi `--red`. Di section gelap, label dan ikon memakai `--text-on-ink-secondary`.
+- Ikon: tag/label bergaris 16 px, isi `--blue`. Di section gelap, label dan ikon memakai `--text-on-ink-secondary`.
 
 ### 4.4 Hero: rata kiri dengan panggung
 
@@ -302,14 +340,14 @@ Syarat pemakaian agar tidak jadi hiasan kosong:
 ```
 
 - Hero hanya berisi H1, subhead, dua tombol, dan baris centang. Tidak ada gambar di samping H1.
-- **Panggung:** foto candid asli sebagai latar (tinta Ink 25% agar kartu terbaca), radius 20 px (12 px di mobile). Foto yang belum ada diganti blok `--sky-soft` berlabel "Foto [ISI]".
+- **Panggung:** foto candid asli sebagai latar (tinta Ink 25% agar kartu terbaca), radius 20 px (12 px di mobile). Foto yang belum ada diganti blok `--paper` berlabel "Foto [ISI]".
 - **Kartu lowongan:** meniru lowongan sungguhan tapi jelas ilustrasi (nama perusahaan fiktif, tanpa merek asli).
 
 ```
 +------------------------------------+   latar --surface, radius --r-paper
 | Junior [Posisi] [ISI]              |   border 1.5 px --ink
 | PT Contoh Maju Bersama             |   --shadow-ink
-|------------------------------------|   garis tipis --sky-soft tiap 28 px
+|------------------------------------|   garis tipis --border tiap 28 px
 | Kualifikasi                        |
 |  - Fresh graduate welcome          |
 |  - Min. pengalaman 2 tahun    ~~~~ |   <- coretan merah (SVG, 3 px, ujung bulat)
@@ -352,14 +390,14 @@ Penanda stabilo hanya boleh di kalimat pernyataan ini, tidak di H1 atau judul se
 
 Tiga kolom dipisah **garis vertikal 1 px**, tanpa kartu. Ikon garis bergaya coretan (4.15). Judul `--t-h3`, deskripsi `--text-secondary`. Mobile: ditumpuk dengan garis horizontal.
 
-**Varian kartu berwarna (layout editorial, tweak "Tiga pilar", bawaan; ditambahkan 20 Okt 2026 untuk mahasiswa semester akhir).** Tiap pilar jadi kartu dengan lencana ikon bulat 60 px (ikon 32 px). Warna tetap dari palet merek, satu per pilar: Kakak tingkat = lavender, Supported by Dibimbing = tinta (lencana kuning stabilo), Terjangkau = ungu. Desktop: ketiga kartu sejajar dan sama tinggi (tanpa tangga turun). Micro-interaction, hanya `transform`, `opacity`, dan stroke:
+**Varian kartu berwarna (layout editorial, tweak "Tiga pilar", bawaan; ditambahkan 20 Okt 2026 untuk mahasiswa semester akhir).** Tiap pilar jadi kartu dengan lencana ikon bulat 60 px (ikon 32 px). Warna tetap dari palet merek, satu per pilar: Kakak tingkat = kuning (teks tinta), Supported by Dibimbing = tinta (lencana kuning), Terjangkau = kartu putih berborder dengan lencana merah (paragraf tidak boleh di atas Merah Nyala). Desktop: ketiga kartu sejajar dan sama tinggi (tanpa tangga turun). Micro-interaction, hanya `transform`, `opacity`, dan stroke:
 - Masuk layar: centang di ikon Dibimbing tergambar sekali.
 - Hover (mouse): kartu naik 6 px, lencana miring dan membesar sedikit, ikon bergerak sesuai arti (adik tingkat melambai, centang digambar ulang, tutup dompet terbuka), cahaya lembut mengikuti kursor di mode Interaktif.
 - Sentuh: kartu menekan ke 0.985 saat disentuh.
 - `prefers-reduced-motion`: semua gerak mati, kartu statis.
 Pilihan "Polos (lama)" tetap menampilkan baris garis di atas.
 
-**Kartu di samping judul (tweak `whyCard`, bawaan Foto + ornamen):** kutipan ungu diganti foto `learn-mentor-session` (sudut `--r-panel`, miring tipis seperti kartu lama) dengan empat ornamen yang sama dengan hero (Sparkle, Burst, Squiggle) menempel di sudutnya. Tanpa teks kutipan. Mode Interaktif + mouse: kartu miring 3D mengikuti kursor, foto zoom dan bergeser berlawanan arah, sorot cahaya lembut, ornamen bergeser berkedalaman (`--d`) dan berputar saat hover; ornamen membal masuk berurutan. Sentuh dan reduced-motion: diam. Kutipan ungu tetap tersedia sebagai pilihan lama.
+**Kartu di samping judul (tweak `whyCard`, bawaan Foto + ornamen):** kutipan berlatar warna merek diganti foto `learn-mentor-session` (sudut `--r-panel`, miring tipis seperti kartu lama) dengan empat ornamen yang sama dengan hero (Sparkle, Burst, Squiggle) menempel di sudutnya. Tanpa teks kutipan. Mode Interaktif + mouse: kartu miring 3D mengikuti kursor, foto zoom dan bergeser berlawanan arah, sorot cahaya lembut, ornamen bergeser berkedalaman (`--d`) dan berputar saat hover; ornamen membal masuk berurutan. Sentuh dan reduced-motion: diam. Kutipan tetap tersedia sebagai pilihan lama.
 
 ### 4.8 Program: grid sel berborder (inti halaman)
 
@@ -408,7 +446,7 @@ H2 (--text-on-ink)
 +---------------------------------------------------+
 ```
 
-- Sel `--ink-raised`, border `--border-on-ink` 1 px, radius luar `--r-panel`. Label dengan kotak kecil `--sky`.
+- Sel `--ink-raised`, border `--border-on-ink` 1 px, radius luar `--r-panel`. Label dengan kotak kecil `--highlight`.
 - Daftar memakai ikon centang dan silang yang selalu disertai kata.
 - Sel "Yang nggak kami janjikan" selalu tampil utuh di semua viewport, tanpa "baca selengkapnya".
 - Statis: tanpa hover dan tanpa animasi masuk.
@@ -431,11 +469,11 @@ Hover: | + K1 | (->) Karya 2 (lebar, deskripsi, label) | + K3 | + K4 | + K5 |
 
 ### 4.11 Tab vertikal dengan panel (Cara belajar)
 
-**Varian "Garis waktu 3 langkah" (tweak "Layout Cara belajar", bawaan; ditambahkan 20 Okt 2026).** Judul tiga baris "Dari belajar / sampai punya / *pengalaman nyata.*" di kiri (berat 800, tracking -0.04em; frasa terakhir di atas blok stabilo kuning dengan teks tinta, mengikuti referensi desain, pengecualian atas aturan stabilo hanya di kalimat pernyataan; tanpa label kecil di atas judul), kalimat pengantar di kanan. Di bawahnya tiga langkah (Belajar Skill, Praktik Langsung, Internship) di satu garis: titik ungu bernomor 40 px, dua segmen garis 2 px (jalur lavender, isian ungu), lalu ikon coretan 36 px (buku, laptop, tas kerja), judul, dan deskripsi. Titik terakhir = tujuan akhir: lingkaran tinta dengan angka stabilo. Desktop: tiga kolom dengan garis mendatar; mobile dan tablet: garis tegak di kiri. Tanpa label kecil di atas judul. Gerak (mode Interaktif): garis terisi dan titik menyala berurutan mengikuti scroll; hover atau sentuh langkah membesarkan titik dan menggerakkan ikon (halaman buku membuka, centang laptop tergambar ulang, gagang tas terangkat). Reduced motion: statis. Pilihan "Original" dan "4 kolom" tetap tersedia; deskripsi di bawah ini berlaku untuk varian Original.
+**Varian "Garis waktu 3 langkah" (tweak "Layout Cara belajar", bawaan; ditambahkan 20 Okt 2026).** Judul tiga baris "Dari belajar / sampai punya / *pengalaman nyata.*" di kiri (berat 800, tracking -0.04em; frasa terakhir di atas blok stabilo kuning dengan teks tinta, mengikuti referensi desain, pengecualian atas aturan stabilo hanya di kalimat pernyataan; tanpa label kecil di atas judul), kalimat pengantar di kanan. Di bawahnya tiga langkah (Belajar Skill, Praktik Langsung, Internship) di satu garis: titik merah bernomor 40 px, dua segmen garis 2 px (jalur `--border`, isian merah), lalu ikon coretan 36 px (buku, laptop, tas kerja), judul, dan deskripsi. Titik terakhir = tujuan akhir: lingkaran tinta dengan angka stabilo. Desktop: tiga kolom dengan garis mendatar; mobile dan tablet: garis tegak di kiri. Tanpa label kecil di atas judul. Gerak (mode Interaktif): garis terisi dan titik menyala berurutan mengikuti scroll; hover atau sentuh langkah membesarkan titik dan menggerakkan ikon (halaman buku membuka, centang laptop tergambar ulang, gagang tas terangkat). Reduced motion: statis. Pilihan "Original" dan "4 kolom" tetap tersedia; deskripsi di bawah ini berlaku untuk varian Original.
 
 ```
 [tag] Cara belajar                               +--------------------------+
-H2                                               | panel --sky-soft         |
+H2                                               | panel --paper         |
 Paragraf pembuka 3 baris                         |                          |
 [→ Lihat program]                                |  contoh obrolan WhatsApp |
                                                  |  (gelembung + chip saran)|
@@ -450,7 +488,7 @@ Paragraf pembuka 3 baris                         |                          |
 ```
 
 - Empat baris dipisah garis 1 px. Hanya satu baris terbuka (judul + deskripsi). Baris aktif bertanda **garis Ink 2 px** di bawahnya. Angka langkah `--red`, `--t-h3`.
-- Panel kanan berlatar `--sky-soft`, radius `--r-panel`, isinya berganti mengikuti langkah (crossfade 200 ms): 1) cuplikan satu kartu program, 2) contoh obrolan WhatsApp dengan chip tanya cepat, 3) foto sesi dengan mentor, 4) satu kartu karya.
+- Panel kanan berlatar `--paper`, radius `--r-panel`, isinya berganti mengikuti langkah (crossfade 200 ms): 1) cuplikan satu kartu program, 2) contoh obrolan WhatsApp dengan chip tanya cepat, 3) foto sesi dengan mentor, 4) satu kartu karya.
 - **Tidak auto-advance.** Berpindah hanya lewat klik, Enter, atau panah atas/bawah.
 - Obrolan di panel diberi label kecil "Contoh obrolan". Teksnya netral, bukan testimoni dan bukan klaim hasil.
 - Mobile: menjadi akordeon, panel tampil di dalam baris yang terbuka.
@@ -470,13 +508,13 @@ Latar berwarna per kartu, potret dipotong miring di atas bentuk berlatar, fakta 
 ```
 +--------------------------------------------------------------+
 | [potret miring]   [chip peran]        | Pengalaman  | Bidang |
-|   bentuk --sky    Nama mentor          |  [ISI]      | [ISI]  |
+|   bentuk --red    Nama mentor          |  [ISI]      | [ISI]  |
 |   di belakang     "Kutipan 2-3 baris"  +-------------+--------+
 |                   Peran, perusahaan [ISI]    → Lihat program   |
 +--------------------------------------------------------------+
 ```
 
-- Dua varian bergantian. **(A)** latar `--sky-soft`, bentuk di belakang potret `--sky`. **(B)** latar `--surface` dengan border 1 px, bentuk `--highlight`. Teks selalu `--ink`.
+- Dua varian bergantian. **(A)** latar `--paper`, bentuk di belakang potret `--red`. **(B)** latar `--surface` dengan border 1 px, bentuk `--highlight`. Teks selalu `--ink`.
 - Potret dipotong miring (sekitar 40°). Foto asli, bukan stok.
 - Tanda kutip besar memakai `--red`. Kutipan hanya tampil jika ada kutipan asli.
 - "Statistik" adalah **fakta mentor** yang benar (tahun pengalaman, bidang, perusahaan sebelumnya). Tidak ada angka hasil bisnis atau klaim penempatan kerja.
@@ -491,7 +529,7 @@ Baris dengan **garis 1 px** di atas dan bawah, tanpa kartu. Judul `--t-h3`, ikon
 
 - Ukuran 24 px (ikon pilar), 64–72 px (ilustrasi sel).
 - Garis `--ink` 1.5 px, ujung bulat, **sedikit tidak sempurna** agar senada dengan coretan tangan.
-- Satu isian per ilustrasi: `--sky-soft` atau `--highlight`. Tidak boleh dua isian.
+- Satu isian per ilustrasi: `--red` atau `--highlight`. Tidak boleh dua isian.
 - Tema: benda dunia kampus dan kerja (lembar lowongan, pulpen, map, kartu nama, gelembung chat). Tidak ada roket, bohlam, atau trofi.
 - SVG mandiri, `aria-hidden`, dekoratif atau pengganti foto saja.
 
@@ -510,7 +548,7 @@ Baris dengan **garis 1 px** di atas dan bawah, tanpa kartu. Judul `--t-h3`, ikon
 - Rata tengah. Pola titik hanya di dalam kontainer dan hanya sebagai latar: opasitas rendah supaya tidak mengganggu keterbacaan teks.
 - Tombol "Tanya via WhatsApp" varian Ink, "Lihat program" varian utama merah. "Lihat program" menggulung halus ke section Program.
 
-**Varian "Lembar" (default saat ini; pilihan "Original" di panel tweak menampilkan versi di atas).** Panel `--purple` selebar layar dengan sudut atas `--r-sheet` (28 px, 48 px di desktop), tanpa pola titik. Judul "Ambil **kesempatan pertamamu** sekarang." (maks 5.5rem): frasa bertanda disorot `--highlight` dengan teks `--ink` (stabilo selalu di atas Ink atau Ungu). Tombol memakai varian on-ink yang ada: WhatsApp (latar Paper, teks Ink) dan outline Paper, cincin halo sebagai pengganti bayangan. Baris fakta dibuang; tiga chip tanya cepat tetap, di bawah tombol. Footer menimpa tepi bawah panel setinggi satu radius (margin negatif) di homepage, sehingga ungu terlihat di kedua sudut. Tidak ada form waitlist: konsultasi tetap lewat WhatsApp.
+**Varian "Lembar" (default saat ini; pilihan "Original" di panel tweak menampilkan versi di atas).** Panel `--red` selebar layar dengan sudut atas `--r-sheet` (28 px, 48 px di desktop), tanpa pola titik. Judul "Ambil **kesempatan pertamamu** sekarang." (maks 5.5rem): frasa bertanda disorot `--highlight` dengan teks `--ink` (stabilo selalu di atas Ink atau Merah Nyala; teks putih di panel merah hanya untuk judul besar dan tombol karena kontrasnya 4.2:1). Tombol memakai varian on-ink yang ada: WhatsApp (latar Paper, teks Ink) dan outline Paper, cincin halo sebagai pengganti bayangan. Baris fakta dibuang; tiga chip tanya cepat tetap, di bawah tombol. Footer menimpa tepi bawah panel setinggi satu radius (margin negatif) di homepage, sehingga merah terlihat di kedua sudut. Tidak ada form waitlist: konsultasi tetap lewat WhatsApp.
 
 ### 4.17 Footer
 
@@ -530,10 +568,10 @@ Tinggi 64 px, menempel di dasar layar, menghormati `env(safe-area-inset-bottom)`
 
 ### Hero vibrant (opsi tweak, untuk pasar mahasiswa)
 
-Dua varian opsional di panel tweak "Layout hero"; default tetap Terpusat. Palet tidak bertambah: rasa "fun" datang dari proporsi ungu yang lebih luas, penanda stabilo, stiker, dan gerak.
-- **Panggung ungu:** latar `--purple`, foto di kanan dengan tepi kiri melengkung, bar fakta `--ink` (teks `--t-body`) yang menimpa tepi bawah hero dan menyambung mulus ke section berikutnya tanpa garis pemisah, navbar transparan berlogo putih sampai pill muncul (hanya bila tweak navbar puncak = Transparan menimpa hero; bawaannya bar putih terpisah).
-- **Poster:** latar `--paper`, foto miring (-2,5°) di atas lingkaran `--purple`, fakta sebagai pil `--ink` yang sedikit miring.
-- Judul memakai kalimat hero yang ada; frasa "pengalaman 2 tahun?" ditandai (`--highlight` di atas Ungu, `--purple` di atas Kertas, teks berganti warna mengikuti sapuan). Catatan "#PengalamanPertama" dan stiker (bintang, burst, squiggle) murni dekoratif, `aria-hidden`.
+Dua varian opsional di panel tweak "Layout hero"; default tetap Terpusat. Palet tidak bertambah: rasa "fun" datang dari proporsi merah yang lebih luas, penanda stabilo, stiker, dan gerak.
+- **Panggung merah:** latar `--red`, foto di kanan dengan tepi kiri melengkung, bar fakta `--ink` (teks `--t-body`) yang menimpa tepi bawah hero dan menyambung mulus ke section berikutnya tanpa garis pemisah, navbar transparan berlogo putih sampai pill muncul (hanya bila tweak navbar puncak = Transparan menimpa hero; bawaannya bar putih terpisah).
+- **Poster:** latar `--paper`, foto miring (-2,5°) di atas lingkaran `--red`, fakta sebagai pil `--ink` yang sedikit miring.
+- Judul memakai kalimat hero yang ada; frasa "pengalaman 2 tahun?" ditandai (`--highlight` di atas Merah, `--red-dark` di atas Paper, teks berganti warna mengikuti sapuan). Catatan "#PengalamanPertama" dan stiker (bintang, burst, squiggle) murni dekoratif, `aria-hidden`.
 - Gerak hanya di mode Interaktif: stiker membal masuk sekali lalu bergeser mengikuti kursor, foto parallax tipis. Tanpa gerak berulang otomatis.
 - Tanpa eyebrow di atas judul dan tanpa font tulisan tangan (catatan memakai Satoshi bold).
 
@@ -552,7 +590,7 @@ Dua varian opsional di panel tweak "Layout hero"; default tetap Terpusat. Palet 
 | 7a | Bukti: karya (opsional) | 4.10 | `--ink` | 1320 |
 | 7b | Bukti: mentor (opsional) | 4.13 | `--paper` | 1024 |
 | 7c | FAQ (opsional) | 4.14 | `--surface` | 1024 |
-| 8 | CTA penutup (varian Lembar: panel `--purple`) | 4.16 | `--surface` + titik | 1024 |
+| 8 | CTA penutup (varian Lembar: panel `--red`) | 4.16 | `--surface` + titik | 1024 |
 | 9 | Footer | 4.17 | `--ink` | 1320 |
 
 Ritme latar: terang, abu muda, terang, **gelap**, abu muda, **gelap**, abu muda, terang, terang bertitik, **gelap**.
@@ -596,7 +634,7 @@ Tujuan: homepage terasa modern dan hidup tanpa mengubah konten maupun layout. Ha
 - Tanpa library animasi baru. CSS (`animation-timeline: view()` bila didukung, fallback IntersectionObserver) dan hook kecil di `src/hooks`.
 - Hanya `transform`, `opacity`, `clip-path`. Durasi 150 sampai 600 ms, easing `--ease-out`, stagger maksimal 4 langkah (`--reveal-step`).
 - Efek kursor (tilt, spotlight, magnetik) hanya di `@media (hover: hover) and (pointer: fine)`. Di layar sentuh diganti state tekan. Satu listener `pointermove` per kontainer, menulis CSS variable `--x` dan `--y` langsung ke elemen, bukan lewat state React.
-- Spotlight kursor hanya terlihat di permukaan gelap atau ungu. Di kartu Paper dan Lavender gunakan sorotan tepi (border menyala) atau tint lavender, jangan cahaya putih.
+- Spotlight kursor hanya terlihat di permukaan gelap atau merah. Di kartu Paper dan Surface gunakan sorotan tepi (border menyala), jangan cahaya putih.
 - `prefers-reduced-motion: reduce` mematikan semua gerak di tabel ini. Konten tetap tampil penuh tanpa JS.
 - Konten tidak boleh tersembunyi sebelum animasi. Anggaran JS halaman tetap di bawah 150 kb gzip, CLS 0 dari gerak.
 
@@ -604,12 +642,13 @@ Tujuan: homepage terasa modern dan hidup tanpa mengubah konten maupun layout. Ha
 | --- | --- | --- |
 | Hero | Headline muncul per kata. Foto panggung: parallax maksimal 24 px dan zoom-out 1,05 → 1. Kartu lowongan miring mengikuti kursor (maksimal 4°). Tombol: efek magnetik dan kilau halus. Kata berganti di `RotatingHeadline` bertransisi masuk dan keluar. | Muat halaman / scroll / hover |
 | Strip bukti | Sel muncul bertahap, garis tepi menyala sekilas | Masuk viewport |
-| Apa itu scareer | Tiga poin muncul bertahap, garis atas tiap poin tergambar lalu menebal dan menyala ungu saat hover | Masuk viewport / hover |
-| Masalah (siklus lingkaran, 20 Okt 2026) | Empat langkah di cincin searah jarum jam dari jam 12 (teks di luar cincin di desktop, daftar bernomor di bawah cincin kecil di mobile). Busur ungu langkah 1 sampai 3 tergambar sekali (1,1 detik, ease masuk-keluar) begitu section menyentuh pita tengah layar, bukan terikat scroll; node dan panah menyala tepat saat busur sampai, sisanya putus-putus. Pil "scareer masuk di sini" dan panah keluar muncul di titik putus antara langkah 3 dan 4. Setelah penuh, satu titik mengorbit pelan. Tanpa baris "kembali ke langkah 1" karena cincin sudah menutup | Section di tengah layar |
+| Apa itu scareer | Tiga poin muncul bertahap, garis atas tiap poin tergambar lalu menebal dan menyala merah saat hover | Masuk viewport / hover |
+| Masalah (siklus lingkaran, 20 Okt 2026) | Empat langkah di cincin searah jarum jam dari jam 12 (teks di luar cincin di desktop, daftar bernomor di bawah cincin kecil di mobile). Busur merah langkah 1 sampai 3 tergambar sekali (1,1 detik, ease masuk-keluar) begitu section menyentuh pita tengah layar, bukan terikat scroll; node dan panah menyala tepat saat busur sampai, sisanya putus-putus. Pil "scareer masuk di sini" dan panah keluar muncul di titik putus antara langkah 3 dan 4. Setelah penuh, satu titik mengorbit pelan. Tanpa baris "kembali ke langkah 1" karena cincin sudah menutup | Section di tengah layar |
 | Program | Kartu: foto zoom 1,04 dan sorotan tepi saat hover. Carousel: indikator progres. Chip: feedback tekan | Hover / scroll / tekan |
-| Kenapa scareer | Stabilo `<mark>` tersapu kiri ke kanan. Kartu kutipan ungu bereaksi halus ke kursor. Garis atas tiga pilar tergambar bertahap | Masuk viewport / hover |
+| Pindah halaman program | Klik kartu program: foto kartu bergerak menjadi foto hero halaman detail (hero Terbelah maupun Original), dan saat Kembali atau tautan ke beranda foto hero kembali ke kartunya bila kartu itu terlihat setelah posisi gulir dipulihkan; selain itu crossfade 250 ms. View Transition API, tanpa dukungan browser atau dengan reduced motion pindah halaman biasa | Klik kartu / Kembali | 420 ms |
+| Kenapa scareer | Stabilo `<mark>` tersapu kiri ke kanan. Kartu foto bereaksi halus ke kursor. Garis atas tiga pilar tergambar bertahap | Masuk viewport / hover |
 | Cara belajar | Garis penghubung antar-kolom terisi saat scroll, nomor langkah menyala berurutan | Scroll |
-| CTA penutup | Panel ungu naik dengan `clip-path`, stabilo tersapu, tombol WhatsApp berdenyut sekali, chip muncul bertahap | Masuk viewport |
+| CTA penutup | Panel merah naik dengan `clip-path`, stabilo tersapu, tombol WhatsApp berdenyut sekali, chip muncul bertahap | Masuk viewport |
 | Global | Reveal bervariasi (fade-up, teks bertopeng, skala, wipe) menggantikan fade-up tunggal. Micro-interaction tombol dan tautan konsisten | Masuk viewport / hover |
 
 Tidak dibuat: marquee, pop-up promo, carousel otomatis, latar gradien atau blob, penghitung angka (strip bukti berisi teks, bukan angka). Footer dan section Karya, Mentor, FAQ di luar cakupan.
@@ -649,7 +688,7 @@ Tidak dibuat: marquee, pop-up promo, carousel otomatis, latar gradien atau blob,
 
 1. **Foto asli** dari kelas, mentoring, dan karya peserta. Pencahayaan alami, tanpa filter tebal. Penyuntingan seragam: kontras sedikit naik, saturasi sedikit turun.
 2. **Dilarang:** foto stok orang berjas bersalaman, ilustrasi isometrik, mockup laptop berlayar kosong, logo "dipakai oleh" tanpa bukti, dan testimoni karangan.
-3. **Belum ada foto?** Pakai placeholder berlabel jelas: blok `--sky-soft` dengan garis diagonal tipis dan teks "Foto [ISI]". Placeholder tidak boleh lolos ke produksi.
+3. **Belum ada foto?** Pakai placeholder berlabel jelas: blok `--paper` dengan garis diagonal tipis dan teks "Foto [ISI]". Placeholder tidak boleh lolos ke produksi.
 4. Format AVIF atau WebP, `srcset` lebar 480/800/1200, `loading="lazy"` kecuali foto di atas lipatan, `width` dan `height` selalu diisi. Foto Hero pertama memakai `fetchpriority="high"`.
 5. Setiap wajah yang tampil wajib sudah mendapat persetujuan tertulis.
 6. Set ikon fungsional: Phosphor (regular) atau Lucide, stroke 1.75 px, 20/24 px. Ikon pendamping teks, tidak pernah menggantikan teks. Ikon-saja hanya untuk tombol menu, tutup, dan WhatsApp (selalu punya `aria-label`).
@@ -695,7 +734,7 @@ Tidak dibuat: marquee, pop-up promo, carousel otomatis, latar gradien atau blob,
 
 - Gradient atau blob sebagai dekorasi, glassmorphism. Pengecualian varian Lembar dan navbar pill (tweak): sudut atas membulat besar pada panel CTA dan footer, dan glass pada navbar pill saat scroll. Satu-satunya pengecualian: scrim fungsional di atas foto dan pola titik CTA penutup.
 - Bayangan lembut di bawah kartu. Satu-satunya bayangan adalah `--shadow-ink` pada kartu lowongan.
-- Tombol hijau di sebelah tombol merah. Teks Langit di atas Paper. Stabilo sebagai warna teks.
+- Tombol hijau di sebelah tombol merah. Teks merah kecil di atas Paper (pakai Merah Tua), teks merah di atas biru, teks putih di atas kuning. Stabilo sebagai warna teks.
 - Kata di H1 atau judul section yang diwarnai atau dimiringkan.
 - Huruf kapital semua untuk label. Eyebrow tanpa fungsi penunjuk section.
 - Auto-play, auto-scroll, marquee, pop-up promo, konten yang tersembunyi sampai animasi selesai. *(Animasi masuk per section, parallax tipis, dan hover pada kartu kini diizinkan lewat 6.2, dengan batas di sana.)*
@@ -707,11 +746,11 @@ Tidak dibuat: marquee, pop-up promo, carousel otomatis, latar gradien atau blob,
 
 ## 12. Keputusan terbuka dan masukan dari tim
 
-1. **Foto candid asli.** Panggung Hero dan akordeon karya sangat bergantung padanya. Tanpa foto, panggung memakai blok `--sky-soft` dan ilustrasi garis. Kapan sesi foto?
+1. **Foto candid asli.** Panggung Hero dan akordeon karya sangat bergantung padanya. Tanpa foto, panggung memakai blok `--paper` dan ilustrasi garis. Kapan sesi foto?
 2. **Strip bukti.** Sel mana yang datanya sudah pasti (harga mulai, cicilan, asal mentor)? Sel yang belum pasti dihapus.
 3. **Chip tanya cepat.** Perlu tiga teks pertanyaan resmi, nomor WhatsApp, dan teks pesan awal per sumber (Hero, Program, Cara belajar, CTA penutup).
 4. **Kartu mentor.** Perlu data nyata: nama, pengalaman, bidang, foto, dan izin tampil. Jika belum ada, bagian mentor ditunda dan bagian karya berdiri sendiri.
-5. **Logo Scareer dan logo Dibimbing.** Cek bentrokan dengan merah dan Langit. Logo Dibimbing perlu izin dan panduan pemakaian resmi.
+5. **Logo Scareer dan logo Dibimbing.** Cek keterbacaan logo di empat latar logo panduan warna (terang, Tinta, Merah Nyala, Kuning). Logo Dibimbing perlu izin dan panduan pemakaian resmi.
 6. **Cincin halo tombol.** Ini penanda gaya yang kuat. Jika tim merasa terlalu mirip referensi, cincin bisa dilepas tanpa mengubah komponen lain.
 7. **Uji kartu lowongan.** Konsepnya kuat, tetapi sebaiknya dicek ke 5–8 fresh graduate (apakah catatan tangannya terasa lucu, bukan menyindir) dan diuji terhadap Hero tanpa kartu setelah rilis.
 8. **Auto-play.** Tidak dipakai. Jika tim ingin carousel berjalan sendiri, wajib ada tombol jeda dan berhenti saat hover atau fokus (WCAG 2.2.2).

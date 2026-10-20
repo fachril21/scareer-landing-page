@@ -50,7 +50,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: var(--purple);
+  background: var(--red);
   color: #fff;
   font-family: var(--f-display);
   font-size: 0.9375rem;
@@ -59,10 +59,10 @@
     transform 300ms var(--ease-out),
     box-shadow 300ms var(--ease-out);
 }
-/* Tujuan akhir: titik tinta dengan angka stabilo (stabilo hanya di atas tinta atau ungu). */
+/* Tujuan akhir: titik tinta dengan angka stabilo (stabilo hanya di atas tinta). */
 .ltl__item--goal .ltl__node { background: var(--ink); color: var(--highlight); }
 
-/* Segmen garis ke titik berikutnya: jalur lavender, isian ungu mengikuti scroll (--seg). */
+/* Segmen garis ke titik berikutnya: jalur Paper, isian merah mengikuti scroll (--seg). */
 .ltl__item:not(:last-child)::before,
 .ltl__item:not(:last-child)::after {
   content: "";
@@ -71,10 +71,10 @@
   left: 19px;
   width: 2px;
   height: calc(100% + 32px - 64px);
-  background: var(--lavender);
+  background: var(--paper);
 }
 .ltl__item:not(:last-child)::after {
-  background: var(--purple);
+  background: var(--red);
   transform: scaleY(var(--seg));
   transform-origin: top;
 }

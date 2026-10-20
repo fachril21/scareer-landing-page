@@ -11,7 +11,7 @@
 
 /* ---------- Teks ---------- */
 .phs__chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
-.phs__chips li { padding: 6px 14px; border-radius: var(--r-pill); background: var(--lavender); font-size: var(--t-small); font-weight: 500; line-height: 1.4; }
+.phs__chips li { padding: 6px 14px; border-radius: var(--r-pill); background: var(--paper); font-size: var(--t-small); font-weight: 500; line-height: 1.4; }
 .phs__chips .phs__chip--price { background: var(--ink); color: var(--text-on-ink); font-weight: 700; }
 
 .phs__title {
@@ -26,8 +26,8 @@
 .phs__actions { display: flex; flex-wrap: wrap; gap: 12px 16px; margin-top: 32px; }
 @media (max-width: 639px) { .phs__actions .btn { width: 100%; } }
 
-/* ---------- Panel ungu: foto + kartu ringkasan ---------- */
-.phs__panel { display: grid; gap: 16px; padding: clamp(12px, 2.4vw, 32px); border-radius: var(--r-panel); background: var(--purple); }
+/* ---------- Panel merah: foto + kartu ringkasan ---------- */
+.phs__panel { display: grid; gap: 16px; padding: clamp(12px, 2.4vw, 32px); border-radius: var(--r-panel); background: var(--red); }
 .phs__photo { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: 50% 30%; border-radius: var(--r-media); }
 .phs__card { padding: 8px 24px; border-radius: var(--r-media); background: var(--surface); }
 .phs__card dl { margin: 0; }

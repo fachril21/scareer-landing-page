@@ -1,6 +1,6 @@
 import { useHomeHref } from '../../app/router'
 
-/** Logo resmi scareer (brand guideline hal 12). Versi berwarna di atas terang, mono putih di atas Tinta atau Ungu. `adaptive`: dua versi bertumpuk, berganti mengikuti --nav-p (navbar transparan di atas hero ungu). */
+/** Logo resmi scareer (brand guideline hal 12). Versi berwarna di atas terang, mono putih di atas Tinta atau Merah. `adaptive`: dua versi bertumpuk, berganti mengikuti --nav-p (navbar transparan di atas hero merah). */
 export function Logo({ onInk = false, adaptive = false }: { onInk?: boolean; adaptive?: boolean }) {
   const home = useHomeHref()
   const src = onInk ? '/images/brand/logo-horizontal-white.png' : '/images/brand/logo-horizontal.png'

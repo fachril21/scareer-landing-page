@@ -39,7 +39,7 @@
   text-align: left;
   cursor: pointer;
 }
-.step__num { min-width: 1.5ch; color: var(--purple); }
+.step__num { min-width: 1.5ch; color: var(--red-dark); }
 .step__badge {
   padding: 2px 10px;
   border: 1px solid var(--border-control);
@@ -64,7 +64,7 @@
   min-height: 420px;
   padding: 28px;
   border-radius: var(--r-panel);
-  background: var(--lavender);
+  background: var(--paper);
 }
 .learn__panel--inline { min-height: 0; margin-bottom: 20px; padding: 20px; }
 .learn__panel-inner { animation: panel-fade 200ms var(--ease-out); }

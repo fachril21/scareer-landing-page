@@ -24,7 +24,7 @@
     transform var(--dur-press) var(--ease-out);
 }
 
-.btn--md { min-height: 40px; padding-inline: 20px; font-size: var(--t-small); }
+.btn--md { min-height: 40px; padding-inline: 20px; font-size: var(--t-body); }
 .btn--lg { min-height: 52px; padding-inline: 28px; font-size: var(--t-body); }
 @media (min-width: 640px) { .btn--lg { min-height: 48px; } }
 
@@ -37,9 +37,11 @@
   --btn-ring: var(--ring-primary);
   --btn-ring-hover: var(--ring-primary-hover);
   --btn-ring-active: var(--ring-primary-active);
-  background: var(--purple);
-  border-color: var(--purple);
+  background: var(--red);
+  border-color: var(--red);
   color: #fff;
+  /* Putih di Merah Nyala 4.2:1: tombol selalu bobot 700 dan tidak di bawah 16 px. */
+  font-weight: 700;
 }
 
 .btn--outline {
@@ -49,21 +51,22 @@
 }
 .btn--outline.btn--on-ink {
   background: transparent;
-  border-color: var(--paper);
-  color: var(--paper);
-  --btn-ring: 0 0 0 4px rgba(245, 245, 240, 0.14);
-  --btn-ring-hover: 0 0 0 6px rgba(245, 245, 240, 0.14);
-  --btn-ring-active: 0 0 0 2px rgba(245, 245, 240, 0.14);
+  border-color: #fff;
+  color: #fff;
+  font-weight: 700;
+  --btn-ring: 0 0 0 4px rgba(247, 248, 242, 0.14);
+  --btn-ring-hover: 0 0 0 6px rgba(247, 248, 242, 0.14);
+  --btn-ring-active: 0 0 0 2px rgba(247, 248, 242, 0.14);
 }
 
 .btn--light {
-  /* Terisi Paper di atas panel ungu atau Ink. Tanpa ikon, tanpa bayangan: pembedanya cincin halo. */
+  /* Terisi Paper di atas panel merah atau Ink. Tanpa ikon, tanpa bayangan: pembedanya cincin halo. */
   background: var(--paper);
   border-color: var(--paper);
   color: var(--ink);
-  --btn-ring: 0 0 0 4px rgba(245, 245, 240, 0.14);
-  --btn-ring-hover: 0 0 0 6px rgba(245, 245, 240, 0.14);
-  --btn-ring-active: 0 0 0 2px rgba(245, 245, 240, 0.14);
+  --btn-ring: 0 0 0 4px rgba(247, 248, 242, 0.14);
+  --btn-ring-hover: 0 0 0 6px rgba(247, 248, 242, 0.14);
+  --btn-ring-active: 0 0 0 2px rgba(247, 248, 242, 0.14);
 }
 
 .btn--whatsapp {
@@ -75,9 +78,9 @@
   background: var(--paper);
   border-color: var(--paper);
   color: var(--ink);
-  --btn-ring: 0 0 0 4px rgba(245, 245, 240, 0.14);
-  --btn-ring-hover: 0 0 0 6px rgba(245, 245, 240, 0.14);
-  --btn-ring-active: 0 0 0 2px rgba(245, 245, 240, 0.14);
+  --btn-ring: 0 0 0 4px rgba(247, 248, 242, 0.14);
+  --btn-ring-hover: 0 0 0 6px rgba(247, 248, 242, 0.14);
+  --btn-ring-active: 0 0 0 2px rgba(247, 248, 242, 0.14);
 }
 
 /* Tautan panah: panah di kiri, garis bawah saat hover */
@@ -105,9 +108,9 @@
 
 @media (hover: hover) {
   .btn:hover { box-shadow: var(--btn-ring-hover); }
-  .btn--primary:hover { background: var(--purple-dark); border-color: var(--purple-dark); }
+  .btn--primary:hover { background: var(--red-dark); border-color: var(--red-dark); }
   .btn--outline:hover { background: var(--paper); }
-  .btn--outline.btn--on-ink:hover { background: rgba(245, 245, 240, 0.08); }
+  .btn--outline.btn--on-ink:hover { background: rgba(247, 248, 242, 0.08); }
   .btn--whatsapp:hover { background: var(--ink-raised); border-color: var(--ink-raised); }
   .btn--whatsapp.btn--on-ink:hover { background: var(--surface); border-color: var(--surface); }
   .btn--light:hover { background: var(--surface); border-color: var(--surface); }

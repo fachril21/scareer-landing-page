@@ -1,15 +1,16 @@
-/* Token dari Brand Guideline Scareer (hal 13 tipografi, hal 17 palet). Jangan menambah warna di luar palet. */
+/* Token dari Panduan Warna scareer (Brand Identity, Color Guideline). Jangan menambah warna di luar enam warna ini. */
 :root {
   /* Inti */
-  --paper: #F5F5F0;          /* Kertas */
+  --red: #EE2B33;            /* Merah Nyala: warna utama, latar, blok besar, stiker, simbol logo. Putih di atasnya 4.2:1: hanya teks besar dan tombol */
+  --red-dark: #C8161D;       /* Merah Tua: teks merah di latar terang, hover. Jangan digelapkan lagi (bukan maroon) */
+  --highlight: #FFC629;      /* Kuning Hangat: sorotan. Di belakang teks Ink, atau teks dan ikon di atas Ink. Tidak untuk teks di atas Paper */
+  --blue: #1F4FD8;           /* Biru Royal: aksen kecil (label, ikon, garis), maksimal sekitar 8%. Bukan latar penuh */
+  --paper: #F7F8F2;          /* Putih Tulang: latar netral */
+  --ink: #17181A;            /* Tinta: teks isi, judul, garis, ilustrasi */
+
+  /* Turunan netral (bukan warna baru) */
   --surface: #FFFFFF;
-  --ink: #17181A;            /* Tinta */
   --ink-raised: #232427;
-  --purple: #7B2FF7;         /* Ungu Nyala: warna utama */
-  --purple-dark: #5E16D1;    /* hover, teks ungu kecil */
-  --purple-light: #A97CFF;   /* Ungu Muda: fokus di atas Tinta, bentuk */
-  --lavender: #ECE2FF;       /* Lavender: latar lembut */
-  --highlight: #FFE14D;      /* Kuning Stabilo: hanya di atas Tinta atau Ungu */
 
   /* Teks */
   --text: var(--ink);
@@ -59,9 +60,9 @@
   --r-sheet: 28px;           /* sudut atas lembar CTA dan footer; 48px di desktop */
 
   /* Cincin halo tombol */
-  --ring-primary: 0 0 0 4px rgba(123, 47, 247, 0.28);
-  --ring-primary-hover: 0 0 0 6px rgba(123, 47, 247, 0.28);
-  --ring-primary-active: 0 0 0 2px rgba(123, 47, 247, 0.28);
+  --ring-primary: 0 0 0 4px rgba(238, 43, 51, 0.28);
+  --ring-primary-hover: 0 0 0 6px rgba(238, 43, 51, 0.28);
+  --ring-primary-active: 0 0 0 2px rgba(238, 43, 51, 0.28);
   --ring-neutral: 0 0 0 4px rgba(23, 24, 26, 0.06);
   --ring-neutral-hover: 0 0 0 6px rgba(23, 24, 26, 0.06);
   --ring-neutral-active: 0 0 0 2px rgba(23, 24, 26, 0.06);

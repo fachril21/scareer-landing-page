@@ -68,12 +68,12 @@ export const HERO = {
   lead: 'Loker minta pengalaman, tapi nggak ada yang mau kasih? Kita mulai bareng dari sini. Bootcamp digital + internship nyata, mulai dari ±Rp3 juta.',
   note: 'lah, ini fresh grad apa bukan?',
   job: {
-    title: 'Junior [Posisi] [ISI]',
+    title: 'Junior Business Analyst',
     company: 'PT Contoh Maju Bersama',
     heading: 'Kualifikasi',
-    items: ['Fresh graduate welcome', 'Min. pengalaman 2 tahun', 'Menguasai [tools] A, B, C'],
+    items: ['Fresh graduate welcome', 'Min. pengalaman 2 tahun', 'Menguasai Excel, SQL, Looker Studio'],
     struckIndex: 1,
-    ariaLabel: 'Contoh lowongan yang meminta pengalaman 2 tahun untuk fresh graduate',
+    ariaLabel: 'Contoh lowongan Junior Business Analyst yang meminta pengalaman 2 tahun untuk fresh graduate',
   },
 } as const
 

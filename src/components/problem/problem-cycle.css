@@ -1,6 +1,6 @@
 /*
  * Section masalah, gaya "Siklus lingkaran" (tweak "Section masalah", bawaan).
- * Empat langkah di cincin searah jarum jam dari jam 12. Busur ungu (1 sampai 3) menggambar diri sekali saat section di tengah layar, sisanya putus-putus
+ * Empat langkah di cincin searah jarum jam dari jam 12. Busur merah (1 sampai 3) menggambar diri sekali saat section di tengah layar, sisanya putus-putus
  * karena di titik itu scareer memutus siklus. Mobile dan tablet: cincin kecil lalu daftar langkah bernomor.
  * Tanpa mode Interaktif cincin tampil penuh dan diam; gerak Interaktif auto-play sekali saat section di tengah layar.
  */
@@ -11,16 +11,16 @@
 .cyc__svg { display: block; width: 100%; height: 100%; overflow: visible; }
 
 .cyc__track { fill: none; stroke: var(--border-control); stroke-width: 2; stroke-dasharray: 1 1.2; }
-.cyc__arc { fill: none; stroke: var(--purple); stroke-width: 3; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.cyc__arc { fill: none; stroke: var(--red); stroke-width: 3; stroke-dasharray: 1; stroke-dashoffset: 0; }
 .cyc__chev { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-.cyc__chev--on { stroke: var(--purple); }
+.cyc__chev--on { stroke: var(--red); }
 .cyc__chev--off { stroke: var(--text-secondary); }
-.cyc__exit { fill: none; stroke: var(--purple); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.cyc__exit { fill: none; stroke: var(--red); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 
 .cyc__node-bg { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
 .cyc__node--off .cyc__node-bg { stroke: var(--text-secondary); }
 .cyc__node-fill {
-  fill: var(--purple);
+  fill: var(--red);
   opacity: var(--lit, 1);
   transform-box: fill-box;
   transform-origin: center;
@@ -35,7 +35,7 @@
 .cyc__node--off .cyc__node-num { fill: var(--text-secondary); }
 
 .cyc__orbit { display: none; }
-.cyc__core { position: absolute; inset: 0; margin: auto; color: var(--purple-light); opacity: 0.55; }
+.cyc__core { position: absolute; inset: 0; margin: auto; color: var(--highlight); opacity: 0.55; }
 
 /* Pil dan panah keluar hanya di desktop; di mobile pil jadi chip di bawah langkah 3. */
 .cyc__pill, .cyc__exit { display: none; }
@@ -60,7 +60,7 @@
   font-weight: 800;
 }
 .cyc__step--4 .cyc__num { border-color: var(--text-secondary); color: var(--text-secondary); }
-.cyc__step:not(.cyc__step--4) .cyc__num { background: var(--purple); border-color: var(--purple); color: #fff; }
+.cyc__step:not(.cyc__step--4) .cyc__num { background: var(--red); border-color: var(--red); color: #fff; }
 .cyc__chip {
   display: inline-flex;
   align-items: center;
@@ -69,8 +69,8 @@
   margin-top: 10px;
   padding: 6px 14px;
   border-radius: var(--r-pill);
-  background: var(--purple);
-  color: #fff;
+  background: var(--highlight);
+  color: var(--ink);
   font-size: var(--t-small);
   font-weight: 600;
 }
@@ -106,8 +106,8 @@
     gap: 8px;
     padding: 6px 14px;
     border-radius: var(--r-pill);
-    background: var(--purple);
-    color: #fff;
+    background: var(--highlight);
+    color: var(--ink);
     font-size: var(--t-small);
     font-weight: 600;
     white-space: nowrap;
@@ -157,7 +157,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) and (hover: hover) {
-  .cyc__step:hover h3 { color: var(--purple); }
+  .cyc__step:hover h3 { color: var(--red-dark); }
   .cyc:has(.cyc__step--1:hover) .cyc__node--1 .cyc__node-bg,
   .cyc:has(.cyc__step--2:hover) .cyc__node--2 .cyc__node-bg,
   .cyc:has(.cyc__step--3:hover) .cyc__node--3 .cyc__node-bg,

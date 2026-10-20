@@ -8,8 +8,8 @@
   border-radius: var(--r-panel);
   color: var(--ink);
 }
-.mentor--a { background: var(--lavender); --shape: var(--purple-light); }
-.mentor--b { border: var(--hairline); background: var(--surface); --shape: var(--lavender); }
+.mentor--a { background: var(--paper); --shape: var(--highlight); }
+.mentor--b { border: var(--hairline); background: var(--surface); --shape: var(--paper); }
 
 .mentor__media { position: relative; height: 260px; }
 .mentor__shape { position: absolute; inset: 20px auto 0 14%; width: 86%; background: var(--shape); clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%); }
@@ -31,9 +31,9 @@
   font-size: 13px;
   font-weight: 600;
 }
-.mentor--b .mentor__role { background: var(--lavender); }
+.mentor--b .mentor__role { background: var(--paper); }
 .mentor__quote { display: grid; gap: 4px; margin: 8px 0; }
-.mentor__quote svg { color: var(--purple); }
+.mentor__quote svg { color: var(--red-dark); }
 .mentor__quote p { font-family: var(--f-display); font-size: var(--t-statement); font-weight: 500; line-height: 1.25; }
 .mentor__company { color: var(--text-secondary); font-size: var(--t-small); }
 

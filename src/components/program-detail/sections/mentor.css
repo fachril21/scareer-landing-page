@@ -27,7 +27,7 @@
   width: 52px;
   height: 52px;
   border-radius: var(--r-pill);
-  background: var(--lavender);
+  background: var(--paper);
   font-family: var(--f-display);
   font-weight: 600;
 }
@@ -41,5 +41,5 @@
 .mentor-access { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-top: 24px; }
 .mentor-access p { color: var(--text-secondary); font-size: var(--t-small); }
 .mentor-access ul { display: flex; flex-wrap: wrap; gap: 8px; }
-.mentor-access li { padding: 4px 14px; border-radius: var(--r-pill); background: var(--lavender); font-size: 13px; font-weight: 500; }
+.mentor-access li { padding: 4px 14px; border-radius: var(--r-pill); background: var(--paper); font-size: 13px; font-weight: 500; }
 .mentor-access li span { font-weight: 600; }

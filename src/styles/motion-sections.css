@@ -30,7 +30,7 @@
   html[data-motion="interactive"] .pcar__progress span {
     display: block;
     height: 100%;
-    background: var(--purple);
+    background: var(--red);
     transform: scaleX(var(--sp, 0));
     transform-origin: left;
     transition: transform 150ms var(--ease-out);
@@ -80,18 +80,18 @@
     position: relative;
     border-top-color: var(--border);
   }
-  /* Garis ungu menimpa garis putus-putus, terisi berurutan mengikuti scroll. */
+  /* Garis merah menimpa garis putus-putus, terisi berurutan mengikuti scroll. */
   html[data-motion="interactive"] .lcol__item::before {
     content: "";
     position: absolute;
     inset: -2px 0 auto 0;
-    border-top: 2px solid var(--purple);
+    border-top: 2px solid var(--red);
     transform: scaleX(var(--fill));
     transform-origin: left;
   }
   html[data-motion="interactive"] .lcol__num { opacity: calc(0.3 + var(--lit) * 0.7); }
 
-  /* ---------- Apa itu scareer: garis atas tiap poin tergambar, lalu menyala ungu saat hover ---------- */
+  /* ---------- Apa itu scareer: garis atas tiap poin tergambar, lalu menyala merah saat hover ---------- */
   html[data-motion="interactive"] .what__item { position: relative; border-top-color: transparent; }
   html[data-motion="interactive"] .what__item::before {
     content: "";
@@ -108,7 +108,7 @@
     transform: scaleX(0);
   }
   @media (hover: hover) {
-    html[data-motion="interactive"] .what__item:hover::before { height: 2px; background: var(--purple); }
+    html[data-motion="interactive"] .what__item:hover::before { height: 2px; background: var(--red); }
   }
 
   /* ---------- Tautan panah: panah bergeser saat hover ---------- */
@@ -183,7 +183,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    border: 1.5px solid var(--purple);
+    border: 1.5px solid var(--red);
     border-radius: inherit;
     opacity: 0;
     pointer-events: none;
@@ -194,7 +194,7 @@
   html[data-motion="interactive"] .pcar__item:hover::after { opacity: 1; }
 
 
-  /* Kartu kutipan ungu: cahaya lembut mengikuti kursor (--tx, --ty dari usePointerTilt). */
+  /* Kartu kutipan: cahaya lembut mengikuti kursor (--tx, --ty dari usePointerTilt). */
   html[data-motion="interactive"] .why-ed__card { position: relative; }
   html[data-motion="interactive"] .why-ed__card > * { position: relative; }
   html[data-motion="interactive"] .why-ed__card::before {

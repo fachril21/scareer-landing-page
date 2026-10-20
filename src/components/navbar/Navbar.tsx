@@ -44,7 +44,7 @@ export function Navbar() {
   // Varian transparan lalu pill berlaku di homepage dan halaman detail (pengaturannya bersama).
   const floating = tweaks.navStyle === 'floating'
   useNavProgress(headerRef, floating)
-  // Hero vibrant panggung berlatar ungu: navbar transparan memakai logo dan teks terang sampai pill muncul.
+  // Hero vibrant panggung berlatar merah: navbar transparan memakai logo dan teks terang sampai pill muncul.
   const barTop = floating && onHome && tweaks.navTop === 'bar'
   const onHeroInk = floating && onHome && !barTop && tweaks.heroLayout === 'vibrant-stage'
   const navClass = [

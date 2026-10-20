@@ -6,12 +6,12 @@ import { SYLLABUS_FORM } from '../../../content/syllabus-form'
 import { SyllabusDownload } from './SyllabusDownload'
 import { waLink } from '../../../lib/whatsapp'
 
-/** Ilustrasi lembar silabus: garis 1,5 px bergaya coretan dengan satu isian lavender (Design.md 4.15). Dekoratif. */
+/** Ilustrasi lembar silabus: garis 1,5 px bergaya coretan dengan satu isian Paper (Design.md 4.15). Dekoratif. */
 function SheetIllustration() {
   return (
     <svg className="syl__art" viewBox="0 0 72 72" fill="none" aria-hidden="true" focusable="false">
       <g transform="rotate(-6 36 36)" stroke="var(--ink)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="14" y="8" width="44" height="56" rx="5" fill="var(--lavender)" />
+        <rect x="14" y="8" width="44" height="56" rx="5" fill="var(--paper)" />
         <path d="M23 24h26M23 33h26M23 42h16" />
       </g>
     </svg>

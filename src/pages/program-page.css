@@ -4,8 +4,8 @@ html[data-nav-style="floating"] .pd-crumb { padding-top: var(--nav-h); }
 .pd-crumb .breadcrumb { padding-block: 4px; }
 .pd-spy-end { height: 1px; margin-top: -1px; }
 
-/* ---------- View Transition: foto kartu program (homepage) menjadi foto panggung hero ---------- */
-.pd-stage .stage__photo { view-transition-name: program-photo; }
+/* ---------- View Transition: foto kartu program (homepage) dan foto hero detail saling berpindah, dua arah ---------- */
+.pd-stage .stage__photo, .phs__photo { view-transition-name: program-photo; }
 ::view-transition-group(program-photo) {
   animation-duration: 420ms;
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);

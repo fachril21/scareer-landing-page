@@ -8,7 +8,7 @@ import './doodles.css'
  */
 type DoodleName = 'senior' | 'support' | 'price' | 'book' | 'laptop' | 'briefcase'
 
-const FILL = 'var(--dd-fill, var(--lavender))'
+const FILL = 'var(--dd-fill, var(--paper))'
 
 const DOODLES: Record<DoodleName, ReactNode> = {
   /** Dua orang: kakak tingkat dan adik tingkat. Adik tingkat melambai. */

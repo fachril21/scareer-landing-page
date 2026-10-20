@@ -7,7 +7,7 @@
 .pd-badges li {
   padding: 4px 12px;
   border-radius: var(--r-pill);
-  background: var(--lavender);
+  background: var(--paper);
   font-size: 13px;
   font-weight: 500;
   line-height: 1.4;

@@ -1,6 +1,6 @@
 /*
- * Hero "vibrant" (tweak "Layout hero"), untuk pasar mahasiswa. Dua varian: --stage (ungu penuh) dan --poster (kertas).
- * Warna hanya dari palet. Kuning Stabilo hanya di atas Ungu atau Tinta; di atas Kertas, penanda memakai Ungu.
+ * Hero "vibrant" (tweak "Layout hero"), untuk pasar mahasiswa. Dua varian: --stage (merah penuh) dan --poster (kertas).
+ * Warna hanya dari palet. Kuning Hangat hanya di belakang teks Tinta; di atas Putih Tulang, penanda teks memakai Merah Tua.
  */
 .hero-v {
   position: relative;
@@ -19,7 +19,9 @@ html[data-nav-style="floating"]:not([data-nav-top="bar"]) .hero-v { padding-top:
   letter-spacing: -0.03em;
   text-wrap: balance;
 }
-.hero-v__lead { max-width: 46ch; margin-top: 24px; font-size: var(--t-lead); line-height: 1.5; }
+.hero-v__lead { max-width: 46ch; margin-top: 24px; font-size: max(var(--t-lead), 1.1667rem); font-weight: 700; line-height: 1.5; }
+/* Panggung desktop: kartu lowongan menimpa tepi kanan kolom teks, jadi lead (bobot 700, lebih lebar) dibatasi supaya tidak tertutup. */
+@media (min-width: 1024px) { .hero-v--stage .hero-v__lead { max-width: min(46ch, 540px); } }
 .hero-v__actions { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
 @media (min-width: 640px) { .hero-v__actions { flex-direction: row; } }
 
@@ -47,7 +49,7 @@ html[data-nav-style="floating"]:not([data-nav-top="bar"]) .hero-v { padding-top:
   background-image:
     linear-gradient(#fff, #fff),
     linear-gradient(var(--ink), var(--ink)),
-    linear-gradient(var(--purple), var(--purple));
+    linear-gradient(var(--red), var(--red));
 }
 
 /* ---------- Visual: foto dan stiker ---------- */
@@ -88,10 +90,10 @@ html[data-nav-style="floating"]:not([data-nav-top="bar"]) .hero-v { padding-top:
 .hero-v__facts { position: relative; z-index: 2; }
 .hero-v__fact { display: flex; align-items: center; gap: 12px; font-size: var(--t-small); font-weight: 500; }
 
-/* ============ Varian A: panggung ungu ============ */
+/* ============ Varian A: panggung merah ============ */
 .hero-v--stage {
   margin-bottom: 96px;
-  background: var(--purple);
+  background: var(--red);
   color: #fff;
 }
 .hero-v--stage .hero-v__inner { padding-bottom: 0; }
@@ -149,7 +151,7 @@ html[data-nav-style="floating"]:not([data-nav-top="bar"]) .hero-v { padding-top:
   width: 78%;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: var(--purple);
+  background: var(--red);
 }
 .hero-v--poster .hero-v__photo {
   aspect-ratio: 4 / 4.4;
@@ -159,7 +161,7 @@ html[data-nav-style="floating"]:not([data-nav-top="bar"]) .hero-v { padding-top:
   box-shadow: 0 28px 48px -20px rgba(23, 24, 26, 0.4);
 }
 .hero-v--poster .sticker--a { fill: var(--highlight); }
-.hero-v--poster .hero-v__note span { background: var(--purple); color: #fff; }
+.hero-v--poster .hero-v__note span { background: var(--ink); color: var(--paper); }
 .hero-v--poster .hero-v__arrow { color: var(--ink); }
 
 .hero-v__facts-wrap { position: relative; z-index: 2; }
@@ -250,7 +252,7 @@ html[data-nav-style="floating"]:not([data-nav-top="bar"]) .hero-v { padding-top:
 }
 
 @media (min-width: 1024px) {
-  /* Desktop: kartu menimpa garis lengkung, separuh di atas ungu dan separuh di atas foto. Catatan di sisi kanan kartu. */
+  /* Desktop: kartu menimpa garis lengkung, separuh di atas merah dan separuh di atas foto. Catatan di sisi kanan kartu. */
   .hero-v--has-job .hero-v__visual .job {
     position: absolute;
     inset: auto auto 76px -64px;
@@ -263,5 +265,5 @@ html[data-nav-style="floating"]:not([data-nav-top="bar"]) .hero-v { padding-top:
   .hero-v--has-job .hero-v__facts { margin-top: 0; }
 }
 
-/* Kartu lowongan berlatar putih: teksnya Tinta, bukan putih warisan panggung ungu. */
+/* Kartu lowongan berlatar putih: teksnya Tinta, bukan putih warisan panggung merah. */
 .hero-v--has-job .job__card { color: var(--ink); }

@@ -6,7 +6,7 @@
   background: var(--ink);
   color: var(--text-on-ink-secondary);
 }
-/* Di homepage footer menimpa tepi bawah CTA ungu, jadi ungu terlihat di kedua sudut. */
+/* Di homepage footer menimpa tepi bawah CTA merah, jadi merah terlihat di kedua sudut. */
 .fsheet--overlap { position: relative; margin-top: calc(-1 * var(--sheet-r)); }
 @media (min-width: 1024px) {
   .fsheet { --sheet-r: 48px; padding: 96px 0 40px; }
@@ -50,7 +50,7 @@
   color: var(--ink);
   transition: background-color var(--dur-fast) var(--ease-out);
 }
-@media (hover: hover) { .fsheet__icons a:hover { background: var(--lavender); } }
+@media (hover: hover) { .fsheet__icons a:hover { background: var(--paper); } }
 
 /* Kolom tautan */
 .fsheet__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 24px; }

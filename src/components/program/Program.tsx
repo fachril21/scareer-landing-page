@@ -12,6 +12,9 @@ import { useTweaks } from '../../tweaks/TweakContext'
 import './program.css'
 import './program-finder.css'
 
+/** Subcopy di bawah judul section; tanpa klaim harga, durasi, atau hasil. */
+const PROGRAM_LEAD = 'Pilih jalur belajar yang sesuai tujuanmu, cek detailnya, lalu tanya lewat WhatsApp kalau masih ragu.'
+
 export function Program() {
   const { tweaks } = useTweaks()
   const gridRef = useRef<HTMLUListElement>(null)
@@ -22,6 +25,7 @@ export function Program() {
     <Section id="program" tone="paper" labelledBy="program-title">
       <SectionLabel>Program</SectionLabel>
       <h2 id="program-title">Pilih program yang cocok buat kamu</h2>
+      <p className="program__lead">{PROGRAM_LEAD}</p>
 
       {tweaks.programFinder === 'on' && <ProgramFinder />}
 

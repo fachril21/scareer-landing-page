@@ -9,8 +9,8 @@ import { waLink } from '../../../lib/whatsapp'
 import './hero-split.css'
 
 /**
- * 1. Hero, layout terbelah: teks dan tombol di kiri, panel ungu di kanan berisi foto kelas dan kartu ringkasan.
- * Statis (tanpa animasi masuk dan parallax), tanpa bayangan: kartu dibedakan lewat latar putih di atas ungu.
+ * 1. Hero, layout terbelah: teks dan tombol di kiri, panel merah di kanan berisi foto kelas dan kartu ringkasan.
+ * Statis (tanpa animasi masuk dan parallax), tanpa bayangan: kartu dibedakan lewat latar putih di atas merah.
  */
 export function ProgramHeroSplit({ program }: { program: ProgramDetail }) {
   const nextBatch = upcomingBatches(program.batches)[0]

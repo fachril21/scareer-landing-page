@@ -35,7 +35,7 @@
 .sform__status { gap: 8px; }
 .sform__status legend { margin-bottom: 4px; }
 .sform__opt { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 8px 14px; border: 1px solid var(--border-control); border-radius: var(--r-media); cursor: pointer; font-size: 15px; line-height: 1.35; }
-.sform__opt input { flex: none; width: 20px; height: 20px; margin: 0; accent-color: var(--purple); }
+.sform__opt input { flex: none; width: 20px; height: 20px; margin: 0; accent-color: var(--red); }
 .sform__opt.is-checked { padding: 7px 13px; border: 2px solid var(--ink); background: var(--paper); font-weight: 600; }
 .sform__opt:has(input:focus-visible) { outline: 3px solid var(--ink); outline-offset: 2px; }
 @media (hover: hover) { .sform__opt:not(.is-checked):hover { background: var(--paper); } }

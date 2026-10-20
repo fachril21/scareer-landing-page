@@ -1,4 +1,4 @@
-/* Blog. Token dari tokens.css; garis tipis tanpa bayangan; aksen ungu/Ink; judul Bricolage, isi Satoshi. */
+/* Blog. Token dari tokens.css; garis tipis tanpa bayangan; aksen merah/Ink; judul Bricolage, isi Satoshi. */
 
 /* Navbar transparan lalu pill menimpa konten di bawahnya: bagian pertama diturunkan setinggi navbar. */
 html[data-nav-style="floating"] .blog-top { padding-top: calc(var(--nav-h) + 24px); }
@@ -13,7 +13,7 @@ html[data-nav-style="floating"] .blog-top { padding-top: calc(var(--nav-h) + 24p
 .bsearch__input { flex: 1; min-width: 0; min-height: 52px; padding: 0 16px 0 50px; border: 0; background: none; color: var(--ink); font: inherit; outline: none; }
 .bsearch__input::placeholder { color: var(--text-secondary); }
 .bsearch__submit { margin: 6px; min-height: 40px; padding: 0 20px; border: 0; border-radius: var(--r-pill); background: var(--ink); color: var(--paper); font: inherit; font-size: var(--t-small); font-weight: 600; cursor: pointer; }
-@media (hover: hover) { .bsearch__submit:hover { background: var(--purple-dark); } }
+@media (hover: hover) { .bsearch__submit:hover { background: var(--red-dark); } }
 
 /* ---------- Tab grup ---------- */
 .btabs { margin-top: 24px; border-bottom: var(--hairline); }
@@ -50,20 +50,20 @@ html[data-nav-style="floating"] .blog-top { padding-top: calc(var(--nav-h) + 24p
 .agrid__more { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 16px; margin-top: 40px; padding-top: 20px; border-top: var(--hairline); color: var(--text-secondary); font-size: var(--t-small); }
 
 .acard { position: relative; display: grid; gap: 10px; align-content: start; height: 100%; }
-.acard__cover { overflow: hidden; border-radius: var(--r-media); background: var(--lavender); }
+.acard__cover { overflow: hidden; border-radius: var(--r-media); background: var(--paper); }
 .acard__cover img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
 .acard__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-top: 4px; color: var(--text-secondary); font-size: var(--t-small); }
-.amark { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--lavender); color: var(--purple-dark); font-size: 12px; font-weight: 700; }
+.amark { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--paper); color: var(--red-dark); font-size: 12px; font-weight: 700; }
 .acard__title { font-family: var(--f-display); font-size: 1.1875rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.3; text-wrap: balance; }
 .acard__title a { color: var(--ink); text-decoration: none; }
 .acard__title a::after { content: ""; position: absolute; inset: 0; } /* seluruh kartu bisa diklik */
 @media (hover: hover) { .acard__title a:hover { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; } }
 .acard__excerpt { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; color: var(--text-secondary); font-size: 15px; }
-.acard__cat { position: relative; z-index: 1; justify-self: start; color: var(--purple-dark); font-size: var(--t-small); font-weight: 600; text-decoration: none; }
+.acard__cat { position: relative; z-index: 1; justify-self: start; color: var(--red-dark); font-size: var(--t-small); font-weight: 600; text-decoration: none; }
 @media (hover: hover) { .acard__cat:hover { text-decoration: underline; text-underline-offset: 3px; } }
 
-/* Kata kunci pencarian: stabilo hanya di atas Ink/Ungu, jadi di sini memakai Lavender dengan teks Ink */
-.hl { border-radius: 3px; background: var(--lavender); color: var(--ink); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* Kata kunci pencarian: stabilo kuning di belakang teks Ink */
+.hl { border-radius: 3px; background: var(--highlight); color: var(--ink); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 
 /* ---------- Hasil pencarian ---------- */
 .bsummary { margin-bottom: 24px; color: var(--text-secondary); }
@@ -74,13 +74,13 @@ html[data-nav-style="floating"] .blog-top { padding-top: calc(var(--nav-h) + 24p
 .bempty__chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip-link { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid var(--border-control); border-radius: var(--r-pill); color: var(--ink); font-size: var(--t-small); font-weight: 500; text-decoration: none; }
 .bempty__chips--soft .chip-link { border-color: var(--border); background: var(--paper); }
-@media (hover: hover) { .chip-link:hover { background: var(--lavender); } }
+@media (hover: hover) { .chip-link:hover { background: var(--paper); } }
 
 /* ---------- Detail artikel ---------- */
 .ahead { display: grid; gap: 12px; max-width: 760px; margin-top: 8px; }
 .ahead h1 { font-family: var(--f-display); font-size: clamp(2rem, 1.3rem + 2.8vw, 3.25rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; text-wrap: balance; }
 .ahead__lead { color: var(--text-secondary); font-size: var(--t-lead); text-wrap: pretty; }
-.acover { margin-top: 32px; overflow: hidden; border-radius: var(--r-panel); background: var(--lavender); }
+.acover { margin-top: 32px; overflow: hidden; border-radius: var(--r-panel); background: var(--paper); }
 .acover img { display: block; width: 100%; aspect-ratio: 16 / 8; object-fit: cover; }
 
 .alayout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; margin-top: 40px; }
@@ -103,7 +103,7 @@ html[data-nav-style="floating"] .blog-top { padding-top: calc(var(--nav-h) + 24p
 .prose h2 { margin-top: 2em; font-family: var(--f-display); font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.75rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; scroll-margin-top: 88px; }
 .prose ul { display: grid; gap: 8px; padding-left: 1.25em; list-style: disc; }
 .prose ul li::marker { color: var(--text-secondary); }
-.prose blockquote { margin-inline: 0; padding: 20px 24px; border-radius: var(--r-media); background: var(--lavender); font-family: var(--f-display); font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+.prose blockquote { margin-inline: 0; padding: 20px 24px; border-radius: var(--r-media); background: var(--paper); font-family: var(--f-display); font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
 
 .ashare { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; max-width: var(--measure); margin-top: 48px; padding-top: 20px; border-top: var(--hairline); }
 .ashare > p { color: var(--text-secondary); font-size: var(--t-small); font-weight: 500; }

@@ -1,4 +1,4 @@
-/* Kenapa kami, layout bento di band Ink. Sel --ink-raised bergaris tipis, kartu ungu satu-satunya blok berwarna. */
+/* Kenapa kami, layout bento di band Ink. Sel --ink-raised bergaris tipis, kartu merah satu-satunya blok berwarna. */
 .wb-title {
   max-width: 14ch;
   font-family: var(--f-display);
@@ -48,8 +48,8 @@
 .wb-trade dt svg { flex: none; }
 .wb-trade dd { margin: 6px 0 0; color: var(--text-on-ink-secondary); font-size: var(--t-small); }
 
-/* ---------- Kartu ungu ---------- */
-.wb-card--promise { border-color: transparent; background: var(--purple); }
+/* ---------- Kartu janji: Tinta terangkat, bergaris kuning (paragraf tidak boleh di atas Merah Nyala) ---------- */
+.wb-card--promise { border-color: var(--highlight); background: var(--ink-raised); }
 .wb-card--promise .wb-card__title { margin-top: 24px; }
 .wb-card--promise mark { padding: 0 0.25em; border-radius: 6px; background: var(--highlight); color: var(--ink); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 .wb-card--promise .wb-card__body { max-width: 62ch; color: var(--paper); font-size: var(--t-body); }
@@ -82,7 +82,7 @@
   transition: background-color var(--dur-fast) var(--ease-out);
 }
 .wchat__pause::after { content: ""; position: absolute; inset: -6px -4px; } /* area sentuh 48px */
-@media (hover: hover) { .wchat__pause:hover { background: rgba(245, 245, 240, 0.08); } }
+@media (hover: hover) { .wchat__pause:hover { background: rgba(247, 248, 242, 0.08); } }
 
 .wchat { display: grid; gap: 10px; margin: 28px 0 24px; }
 .wchat__row { display: grid; }

@@ -1,4 +1,4 @@
-/* Kurikulum, layout timeline. Garis tipis dan sel putih di atas Paper, tanpa bayangan; ungu hanya untuk titik aktif dan tanda "+". */
+/* Kurikulum, layout timeline. Garis tipis dan sel putih di atas Paper, tanpa bayangan; merah hanya untuk titik aktif dan tanda "+". */
 .ct { display: grid; gap: 40px; }
 @media (min-width: 1024px) { .ct { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 64px; align-items: start; } }
 
@@ -8,7 +8,7 @@
 .ct__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 32px; }
 .ct__stat { display: grid; gap: 2px; padding: 16px; border: var(--hairline); border-radius: var(--r-media); background: var(--surface); color: var(--text-secondary); font-size: var(--t-small); }
 .ct__stat strong { color: var(--ink); font-family: var(--f-display); font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; }
-.ct__stat strong span { color: var(--purple); }
+.ct__stat strong span { color: var(--red-dark); }
 
 /* ---------- Silabus ---------- */
 .syl { display: flex; align-items: center; gap: 20px; margin-top: 8px; padding: 20px; border: var(--hairline); border-radius: var(--r-panel); background: var(--surface); }
@@ -40,7 +40,7 @@
     background: var(--paper);
     transition: background-color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
   }
-  .tl__item.is-open::before { border-color: var(--purple); background: var(--purple); }
+  .tl__item.is-open::before { border-color: var(--red); background: var(--red); }
   .tl__item:not(:last-child)::after { /* garis ke titik berikutnya */
     content: "";
     position: absolute;

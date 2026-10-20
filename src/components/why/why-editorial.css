@@ -10,7 +10,7 @@
   line-height: 1.05;
   letter-spacing: -0.03em;
 }
-.why-ed__title span { color: var(--purple); }
+.why-ed__title span { color: var(--red-dark); }
 .why-ed__lead {
   max-width: 44ch;
   margin-top: 24px;
@@ -24,9 +24,9 @@
   margin: 0;
   padding: clamp(28px, 4vw, 48px);
   border-radius: var(--r-panel);
-  background: var(--purple);
+  background: var(--red);
   color: #fff;
-  box-shadow: 0 18px 40px -18px rgba(94, 22, 209, 0.55);
+  box-shadow: 0 18px 40px -18px rgba(23, 24, 26, 0.55);
   transform: rotate(var(--tilt));
   transition:
     transform 400ms var(--ease-out),
@@ -36,7 +36,7 @@
 @media (hover: hover) {
   .why-ed__card:hover {
     transform: rotate(0deg) translateY(-4px);
-    box-shadow: 0 26px 48px -20px rgba(94, 22, 209, 0.6);
+    box-shadow: 0 26px 48px -20px rgba(23, 24, 26, 0.6);
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -83,14 +83,14 @@ html[data-motion="interactive"] .why-ed__pillars--cards .why-ed__pillar::before 
 }
 
 .why-pc {
-  --pc-bg: var(--lavender);
+  --pc-bg: var(--highlight);
   --pc-text: var(--ink);
-  --pc-text-2: #4B3F66;
+  --pc-text-2: color-mix(in srgb, var(--ink) 80%, transparent);
   --pc-badge: var(--surface);
-  --pc-glow: rgba(123, 47, 247, 0.16);
-  --pc-shadow: rgba(94, 22, 209, 0.38);
+  --pc-glow: rgba(255, 255, 255, 0.38);
+  --pc-shadow: rgba(23, 24, 26, 0.38);
   --dd-stroke: var(--ink);
-  --dd-fill: var(--purple-light);
+  --dd-fill: var(--surface);
 
   position: relative;
   display: grid;
@@ -111,18 +111,21 @@ html[data-motion="interactive"] .why-ed__pillars--cards .why-ed__pillar::before 
   --pc-text: var(--text-on-ink);
   --pc-text-2: var(--text-on-ink-secondary);
   --pc-badge: var(--highlight);
-  --pc-glow: rgba(169, 124, 255, 0.28);
+  --pc-glow: rgba(255, 198, 41, 0.28);
   --pc-shadow: rgba(23, 24, 26, 0.6);
   --dd-fill: var(--surface);
 }
-.why-pc--purple {
-  --pc-bg: var(--purple);
-  --pc-text: #fff;
-  --pc-text-2: #F3ECFF;
-  --pc-badge: var(--surface);
-  --pc-glow: rgba(255, 255, 255, 0.22);
-  --pc-shadow: rgba(94, 22, 209, 0.6);
-  --dd-fill: var(--lavender);
+.why-pc--red {
+  /* Paragraf tidak boleh di atas Merah Nyala (4.2:1): kartu putih, merah hanya di lencana. */
+  --pc-bg: var(--surface);
+  --pc-text: var(--ink);
+  --pc-text-2: var(--text-secondary);
+  --pc-badge: var(--red);
+  --pc-glow: rgba(238, 43, 51, 0.14);
+  --pc-shadow: rgba(23, 24, 26, 0.3);
+  --dd-stroke: var(--surface);
+  --dd-fill: var(--ink);
+  border: var(--hairline);
 }
 
 /* Cahaya lembut di bawah teks; posisinya mengikuti kursor lewat --tx dan --ty (mode Interaktif). */
@@ -187,8 +190,8 @@ html[data-why-tilt="straight"] .why-photo { --tilt: 0deg; }
   overflow: hidden;
   aspect-ratio: 4 / 3;
   border-radius: var(--r-panel);
-  background: var(--lavender);
-  box-shadow: 0 18px 40px -18px rgba(94, 22, 209, 0.55);
+  background: var(--paper);
+  box-shadow: 0 18px 40px -18px rgba(23, 24, 26, 0.55);
 }
 .why-photo__img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; }
 

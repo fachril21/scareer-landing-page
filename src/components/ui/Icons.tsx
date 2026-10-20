@@ -16,7 +16,7 @@ export function WhatsAppIcon({ size = 20, ...props }: SVGProps<SVGSVGElement> & 
 export function CheckDot({ size = 14 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 14 14" aria-hidden="true" focusable="false">
-      <circle cx="7" cy="7" r="7" fill="var(--lavender)" />
+      <circle cx="7" cy="7" r="7" fill="var(--paper)" />
       <path
         d="M4 7.2l2 2 4-4.4"
         fill="none"

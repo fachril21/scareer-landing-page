@@ -11,7 +11,7 @@ export function Sparkle({ className = '', fill = 'var(--highlight)' }: { classNa
   )
 }
 
-export function Burst({ className = '', fill = 'var(--purple-light)' }: { className?: string; fill?: string }) {
+export function Burst({ className = '', fill = 'var(--highlight)' }: { className?: string; fill?: string }) {
   const petals = Array.from({ length: 8 }, (_, i) => i * 45)
   return (
     <svg className={`sticker ${className}`} viewBox="0 0 64 64" aria-hidden="true" focusable="false">

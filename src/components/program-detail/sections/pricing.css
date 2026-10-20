@@ -11,7 +11,7 @@
 }
 @media (min-width: 768px) { .price-card { grid-template-columns: 1fr 1fr; } }
 .price-card__main, .price-card__list { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 28px; }
-.price-card__main { background: var(--lavender); }
+.price-card__main { background: var(--paper); }
 .price-card__list { border-top: var(--hairline); }
 @media (min-width: 768px) { .price-card__list { border-top: 0; border-left: var(--hairline); } }
 .price-card__label { color: var(--text-secondary); font-size: var(--t-small); }
@@ -22,7 +22,7 @@
 .price-card__list h3 { font-size: var(--t-h3); }
 .price-card__list ul { display: grid; gap: 10px; font-size: 15px; }
 .price-card__list li { display: flex; gap: 10px; align-items: flex-start; }
-.price-card__list svg { flex: none; margin-top: 4px; color: var(--purple); }
+.price-card__list svg { flex: none; margin-top: 4px; color: var(--red-dark); }
 
 /* ---------- Refund: selalu terlihat ---------- */
 .info-card { display: grid; gap: 12px; align-content: start; margin-top: 12px; padding: 24px; border: var(--hairline); border-radius: var(--r-panel); }

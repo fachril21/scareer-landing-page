@@ -23,7 +23,7 @@ const TITLE_MARK = HERO_WORD_SETS.tuntutan.words[0]
 
 /**
  * Hero "vibrant" untuk pasar mahasiswa. Dua varian dari konten yang sama:
- * `stage` = panggung ungu penuh dengan foto melengkung dan bar fakta gelap,
+ * `stage` = panggung merah penuh dengan foto melengkung dan bar fakta gelap,
  * `poster` = poster di atas kertas dengan foto miring dan stiker fakta.
  */
 interface HeroVibrantProps {
@@ -85,9 +85,9 @@ export function HeroVibrant({ variant, showJob = false, refreshable = false }: H
           </div>
 
           <Sparkle className="sticker--a" />
-          <Burst className="sticker--b" fill={onInk ? 'var(--purple-light)' : 'var(--purple)'} />
-          <Squiggle className="sticker--c" stroke={onInk ? 'var(--highlight)' : 'var(--purple)'} />
-          <Sparkle className="sticker--d" fill={onInk ? 'var(--purple-light)' : 'var(--highlight)'} />
+          <Burst className="sticker--b" fill={onInk ? 'var(--highlight)' : 'var(--red)'} />
+          <Squiggle className="sticker--c" stroke={onInk ? 'var(--highlight)' : 'var(--red)'} />
+          <Sparkle className="sticker--d" fill={onInk ? 'var(--highlight)' : 'var(--highlight)'} />
 
           {showJob && <JobCard drawn={visualSeen} refreshable={refreshable} />}
 

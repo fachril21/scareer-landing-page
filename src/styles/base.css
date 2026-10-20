@@ -36,14 +36,14 @@ a { color: inherit; }
 
 .num { font-variant-numeric: tabular-nums; }
 
-/* Fokus keyboard: Tinta di atas terang, Ungu Muda di atas Tinta */
+/* Fokus keyboard: Tinta di atas terang, Kuning di atas Tinta */
 :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
-.on-ink :focus-visible { outline-color: var(--purple-light); }
+.on-ink :focus-visible { outline-color: var(--highlight); }
 
 /* Permukaan browser yang ikut dirancang */
 ::selection { background: var(--highlight); color: var(--ink); }
 .on-ink ::selection { background: var(--highlight); color: var(--ink); }
-input, textarea { caret-color: var(--purple); }
+input, textarea { caret-color: var(--red); }
 a:not([class]) { text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
 html { scrollbar-color: var(--border-control) var(--paper); }
 

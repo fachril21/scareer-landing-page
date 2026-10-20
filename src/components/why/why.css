@@ -10,7 +10,7 @@
 .mark {
   padding: 0 0.12em;
   margin: 0 -0.12em;
-  background: linear-gradient(transparent 22%, var(--lavender) 22% 82%, transparent 82%);
+  background: linear-gradient(transparent 22%, var(--paper) 22% 82%, transparent 82%);
   color: var(--ink);
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
@@ -42,7 +42,7 @@
   font-size: var(--t-small);
   font-weight: 500;
 }
-.panel__box { width: 10px; height: 10px; background: var(--purple-light); }
+.panel__box { width: 10px; height: 10px; background: var(--highlight); }
 .panel__title { max-width: 22ch; color: var(--text-on-ink); }
 
 .panel {

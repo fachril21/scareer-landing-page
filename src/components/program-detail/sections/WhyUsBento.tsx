@@ -14,7 +14,7 @@ function Icon({ icon: Glyph }: { icon: LucideIcon }) {
 
 /**
  * 3. Kenapa kami, layout bento di band Ink: kartu obrolan "kakak tingkat", Dibimbing, kenapa terjangkau,
- * kartu ungu "yang nggak kami janjikan" (selalu utuh), lalu tiga alasan program. Sel berborder tipis, tanpa bayangan.
+ * kartu merah "yang nggak kami janjikan" (selalu utuh), lalu tiga alasan program. Sel berborder tipis, tanpa bayangan.
  */
 export function WhyUsBento({ program }: { program: ProgramDetail }) {
   const { whyBento: w } = program

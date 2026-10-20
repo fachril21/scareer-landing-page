@@ -12,14 +12,14 @@
     --lit: clamp(0, calc((var(--p) * var(--n) - var(--i) + 0.12) * 6), 1);
   }
 
-  /* Garis ungu menimpa garis putus-putus. Mobile: vertikal. */
+  /* Garis merah menimpa garis putus-putus. Mobile: vertikal. */
   html[data-motion="interactive"] .loop__step::after {
     content: "";
     position: absolute;
     left: 7px;
     top: 6px;
     bottom: -6px;
-    border-left: 2px solid var(--purple);
+    border-left: 2px solid var(--red);
     transform: scaleY(var(--fill));
     transform-origin: top;
   }
@@ -30,7 +30,7 @@
     position: absolute;
     inset: 2px;
     border-radius: 50%;
-    background: var(--purple);
+    background: var(--red);
     opacity: var(--lit);
     transform: scale(calc(0.4 + var(--lit) * 0.6));
   }
@@ -63,7 +63,7 @@
       bottom: auto;
       height: 0;
       border-left: 0;
-      border-top: 2px solid var(--purple);
+      border-top: 2px solid var(--red);
       transform: scaleX(var(--fill));
       transform-origin: left;
     }

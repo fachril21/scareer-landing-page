@@ -16,7 +16,7 @@
 }
 
 .lcol__num {
-  color: var(--purple);
+  color: var(--red-dark);
   font-family: var(--f-display);
   font-size: 3rem;
   font-weight: 800;
@@ -33,7 +33,7 @@
 .lcol__badge {
   padding: 2px 10px;
   border-radius: var(--r-pill);
-  background: var(--lavender);
+  background: var(--paper);
   font-family: var(--f-body);
   font-size: 13px;
   font-weight: 500;
@@ -44,7 +44,7 @@
 .lcol__link {
   justify-self: start;
   margin-top: 4px;
-  color: var(--purple-dark);
+  color: var(--red-dark);
   text-decoration: underline;
   text-decoration-thickness: 1.5px;
   text-underline-offset: 0.2em;

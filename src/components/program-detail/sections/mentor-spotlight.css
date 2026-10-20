@@ -14,8 +14,8 @@
 .sp__blank {
   display: grid;
   place-items: center;
-  background: repeating-linear-gradient(135deg, var(--lavender) 0 14px, rgba(123, 47, 247, 0.07) 14px 15px);
-  color: var(--purple-dark);
+  background: repeating-linear-gradient(135deg, var(--paper) 0 14px, rgba(238, 43, 51, 0.07) 14px 15px);
+  color: var(--red-dark);
   font-family: var(--f-display);
   font-size: clamp(3rem, 2rem + 4vw, 4.5rem);
   font-weight: 800;
@@ -44,8 +44,8 @@
 /* ---------- Pemilih dan akses ---------- */
 .sp__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 16px; }
 .sp__tabs { display: flex; flex-wrap: wrap; gap: 8px; }
-.sp__tab { display: grid; place-items: center; width: 48px; height: 48px; border: 2px solid transparent; border-radius: 50%; background: var(--lavender); color: var(--ink); font-family: var(--f-display); font-size: 0.9375rem; font-weight: 600; cursor: pointer; transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out); }
-.sp__tab[aria-selected="true"] { border-color: var(--purple); background: var(--surface); }
+.sp__tab { display: grid; place-items: center; width: 48px; height: 48px; border: 2px solid transparent; border-radius: 50%; background: var(--paper); color: var(--ink); font-family: var(--f-display); font-size: 0.9375rem; font-weight: 600; cursor: pointer; transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out); }
+.sp__tab[aria-selected="true"] { border-color: var(--red); background: var(--surface); }
 .sp__access { display: flex; flex-wrap: wrap; gap: 8px; }
 
 @container (min-width: 820px) { .sp__photo, .sp__blank { aspect-ratio: 4 / 5; } }

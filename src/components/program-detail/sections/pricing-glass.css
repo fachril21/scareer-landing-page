@@ -1,12 +1,12 @@
-/* Harga, gaya kaca. Dua kartu transparan di atas band Ink; kartu yang direkomendasikan terisi ungu transparan.
-   Satu cahaya ungu samar di belakang kartu kanan sebagai bahan yang di-blur (pengecualian tunggal dari larangan gradasi). */
+/* Harga, gaya kaca. Dua kartu transparan di atas band Ink; kartu yang direkomendasikan bergaris dan bertint kuning.
+   Satu cahaya merah samar di belakang kartu kanan sebagai bahan yang di-blur (pengecualian tunggal dari larangan gradasi). */
 .tiers__plans--glass { position: relative; isolation: isolate; align-items: stretch; }
 .tiers__plans--glass::before {
   content: "";
   position: absolute;
   z-index: -1;
   inset: -12% -4% -12% 30%;
-  background: radial-gradient(60% 60% at 62% 38%, rgba(123, 47, 247, 0.5), rgba(123, 47, 247, 0) 70%);
+  background: radial-gradient(60% 60% at 62% 38%, rgba(238, 43, 51, 0.5), rgba(238, 43, 51, 0) 70%);
   pointer-events: none;
 }
 @media (min-width: 768px) { .tiers__plans--glass > :nth-child(2) { margin-top: 0; } }
@@ -14,13 +14,13 @@
 .plan--glass {
   gap: 16px;
   padding: clamp(24px, 3vw, 32px);
-  border: 1px solid rgba(245, 245, 240, 0.16);
-  background: rgba(245, 245, 240, 0.07);
+  border: 1px solid rgba(247, 248, 242, 0.16);
+  background: rgba(247, 248, 242, 0.07);
   color: var(--text-on-ink);
   -webkit-backdrop-filter: blur(20px) saturate(1.3);
   backdrop-filter: blur(20px) saturate(1.3);
 }
-.plan--rec { border-color: rgba(169, 124, 255, 0.7); background: rgba(123, 47, 247, 0.5); }
+.plan--rec { border-color: rgba(255, 198, 41, 0.8); background: rgba(255, 198, 41, 0.12); }
 
 /* Atas: pil nama paket bertitik, dan penanda rekomendasi */
 .plan--glass .plan__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
@@ -29,43 +29,43 @@
   align-items: center;
   gap: 8px;
   padding: 6px 14px;
-  border: 1px solid rgba(245, 245, 240, 0.2);
+  border: 1px solid rgba(247, 248, 242, 0.2);
   border-radius: var(--r-pill);
-  background: rgba(245, 245, 240, 0.06);
+  background: rgba(247, 248, 242, 0.06);
   color: var(--text-on-ink);
   font-size: var(--t-small);
   font-weight: 600;
 }
-.plan--glass .plan__name::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--purple-light); }
+.plan--glass .plan__name::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--highlight); }
 .plan__rec { padding: 4px 12px; border-radius: var(--r-pill); background: var(--highlight); color: var(--ink); font-size: 13px; font-weight: 700; line-height: 1.4; }
 
 .plan--glass .plan__from { color: var(--text-on-ink-secondary); }
 .plan--glass .plan__price strong { color: var(--paper); }
-.plan--glass .plan__audience { padding-bottom: 20px; border-bottom: var(--hairline-on-ink); color: var(--purple-light); font-size: 15px; }
+.plan--glass .plan__audience { padding-bottom: 20px; border-bottom: var(--hairline-on-ink); color: var(--highlight); font-size: 15px; }
 .plan--glass .plan__list { margin-top: 4px; border-top: 0; }
 .plan--glass .plan__list li { padding: 8px 0; border-bottom: 0; }
-.plan--glass .plan__list svg { margin-top: 2px; color: var(--purple-light); }
+.plan--glass .plan__list svg { margin-top: 2px; color: var(--highlight); }
 .plan--glass .plan__excluded { color: var(--text-on-ink-secondary); }
 
-/* Di atas kartu ungu, teks sekunder memakai Paper penuh: abu muda tidak cukup kontras di atas ungu. */
+/* Di atas kartu merah, teks sekunder memakai Paper penuh: abu muda tidak cukup kontras di atas merah. */
 .plan--rec .plan__from, .plan--rec .plan__audience, .plan--rec .plan__excluded { color: var(--paper); }
-.plan--rec .plan__audience { border-bottom-color: rgba(245, 245, 240, 0.3); }
+.plan--rec .plan__audience { border-bottom-color: rgba(247, 248, 242, 0.3); }
 .plan--rec .plan__list svg { color: var(--paper); }
 
 /* Tombol selebar kartu di dasar; "Detail" di bawahnya */
 .plan--glass .plan__actions { flex-direction: column; align-items: stretch; gap: 8px; margin-top: auto; padding-top: 12px; }
 .plan--glass .plan__actions .btn--lg { width: 100%; }
 .plan--glass .plan__actions .btn--link { justify-content: center; }
-.on-ink .plan--glass :focus-visible { outline-color: var(--purple-light); }
+.on-ink .plan--glass :focus-visible { outline-color: var(--highlight); }
 .on-ink .plan--rec :focus-visible { outline-color: var(--paper); }
 
 /* Tanpa blur (browser lama) atau pengguna meminta kurang transparan: latar solid dengan kontras sama. */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .plan--glass { background: var(--ink-raised); }
-  .plan--rec { background: color-mix(in srgb, var(--purple) 55%, var(--ink)); }
+  .plan--rec { background: var(--ink-raised); border-color: var(--highlight); }
 }
 @media (prefers-reduced-transparency: reduce) {
   .plan--glass { background: var(--ink-raised); -webkit-backdrop-filter: none; backdrop-filter: none; }
-  .plan--rec { background: color-mix(in srgb, var(--purple) 55%, var(--ink)); }
+  .plan--rec { background: var(--ink-raised); border-color: var(--highlight); }
   .tiers__plans--glass::before { display: none; }
 }

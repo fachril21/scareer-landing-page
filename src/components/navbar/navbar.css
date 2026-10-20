@@ -177,7 +177,7 @@ html[data-nav-width="wide"] { --pill-max: 960px; }
   left: -16px;
   width: 400px;
   padding: 10px;
-  box-shadow: 0 22px 44px -22px rgba(94, 22, 209, 0.35), 0 4px 12px rgba(23, 24, 26, 0.08);
+  box-shadow: 0 22px 44px -22px rgba(23, 24, 26, 0.35), 0 4px 12px rgba(23, 24, 26, 0.08);
   /* Disembunyikan lewat visibility (bukan display) supaya penutupan bisa dianimasikan. */
   visibility: hidden;
   opacity: 0;
@@ -225,8 +225,8 @@ html[data-nav-width="wide"] { --pill-max: 960px; }
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  background: var(--lavender);
-  color: var(--purple);
+  background: var(--paper);
+  color: var(--red-dark);
 }
 .pm-card__name { font-family: var(--f-display); font-size: 1.0625rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }
 .pm-card__go {
@@ -241,8 +241,8 @@ html[data-nav-width="wide"] { --pill-max: 960px; }
 .pm-card:active { scale: 0.98; transition-duration: var(--dur-press); }
 
 @media (hover: hover) {
-  .pm-card:hover { translate: 0 -2px; border-color: var(--purple); background: var(--paper); }
-  .pm-card:hover .pm-card__go { background: var(--purple); color: #fff; translate: 2px 0; }
+  .pm-card:hover { translate: 0 -2px; border-color: var(--red); background: var(--paper); }
+  .pm-card:hover .pm-card__go { background: var(--red); color: #fff; translate: 2px 0; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -304,7 +304,7 @@ html[data-nav-width="wide"] { --pill-max: 960px; }
   .mobile-menu { display: none !important; }
 }
 
-/* ---------- Di atas hero ungu (hero vibrant panggung): terang di puncak halaman, kembali gelap saat pill muncul ---------- */
+/* ---------- Di atas hero merah (hero vibrant panggung): terang di puncak halaman, kembali gelap saat pill muncul ---------- */
 .nav--on-hero-ink {
   --ink-t: clamp(0, calc((var(--nav-p) - 0.3) * 3.3), 1); /* 0 = terang, 1 = gelap */
 }
@@ -316,7 +316,7 @@ html[data-nav-width="wide"] { --pill-max: 960px; }
   color: color-mix(in srgb, var(--ink) calc(var(--ink-t) * 100%), #fff);
 }
 .nav--on-hero-ink:not(.nav--menu-open) .nav__actions .btn--primary {
-  background: color-mix(in srgb, var(--purple) calc(var(--ink-t) * 100%), var(--highlight));
-  border-color: color-mix(in srgb, var(--purple) calc(var(--ink-t) * 100%), var(--highlight));
+  background: color-mix(in srgb, var(--red) calc(var(--ink-t) * 100%), var(--highlight));
+  border-color: color-mix(in srgb, var(--red) calc(var(--ink-t) * 100%), var(--highlight));
   color: color-mix(in srgb, #fff calc(var(--ink-t) * 100%), var(--ink));
 }

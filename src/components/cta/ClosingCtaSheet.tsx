@@ -8,7 +8,7 @@ import { useScrollProgress } from '../../hooks/useScrollProgress'
 import { waLink } from '../../lib/whatsapp'
 import './cta-sheet.css'
 
-/** CTA penutup varian "Lembar": panel ungu bersudut atas membulat. Footer menimpa tepi bawahnya. */
+/** CTA penutup varian "Lembar": panel merah bersudut atas membulat. Footer menimpa tepi bawahnya. */
 export function ClosingCtaSheet() {
   // Panel naik, stabilo tersapu, dan isi muncul bertahap saat CTA terlihat (hanya mode Interaktif).
   const [sectionRef, seen] = useInViewOnce<HTMLElement>(0.2)

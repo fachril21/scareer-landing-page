@@ -3,7 +3,7 @@
 .curr-stats li {
   padding: 6px 14px;
   border-radius: var(--r-pill);
-  background: var(--lavender);
+  background: var(--paper);
   font-size: var(--t-small);
   font-weight: 500;
 }
@@ -45,7 +45,7 @@
   cursor: pointer;
 }
 .mod__name { display: flex; gap: 12px; }
-.mod__num { min-width: 1.5ch; color: var(--purple); }
+.mod__num { min-width: 1.5ch; color: var(--red-dark); }
 .mod__dur { flex: none; color: var(--text-secondary); font-family: var(--f-body); font-size: 13px; font-weight: 400; }
 @media (hover: hover) { .mod:not(.is-active) .mod__head:hover { background: var(--paper); } }
 .mod__body { padding: 0 0 20px 0; }
@@ -80,14 +80,14 @@
   min-height: 32px;
   padding: 0 14px;
   border-radius: var(--r-pill);
-  background: var(--lavender);
+  background: var(--paper);
   font-size: var(--t-small);
   font-weight: 500;
   text-decoration: none;
 }
 /* Area sentuh 44 px untuk chip 32 px */
 .mod-detail__tools a::after { content: ""; position: absolute; inset: -6px 0; }
-@media (hover: hover) { .mod-detail__tools a:hover { background: var(--purple-light); color: var(--ink); } }
+@media (hover: hover) { .mod-detail__tools a:hover { background: var(--highlight); color: var(--ink); } }
 .mod-detail__output {
   display: flex;
   flex-wrap: wrap;
@@ -99,7 +99,7 @@
   background: var(--paper);
   font-size: 15px;
 }
-.mod-detail__badge { padding: 2px 12px; border-radius: var(--r-pill); background: var(--purple); color: #fff; font-size: 13px; font-weight: 700; }
+.mod-detail__badge { padding: 2px 12px; border-radius: var(--r-pill); background: var(--highlight); color: var(--ink); font-size: 13px; font-weight: 700; }
 
 /* ---------- Kartu unduh silabus ---------- */
 .syllabus {
