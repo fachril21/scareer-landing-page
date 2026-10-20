@@ -33,7 +33,7 @@
 }
 .cell.is-fading { opacity: 0.2; }
 .cell__body { display: flex; flex: 1; flex-direction: column; padding: 24px; }
-@media (hover: hover) { .cell:not(.cell--all):hover { cursor: pointer; background: var(--paper); } }
+@media (hover: hover) { .cell:hover { cursor: pointer; background: var(--paper); } }
 
 .cell__media { margin-bottom: 20px; overflow: hidden; border-radius: var(--r-media); }
 .cell__photo { aspect-ratio: 16 / 10; }
@@ -65,26 +65,6 @@
 }
 .cell__price { color: var(--text-secondary); font-size: var(--t-small); }
 .cell__price strong { color: var(--ink); font-size: var(--t-body); font-weight: 600; }
-
-/* Sel penutup "Lihat semua program" */
-.cell--all { background: var(--paper); }
-.cell__all-link {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  min-height: 160px;
-  padding: 24px;
-  font-family: var(--f-display);
-  font-size: var(--t-h3);
-  font-weight: 600;
-  text-decoration: none;
-}
-@media (hover: hover) { .cell__all-link:hover span { text-decoration: underline; text-underline-offset: 0.2em; } }
-@media (min-width: 640px) and (max-width: 1023px) { .cell--all { grid-column: span var(--span-t); } }
-@media (min-width: 1024px) { .cell--all { grid-column: span var(--span-d); } }
-@media (max-width: 639px) { .cell--all { display: none; } }
 
 .program-empty {
   display: grid;
@@ -162,17 +142,9 @@
   overflow: hidden;
 }
 
-.pcar__more { background: var(--paper); }
-.pcar__more-link {
-  display: flex;
-  flex: 1;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 24px;
-  font-family: var(--f-display);
-  font-size: var(--t-h3);
-  font-weight: 600;
-  text-decoration: none;
+/* Hanya dua program: di tablet dan desktop keduanya berbagi lebar baris, tanpa geser dan tanpa kartu yang mengintip. */
+@media (min-width: 640px) {
+  .pcar__track { margin-inline: 0; padding-inline: 2px; overflow-x: visible; scroll-snap-type: none; }
+  .pcar__item { flex: 1 1 0; min-width: 0; }
 }
-@media (hover: hover) { .pcar__more-link:hover span { text-decoration: underline; text-underline-offset: 0.2em; } }
+

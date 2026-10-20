@@ -20,21 +20,11 @@ export const NAV_ITEMS = [
 
 /* ---------- Program ---------- */
 
-export type ProgramField = 'Cyber Security' | 'Data Analyst' | 'Digital Marketing' | 'Finance & Accounting' | DummyProgramField
+export type ProgramField = 'Cyber Security' | 'Data Analyst'
 
 /** Kategori untuk filter program di homepage. Chip hanya muncul untuk kategori yang punya program. */
-export const PROGRAM_CATEGORIES = ['Teknologi', 'Bisnis', 'Kreatif'] as const
+export const PROGRAM_CATEGORIES = ['Teknologi'] as const
 export type ProgramCategory = (typeof PROGRAM_CATEGORIES)[number]
-
-type DummyProgramField =
-  | 'Web Development'
-  | 'Cloud Computing'
-  | 'Software QA'
-  | 'UI/UX Design'
-  | 'Graphic Design'
-  | 'Content Creator'
-  | 'Human Resources'
-  | 'Sales & Business Development'
 
 export interface Program {
   slug: string
@@ -42,8 +32,6 @@ export interface Program {
   image: string
   field: ProgramField
   category: ProgramCategory
-  /** Program contoh untuk menguji tampilan banyak program (panel tweak). Belum punya halaman detail. */
-  isDummy?: boolean
   name: string
   audience: string
   duration: string
@@ -53,18 +41,11 @@ export interface Program {
   startingPrice: string
 }
 
-const makeProgram = (
-  slug: string,
-  image: string,
-  field: ProgramField,
-  category: ProgramCategory,
-  isDummy = false,
-): Program => ({
+const makeProgram = (slug: string, image: string, field: ProgramField, category: ProgramCategory): Program => ({
   slug,
   image,
   field,
   category,
-  ...(isDummy && { isDummy }),
   name: field,
   audience: 'Cocok untuk [ISI]',
   duration: '[ISI] minggu',
@@ -74,25 +55,11 @@ const makeProgram = (
   startingPrice: 'Rp [ISI]',
 })
 
+/** Hanya dua program. Menu, halaman detail, dan footer membaca daftar ini. */
 export const PROGRAMS: readonly Program[] = [
   makeProgram('cyber-security', 'program-a', 'Cyber Security', 'Teknologi'),
   makeProgram('data-analyst', 'program-b', 'Data Analyst', 'Teknologi'),
-  makeProgram('digital-marketing', 'program-c', 'Digital Marketing', 'Bisnis'),
-  makeProgram('finance-accounting', 'program-d', 'Finance & Accounting', 'Bisnis'),
 ]
-
-/** Hanya dipakai lewat panel tweak ("Jumlah program"). Tidak masuk menu atau halaman detail. */
-export const DUMMY_PROGRAMS: readonly Program[] = [
-  makeProgram('web-development', 'program-a', 'Web Development', 'Teknologi', true),
-  makeProgram('cloud-computing', 'program-b', 'Cloud Computing', 'Teknologi', true),
-  makeProgram('software-qa', 'program-d', 'Software QA', 'Teknologi', true),
-  makeProgram('ui-ux-design', 'program-c', 'UI/UX Design', 'Kreatif', true),
-  makeProgram('graphic-design', 'program-d', 'Graphic Design', 'Kreatif', true),
-  makeProgram('content-creator', 'program-a', 'Content Creator', 'Kreatif', true),
-  makeProgram('human-resources', 'program-b', 'Human Resources', 'Bisnis', true),
-  makeProgram('sales-bizdev', 'program-c', 'Sales & Business Development', 'Bisnis', true),
-]
-
 
 /* ---------- Hero ---------- */
 
@@ -133,8 +100,8 @@ export const WHAT_IS = {
   items: [
     {
       question: 'Mau belajar apa?',
-      answer: 'Pilih satu dari empat jalur.',
-      body: 'Cyber Security, Data Analyst, Digital Marketing, atau Finance & Accounting. Ambil yang paling dekat dengan targetmu.',
+      answer: 'Pilih satu dari dua jalur.',
+      body: 'Cyber Security atau Data Analyst. Ambil yang paling dekat dengan targetmu.',
     },
     {
       question: 'Cocok buat siapa?',
@@ -192,9 +159,6 @@ export const PROBLEM = {
       ],
     },
   ],
-  pivot: 'Di titik ketiga itulah scareer masuk. Lewat internship nyata, kamu dapat pengalaman pertama, jadi lamaran berikutnya tidak lagi mulai dari nol.',
-  /** Tujuan tombol di akhir section bergantung urutan halaman: Program (urutan Cerita) atau Cara belajar. */
-  cta: { program: 'Pilih program yang cocok', learn: 'Lihat cara belajarnya' },
 } as const
 
 export const PROOF_CELLS = [
@@ -279,10 +243,21 @@ export const LEARN = {
   columns: {
     title: 'Cara belajar',
     steps: [
-      { title: 'Pilih program', body: 'Pilih jalur yang paling cocok: Data Analyst atau Digital Marketing, Skill Sprint atau Career Launch Lite.', optional: false },
+      { title: 'Pilih program', body: 'Pilih jalur yang paling cocok: Cyber Security atau Data Analyst.', optional: false },
       { title: 'Ngobrol dulu', body: 'Belum yakin program mana yang cocok? Tanya dulu, kami jawab apa adanya.', optional: true, link: 'Tanya via WhatsApp' },
       { title: 'Belajar bareng mentor', body: 'Video recording yang bisa ditonton kapan saja, plus sesi Zoom interaktif bersama mentor berpengalaman.', optional: false },
       { title: 'Praktik lewat internship', body: 'Skill yang kamu pelajari langsung dipraktikkan di dunia kerja nyata, jadi kamu punya pengalaman untuk ditunjukkan.', optional: false },
+    ],
+  },
+  /** Varian "Garis waktu" (tweak "Layout Cara belajar"): tiga langkah, copy mengikuti desain referensi. */
+  timeline: {
+    titleLines: ['Dari belajar', 'sampai punya'],
+    titleAccent: 'pengalaman nyata.',
+    lead: 'Kami menjembatani proses belajar dan bekerja dengan pengalaman yang relevan di dunia kerja.',
+    steps: [
+      { icon: 'book', title: 'Belajar Skill', body: 'Akses video pembelajaran dan kelas live bersama mentor.' },
+      { icon: 'laptop', title: 'Praktik Langsung', body: 'Kerjakan studi kasus dan proyek nyata yang relevan dengan industri.' },
+      { icon: 'briefcase', title: 'Internship', body: 'Lanjut ke program internship untuk membangun pengalaman kerja pertamamu.' },
     ],
   },
   chat: {
@@ -384,8 +359,6 @@ export const FOOTER_SHEET = {
       links: [
         { label: 'Cyber Security', href: '/program/cyber-security' },
         { label: 'Data Analyst', href: '/program/data-analyst' },
-        { label: 'Digital Marketing', href: '/program/digital-marketing' },
-        { label: 'Finance & Accounting', href: '/program/finance-accounting' },
       ],
     },
     {
@@ -412,8 +385,6 @@ export const FOOTER = {
       links: [
         { label: 'Cyber Security', href: '/program/cyber-security' },
         { label: 'Data Analyst', href: '/program/data-analyst' },
-        { label: 'Digital Marketing', href: '/program/digital-marketing' },
-        { label: 'Finance & Accounting', href: '/program/finance-accounting' },
       ],
     },
     {

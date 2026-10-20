@@ -80,9 +80,6 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
                   <a href={`/program/${p.slug}`}>{p.name}</a>
                 </li>
               ))}
-              <li>
-                <a href="/program">Lihat semua program</a>
-              </li>
             </ul>
           )}
         </li>

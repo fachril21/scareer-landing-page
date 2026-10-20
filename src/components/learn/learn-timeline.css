@@ -1,0 +1,119 @@
+/* Varian "Garis waktu" (tweak "Layout Cara belajar"): tiga langkah di satu garis. */
+.ltl__head { display: grid; gap: 20px; }
+@media (min-width: 1024px) {
+  .ltl__head { grid-template-columns: auto minmax(0, 38ch); justify-content: space-between; gap: 64px; align-items: end; }
+}
+.ltl__title {
+  font-size: clamp(2.25rem, 1.2rem + 3.4vw, 4rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+.ltl__line { display: block; }
+@media (min-width: 420px) { .ltl__mark { white-space: nowrap; } }
+/* Stabilo kuning di balik frasa kunci, teks tetap tinta. */
+/* Inline + clone: tiap baris yang terlipat mendapat blok sendiri sepanjang katanya, bukan satu blok selebar kolom. */
+.ltl__mark {
+  padding: 0.02em 0.16em 0.06em;
+  border-radius: 0.14em;
+  background: var(--highlight);
+  color: var(--ink);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.ltl__lead {
+  max-width: 38ch;
+  color: var(--text-secondary);
+  font-size: var(--t-lead);
+  line-height: 1.5;
+}
+
+.ltl { display: grid; gap: 32px; margin-top: 48px; }
+
+/* Mobile dan tablet: garis waktu tegak, titik di kiri. */
+.ltl__item {
+  --seg: clamp(0, calc((var(--p, 1) - var(--i) * 0.5) * 2), 1);
+  position: relative;
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  padding-left: 64px;
+}
+.ltl__item > p { max-width: 34ch; color: var(--text-secondary); }
+
+.ltl__node {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #fff;
+  font-family: var(--f-display);
+  font-size: 0.9375rem;
+  font-weight: 800;
+  transition:
+    transform 300ms var(--ease-out),
+    box-shadow 300ms var(--ease-out);
+}
+/* Tujuan akhir: titik tinta dengan angka stabilo (stabilo hanya di atas tinta atau ungu). */
+.ltl__item--goal .ltl__node { background: var(--ink); color: var(--highlight); }
+
+/* Segmen garis ke titik berikutnya: jalur lavender, isian ungu mengikuti scroll (--seg). */
+.ltl__item:not(:last-child)::before,
+.ltl__item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 52px;
+  left: 19px;
+  width: 2px;
+  height: calc(100% + 32px - 64px);
+  background: var(--lavender);
+}
+.ltl__item:not(:last-child)::after {
+  background: var(--purple);
+  transform: scaleY(var(--seg));
+  transform-origin: top;
+}
+
+.ltl__icon { margin-top: 2px; }
+
+@media (min-width: 1024px) {
+  .ltl { grid-template-columns: repeat(3, 1fr); gap: 0 40px; margin-top: 64px; }
+  .ltl__item { gap: 12px; padding-left: 0; }
+  .ltl__node { position: static; }
+  .ltl__icon { margin-top: 20px; }
+  .ltl__item:not(:last-child)::before,
+  .ltl__item:not(:last-child)::after {
+    top: 19px;
+    left: 52px;
+    width: calc(100% + 40px - 64px);
+    height: 2px;
+  }
+  .ltl__item:not(:last-child)::after { transform: scaleX(var(--seg)); transform-origin: left; }
+}
+
+/* Gerak Interaktif: titik menyala berurutan mengikuti progres scroll. */
+html[data-motion="interactive"] .ltl__node {
+  --lit: clamp(0, calc((var(--p, 1) - var(--i) * 0.45) * 6), 1);
+  transform: scale(calc(0.72 + 0.28 * var(--lit)));
+  opacity: calc(0.4 + 0.6 * var(--lit));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @media (hover: hover) {
+    .ltl__item:hover .ltl__node { transform: scale(1.14); box-shadow: var(--ring-primary); }
+    .ltl__item--goal:hover .ltl__node { box-shadow: 0 0 0 4px rgba(23, 24, 26, 0.14); }
+    .ltl__item:hover .dd-page { animation: dd-page 700ms var(--ease-out); }
+    .ltl__item:hover .dd-check { animation: dd-draw-hover 600ms var(--ease-out); }
+    .ltl__item:hover .dd-bag { animation: dd-lift 600ms var(--ease-out); }
+  }
+  /* Layar sentuh: titik menekan sedikit saat disentuh. */
+  .ltl__item:active .ltl__node { transform: scale(0.94); transition-duration: var(--dur-press); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ltl__node { transition: none; }
+}

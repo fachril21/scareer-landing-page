@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { FilterChip } from '../ui/Primitives'
 import { ProgramCell } from './ProgramCell'
 import { PROGRAM_CATEGORIES, type Program, type ProgramCategory } from '../../content/content'
@@ -138,12 +138,6 @@ export function ProgramCarousel({ programs }: { programs: readonly Program[] }) 
             fading={fadingOut && effectiveSelected !== ALL && p.category !== effectiveSelected}
           />
         ))}
-        <li className="cell pcar__item pcar__more">
-          <a className="pcar__more-link" href="/program">
-            <span>Lihat semua program</span>
-            <ArrowRight size={20} strokeWidth={1.75} aria-hidden="true" />
-          </a>
-        </li>
       </ul>
 
       {interactive && hasOverflow && (

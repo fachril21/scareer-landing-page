@@ -16,7 +16,7 @@ Fresh graduate, pencari kerja entry-level, dan mungkin career switcher pemula di
 
 ## Product Purpose
 
-scareer adalah bootcamp terjangkau (mulai dari ±Rp3 juta) dengan internship, Supported by Dibimbing. Empat track: Cyber Security, Data Analyst, Digital Marketing, Finance & Accounting. Homepage bertugas mengenalkan brand dan mengantar pengunjung ke **halaman detail bootcamp yang tepat**. Keputusan ikut program diambil di halaman detail, bukan di homepage. Tujuan sekunder: pengunjung yang belum yakin ngobrol dulu lewat WhatsApp. Sukses = pengunjung membuka satu halaman detail program, atau memulai obrolan WhatsApp.
+scareer adalah bootcamp terjangkau (mulai dari ±Rp3 juta) dengan internship, Supported by Dibimbing. Dua program: Cyber Security dan Data Analyst (hanya dua, tidak ada program lain; diputuskan 20 Okt 2026). Homepage bertugas mengenalkan brand dan mengantar pengunjung ke **halaman detail bootcamp yang tepat**. Keputusan ikut program diambil di halaman detail, bukan di homepage. Tujuan sekunder: pengunjung yang belum yakin ngobrol dulu lewat WhatsApp. Sukses = pengunjung membuka satu halaman detail program, atau memulai obrolan WhatsApp.
 
 ## Positioning
 

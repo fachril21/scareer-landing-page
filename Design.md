@@ -15,8 +15,9 @@ Wireframe pendamping dokumen ini ada di file wireframe terpisah dan memakai nomo
 
 | Aspek | Isi |
 | --- | --- |
-| Produk | Scareer: bootcamp terjangkau (sekitar Rp4 juta), didukung Dibimbing. Banyak program. |
+| Produk | Scareer: bootcamp terjangkau (sekitar Rp4 juta), didukung Dibimbing. **Hanya dua program** (Cyber Security dan Data Analyst); tanpa ubin "Lihat semua program" dan tanpa tautan ke program lain. |
 | Audiens | Fresh graduate, pencari kerja entry-level, career switcher pemula. Budget terbatas. Mayoritas membuka dari HP. |
+| Target visitor utama | **Mahasiswa semester akhir** (skripsi atau menjelang lulus) yang mulai cemas soal kerja pertama dan belum punya pengalaman kerja. Mereka membandingkan bootcamp sambil kuliah, hemat, dan sangat peka pada hal yang terasa menggurui atau "jualan". Konsekuensi desain: tampilan boleh lebih berwarna, hidup, dan interaktif dari desain korporat, tetapi tetap dari palet merek dan tetap jujur (bukan visual promo). Micro-interaction diutamakan di komponen yang dibaca sekilas lewat HP. |
 | Tujuan homepage | Mengenalkan brand dan mengantar pengunjung ke halaman detail program yang tepat. Keputusan ikut program diambil di halaman detail. |
 | Tujuan sekunder | Pengunjung yang belum yakin ngobrol dulu lewat WhatsApp. |
 | Posisi brand | Teman setara, "kakak tingkat". Murah, bukan murahan. |
@@ -350,7 +351,16 @@ Penanda stabilo hanya boleh di kalimat pernyataan ini, tidak di H1 atau judul se
 
 Tiga kolom dipisah **garis vertikal 1 px**, tanpa kartu. Ikon garis bergaya coretan (4.15). Judul `--t-h3`, deskripsi `--text-secondary`. Mobile: ditumpuk dengan garis horizontal.
 
+**Varian kartu berwarna (layout editorial, tweak "Tiga pilar", bawaan; ditambahkan 20 Okt 2026 untuk mahasiswa semester akhir).** Tiap pilar jadi kartu dengan lencana ikon bulat 60 px (ikon 32 px). Warna tetap dari palet merek, satu per pilar: Kakak tingkat = lavender, Supported by Dibimbing = tinta (lencana kuning stabilo), Terjangkau = ungu. Desktop: ketiga kartu sejajar dan sama tinggi (tanpa tangga turun). Micro-interaction, hanya `transform`, `opacity`, dan stroke:
+- Masuk layar: centang di ikon Dibimbing tergambar sekali.
+- Hover (mouse): kartu naik 6 px, lencana miring dan membesar sedikit, ikon bergerak sesuai arti (adik tingkat melambai, centang digambar ulang, tutup dompet terbuka), cahaya lembut mengikuti kursor di mode Interaktif.
+- Sentuh: kartu menekan ke 0.985 saat disentuh.
+- `prefers-reduced-motion`: semua gerak mati, kartu statis.
+Pilihan "Polos (lama)" tetap menampilkan baris garis di atas.
+
 ### 4.8 Program: grid sel berborder (inti halaman)
+
+**Keputusan 20 Okt 2026: hanya dua program** (Cyber Security dan Data Analyst). Di homepage keduanya berbagi lebar baris (dua kolom sama lebar di tablet dan desktop, ditumpuk di HP). Tidak ada ubin "Lihat semua program" di grid, carousel, menu navbar, maupun menu mobile, dan tidak ada tweak jumlah program. Baris di bawah tentang enam program, jumlah ganjil, dan sel "Lihat semua" tidak berlaku lagi.
 
 Enam program dalam **satu kontainer berborder** dengan radius luar `--r-panel`. Sel di dalamnya berbagi garis 1 px (tanpa celah dan tanpa bayangan).
 
@@ -417,6 +427,8 @@ Hover: | + K1 | (->) Karya 2 (lebar, deskripsi, label) | + K3 | + K4 | + K5 |
 - Latar band: `--ink` (section panggung). Tidak ada auto-scroll.
 
 ### 4.11 Tab vertikal dengan panel (Cara belajar)
+
+**Varian "Garis waktu 3 langkah" (tweak "Layout Cara belajar", bawaan; ditambahkan 20 Okt 2026).** Judul tiga baris "Dari belajar / sampai punya / *pengalaman nyata.*" di kiri (berat 800, tracking -0.04em; frasa terakhir di atas blok stabilo kuning dengan teks tinta, mengikuti referensi desain, pengecualian atas aturan stabilo hanya di kalimat pernyataan; tanpa label kecil di atas judul), kalimat pengantar di kanan. Di bawahnya tiga langkah (Belajar Skill, Praktik Langsung, Internship) di satu garis: titik ungu bernomor 40 px, dua segmen garis 2 px (jalur lavender, isian ungu), lalu ikon coretan 36 px (buku, laptop, tas kerja), judul, dan deskripsi. Titik terakhir = tujuan akhir: lingkaran tinta dengan angka stabilo. Desktop: tiga kolom dengan garis mendatar; mobile dan tablet: garis tegak di kiri. Tanpa label kecil di atas judul. Gerak (mode Interaktif): garis terisi dan titik menyala berurutan mengikuti scroll; hover atau sentuh langkah membesarkan titik dan menggerakkan ikon (halaman buku membuka, centang laptop tergambar ulang, gagang tas terangkat). Reduced motion: statis. Pilihan "Original" dan "4 kolom" tetap tersedia; deskripsi di bawah ini berlaku untuk varian Original.
 
 ```
 [tag] Cara belajar                               +--------------------------+

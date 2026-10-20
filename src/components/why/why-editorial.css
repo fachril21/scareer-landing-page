@@ -70,3 +70,109 @@ html[data-why-tilt="straight"] .why-ed__card { --tilt: 0deg; }
   .why-ed__pillars { grid-template-columns: repeat(3, 1fr); gap: 56px; margin-top: 96px; }
   .why-ed__pillar:not(:first-child) { margin-top: 28px; }
 }
+
+/* ---------- Tiga pilar sebagai kartu berwarna (tweak "Tiga pilar") ---------- */
+.why-ed__pillars--cards { gap: 16px; }
+.why-ed__pillars--cards .why-ed__pillar { padding: 0; border-top: 0; align-content: stretch; }
+/* Garis penarik dari motion-sections.css hanya untuk varian polos. */
+html[data-motion="interactive"] .why-ed__pillars--cards .why-ed__pillar::before { content: none; }
+@media (min-width: 1024px) {
+  .why-ed__pillars--cards { gap: 28px; }
+  /* Kartu sejajar: batalkan tangga turun milik varian polos. */
+  .why-ed__pillars--cards .why-ed__pillar:not(:first-child) { margin-top: 0; }
+}
+
+.why-pc {
+  --pc-bg: var(--lavender);
+  --pc-text: var(--ink);
+  --pc-text-2: #4B3F66;
+  --pc-badge: var(--surface);
+  --pc-glow: rgba(123, 47, 247, 0.16);
+  --pc-shadow: rgba(94, 22, 209, 0.38);
+  --dd-stroke: var(--ink);
+  --dd-fill: var(--purple-light);
+
+  position: relative;
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  padding: 28px;
+  overflow: hidden;
+  border-radius: var(--r-panel);
+  background: var(--pc-bg);
+  color: var(--pc-text);
+  box-shadow: 0 14px 28px -20px var(--pc-shadow);
+  transition:
+    transform 320ms var(--ease-out),
+    box-shadow 320ms var(--ease-out);
+}
+.why-pc--ink {
+  --pc-bg: var(--ink);
+  --pc-text: var(--text-on-ink);
+  --pc-text-2: var(--text-on-ink-secondary);
+  --pc-badge: var(--highlight);
+  --pc-glow: rgba(169, 124, 255, 0.28);
+  --pc-shadow: rgba(23, 24, 26, 0.6);
+  --dd-fill: var(--surface);
+}
+.why-pc--purple {
+  --pc-bg: var(--purple);
+  --pc-text: #fff;
+  --pc-text-2: #F3ECFF;
+  --pc-badge: var(--surface);
+  --pc-glow: rgba(255, 255, 255, 0.22);
+  --pc-shadow: rgba(94, 22, 209, 0.6);
+  --dd-fill: var(--lavender);
+}
+
+/* Cahaya lembut di bawah teks; posisinya mengikuti kursor lewat --tx dan --ty (mode Interaktif). */
+.why-pc::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at calc(50% + var(--tx, 0) * 50%) calc(50% + var(--ty, 0) * 50%),
+    var(--pc-glow),
+    transparent 62%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms var(--ease-out);
+}
+.why-pc > * { position: relative; }
+
+.why-pc h3 { color: var(--pc-text); }
+.why-pc p { max-width: 40ch; color: var(--pc-text-2); }
+
+.why-pc__badge {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 8px;
+  border-radius: 50%;
+  background: var(--pc-badge);
+  transition: transform 360ms var(--ease-out);
+}
+
+/* Gerak ikon: tiap pilar punya satu gerakan sendiri (keyframes di doodles.css). */
+@media (prefers-reduced-motion: no-preference) {
+  /* Centang tergambar saat kartu pertama kali terlihat. */
+  .why-pc:not(.is-seen) .dd-check { stroke-dashoffset: 1; }
+  .why-pc.is-seen .dd-check { animation: dd-draw-in 700ms var(--ease-out) 250ms backwards; }
+
+  @media (hover: hover) {
+    .why-pc:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 36px -22px var(--pc-shadow);
+    }
+    .why-pc:hover::before { opacity: 1; }
+    .why-pc:hover .why-pc__badge { transform: rotate(-7deg) scale(1.08); }
+    .why-pc:hover .dd-wave { animation: dd-wave 800ms var(--ease-out); }
+    .why-pc:hover .dd-check { animation: dd-draw-hover 600ms var(--ease-out); }
+    .why-pc:hover .dd-flap { animation: dd-flap 700ms var(--ease-out); }
+    .why-pc:hover .dd-dot { animation: dd-dot 700ms var(--ease-out); }
+  }
+  /* Layar sentuh: kartu menekan sedikit saat disentuh. */
+  .why-pc:active { transform: scale(0.985); transition-duration: var(--dur-press); }
+}

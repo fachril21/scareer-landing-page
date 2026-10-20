@@ -146,8 +146,7 @@ html[data-nav-width="wide"] { --pill-max: 960px; }
 @keyframes menu-in { from { opacity: 0; transform: translateY(-4px); } }
 
 .program-menu__list { display: grid; grid-template-columns: 1fr 1fr; }
-.program-menu__list a,
-.program-menu__all {
+.program-menu__list a {
   display: flex;
   align-items: center;
   min-height: 48px;
@@ -157,10 +156,8 @@ html[data-nav-width="wide"] { --pill-max: 960px; }
   font-size: 15px;
   text-decoration: none;
 }
-.program-menu__all { margin-top: 4px; border-bottom: 0; font-weight: 600; }
 @media (hover: hover) {
-  .program-menu__list a:hover,
-  .program-menu__all:hover { background: var(--paper); }
+  .program-menu__list a:hover { background: var(--paper); }
 }
 
 /* ---------- Menu mobile ---------- */

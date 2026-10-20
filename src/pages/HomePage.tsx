@@ -11,6 +11,7 @@ import { WhyEditorial } from '../components/why/WhyEditorial'
 import { useTweaks } from '../tweaks/TweakContext'
 import { Learn } from '../components/learn/Learn'
 import { LearnColumns } from '../components/learn/LearnColumns'
+import { LearnTimeline } from '../components/learn/LearnTimeline'
 import { Works } from '../components/works/Works'
 import { Mentors } from '../components/mentors/Mentors'
 import { Faq } from '../components/faq/Faq'
@@ -33,10 +34,19 @@ export function HomePage() {
 
   const why = tweaks.whyLayout === 'editorial' ? <WhyEditorial key="kenapa" /> : <WhyStatement key="kenapa" />
   const problem = tweaks.problem !== 'hidden' && (
-    <ProblemLoop key="masalah" variant={tweaks.problem} next={story ? 'program' : 'learn'} />
+    <ProblemLoop key="masalah" variant={tweaks.problem} />
   )
   const program = <Program key="program" />
-  const priceNote = tweaks.whyPanel === 'shown' && <WhyPanel key="transparan" />
+  const learnTone = story ? 'surface' : 'paper'
+  const learn =
+    tweaks.learnLayout === 'timeline' ? (
+      <LearnTimeline tone={learnTone} />
+    ) : tweaks.learnLayout === 'columns' ? (
+      <LearnColumns tone={learnTone} />
+    ) : (
+      <Learn />
+    )
+  const priceNote =tweaks.whyPanel === 'shown' && <WhyPanel key="transparan" />
 
   // Urutan Cerita: Hero, Apa itu, Kenapa, Masalah, Program, Cara belajar. Sebelumnya: Program tepat di bawah "Apa itu".
   const middle = story ? [why, problem, program, priceNote] : [program, why, problem, priceNote]
@@ -49,7 +59,7 @@ export function HomePage() {
         <Hero />
         {tweaks.whatIs !== 'hidden' && <WhatIsScareer variant={tweaks.whatIs} />}
         {middle}
-        {tweaks.learnLayout === 'columns' ? <LearnColumns tone={story ? 'surface' : 'paper'} /> : <Learn />}
+        {learn}
         {tweaks.worksSection === 'shown' && <Works />}
         {tweaks.mentorSection === 'shown' && <Mentors />}
         {tweaks.faqSection === 'shown' && <Faq />}

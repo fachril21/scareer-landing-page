@@ -50,6 +50,13 @@
       color 200ms var(--ease-out) 900ms;
   }
 
+  /* ---------- Cara belajar (garis waktu) ---------- */
+  /* Stabilo di judul tersapu mengikuti scroll: --p (0 sampai 1) ditulis useScrollProgress ke judul; tanpa itu bernilai 1 (penuh).
+   * Teks sudah Tinta di atas latar terang, jadi hanya lapis stabilo yang menyapu. */
+  html[data-motion="interactive"] .ltl__mark {
+    background: linear-gradient(var(--highlight), var(--highlight)) no-repeat 0 0 / calc(var(--p, 1) * 100%) 100%;
+  }
+
   /* Garis atas tiap pilar tergambar saat pilar muncul. */
   html[data-motion="interactive"] .why-ed__pillar { position: relative; border-top-color: transparent; }
   html[data-motion="interactive"] .why-ed__pillar::before {
@@ -186,8 +193,6 @@
   }
   html[data-motion="interactive"] .pcar__item:hover::after { opacity: 1; }
 
-  html[data-motion="interactive"] .pcar__more-link svg { transition: translate 250ms var(--ease-out); }
-  html[data-motion="interactive"] .pcar__more-link:hover svg { translate: 4px 0; }
 
   /* Kartu kutipan ungu: cahaya lembut mengikuti kursor (--tx, --ty dari usePointerTilt). */
   html[data-motion="interactive"] .why-ed__card { position: relative; }

@@ -1,4 +1,4 @@
-import { Check, ArrowRight } from 'lucide-react'
+import { Check } from 'lucide-react'
 import { Button } from '../ui/Button'
 import { Photo } from '../ui/Primitives'
 import type { Program } from '../../content/content'
@@ -22,7 +22,7 @@ export function ProgramCell({ program, fading, className = '' }: ProgramCellProp
     <li className={`cell${fading ? ' is-fading' : ''}${className && ` ${className}`}`} onClick={onCellClick}>
       <article aria-labelledby={titleId} className="cell__body">
         <div className="cell__media">
-          <Photo name={program.image} alt="" width={2752} height={1536} sizes="(min-width: 1024px) 300px, 90vw" className="cell__photo" />
+          <Photo name={program.image} alt="" width={2752} height={1536} sizes="(min-width: 1024px) 540px, (min-width: 640px) 45vw, 90vw" className="cell__photo" />
         </div>
         <h3 id={titleId}>{program.name}</h3>
         <p className="cell__audience">{program.audience}</p>
@@ -46,27 +46,13 @@ export function ProgramCell({ program, fading, className = '' }: ProgramCellProp
           <Button
             variant="outline"
             size="md"
-            href={program.isDummy ? '#program' : `/program/${program.slug}`}
+            href={`/program/${program.slug}`}
             aria-label={`Lihat detail ${program.name}`}
           >
             Lihat detail
           </Button>
         </div>
       </article>
-    </li>
-  )
-}
-
-export function AllProgramsCell({ span }: { span: { tablet: number; desktop: number } }) {
-  return (
-    <li
-      className="cell cell--all"
-      style={{ '--span-t': span.tablet, '--span-d': span.desktop } as React.CSSProperties}
-    >
-      <a className="cell__all-link" href="/program">
-        <span>Lihat semua program</span>
-        <ArrowRight size={20} strokeWidth={1.75} aria-hidden="true" />
-      </a>
     </li>
   )
 }

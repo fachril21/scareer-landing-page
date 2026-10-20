@@ -1,0 +1,31 @@
+/* Gerak bagian ikon coretan (Doodles.tsx). Pemicunya (hover, terlihat) ditulis di CSS pemakai ikon. */
+.dd-wave { transform-box: fill-box; transform-origin: 50% 100%; }
+.dd-flap { transform-box: fill-box; transform-origin: 0 100%; }
+.dd-dot { transform-box: fill-box; transform-origin: center; }
+.dd-page { transform-box: fill-box; transform-origin: 0 50%; }
+.dd-bag { transform-box: fill-box; transform-origin: 50% 100%; }
+.dd-check { stroke-dasharray: 1; }
+
+@keyframes dd-wave {
+  0%, 100% { transform: rotate(0); }
+  30% { transform: rotate(-16deg); }
+  65% { transform: rotate(10deg); }
+}
+@keyframes dd-flap {
+  0%, 100% { transform: rotate(0); }
+  45% { transform: rotate(-16deg); }
+}
+@keyframes dd-dot {
+  0%, 100% { transform: scale(1); }
+  45% { transform: scale(3.2); }
+}
+@keyframes dd-page {
+  0%, 100% { transform: scaleX(1); }
+  45% { transform: scaleX(0.45); }
+}
+@keyframes dd-lift {
+  0%, 100% { transform: translateY(0); }
+  45% { transform: translateY(-1.8px); }
+}
+@keyframes dd-draw-in { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes dd-draw-hover { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }

@@ -4,7 +4,7 @@ import type { ProgramField } from '../content/content'
  * Pencocokan profil singkat ke program, murni di browser dan berbasis kata kunci (bukan AI).
  * Dipakai kotak "Cari program yang cocok" (tweak). Bobot di sini asumsi awal untuk dikoreksi tim.
  */
-export type FinderField = Extract<ProgramField, 'Cyber Security' | 'Data Analyst' | 'Digital Marketing' | 'Finance & Accounting'>
+export type FinderField = ProgramField
 export type CriterionKind = 'background' | 'interest' | 'goal'
 
 export const KIND_LABEL: Readonly<Record<CriterionKind, string>> = {
@@ -24,22 +24,17 @@ interface Rule {
 
 const RULES: readonly Rule[] = [
   // Latar belakang (jurusan)
-  { kind: 'background', label: 'Akuntansi', pattern: /akuntansi|akuntan/i, weights: { 'Finance & Accounting': 1 } },
-  { kind: 'background', label: 'Ekonomi', pattern: /ekonomi|keuangan|perbankan/i, weights: { 'Finance & Accounting': 1, 'Data Analyst': 0.3 } },
-  { kind: 'background', label: 'Manajemen', pattern: /manajemen|administrasi/i, weights: { 'Digital Marketing': 0.6, 'Finance & Accounting': 0.5 } },
-  { kind: 'background', label: 'Komunikasi atau desain', pattern: /komunikasi|desain|sastra|jurnalis|psikologi|hubungan internasional/i, weights: { 'Digital Marketing': 1 } },
+  { kind: 'background', label: 'Ekonomi', pattern: /ekonomi|keuangan|perbankan/i, weights: { 'Data Analyst': 0.3 } },
   { kind: 'background', label: 'Statistik atau matematika', pattern: /statistik|matematika|sains data|fisika/i, weights: { 'Data Analyst': 1 } },
   { kind: 'background', label: 'Informatika', pattern: /informatika|ilmu komputer|sistem informasi|teknik komputer|\bti\b/i, weights: { 'Cyber Security': 1, 'Data Analyst': 0.6 } },
 
   // Minat
-  { kind: 'interest', label: 'Angka dan laporan', pattern: /angka|hitung|teliti|laporan keuangan|pajak|pembukuan/i, weights: { 'Finance & Accounting': 1, 'Data Analyst': 0.3 } },
-  { kind: 'interest', label: 'Data dan analisis', pattern: /\bdata\b|analisis|analitik|dashboard|excel|riset|visualisasi/i, weights: { 'Data Analyst': 1, 'Finance & Accounting': 0.3 } },
+  { kind: 'interest', label: 'Angka dan laporan', pattern: /angka|hitung|teliti|laporan keuangan|pajak|pembukuan/i, weights: { 'Data Analyst': 0.3 } },
+  { kind: 'interest', label: 'Data dan analisis', pattern: /\bdata\b|analisis|analitik|dashboard|excel|riset|visualisasi/i, weights: { 'Data Analyst': 1 } },
   { kind: 'interest', label: 'Keamanan jaringan', pattern: /keamanan|security|siber|cyber|hack|jaringan|bug/i, weights: { 'Cyber Security': 1 } },
-  { kind: 'interest', label: 'Konten dan kreatif', pattern: /konten|sosmed|sosial media|media sosial|kreatif|iklan|promosi|brand|instagram|tiktok|copywriting/i, weights: { 'Digital Marketing': 1 } },
 
   // Tujuan kerja
-  { kind: 'goal', label: 'Bank atau keuangan', pattern: /\bbank\b|kantor akuntan|perusahaan finansial|fintech|asuransi/i, weights: { 'Finance & Accounting': 1, 'Data Analyst': 0.4 } },
-  { kind: 'goal', label: 'Agensi atau startup', pattern: /agensi|agency|startup|e-?commerce|marketplace/i, weights: { 'Digital Marketing': 0.8, 'Data Analyst': 0.4 } },
+  { kind: 'goal', label: 'Agensi atau startup', pattern: /agensi|agency|startup|e-?commerce|marketplace/i, weights: { 'Data Analyst': 0.4 } },
   { kind: 'goal', label: 'Perusahaan teknologi', pattern: /perusahaan teknologi|perusahaan it|software house|\btech\b/i, weights: { 'Cyber Security': 0.8, 'Data Analyst': 0.8 } },
 ]
 
@@ -62,15 +57,12 @@ export interface FinderResult {
   matches: readonly Match[]
 }
 
-const FIELDS: readonly FinderField[] = ['Finance & Accounting', 'Digital Marketing', 'Data Analyst', 'Cyber Security']
+const FIELDS: readonly FinderField[] = ['Data Analyst', 'Cyber Security']
 
 /** Contoh profil untuk tombol refresh. Semua buatan, tanpa nama atau lembaga nyata. */
 export const FINDER_EXAMPLES: readonly string[] = [
-  'Lulusan Akuntansi, teliti sama angka, pengen kerja di bank atau kantor akuntan',
-  'Lulusan Manajemen, suka ngulik sosmed dan konten, pengen kerja di agensi',
   'Lulusan Teknik Informatika, penasaran soal keamanan jaringan, pengen kerja di perusahaan teknologi',
   'Lulusan Statistik, suka olah data dan bikin dashboard, pengen kerja di startup',
-  'Lulusan Komunikasi, kreatif dan suka bikin konten Instagram, pengen kerja di e-commerce',
   'Lulusan Ekonomi, suka analisis laporan keuangan, pengen kerja di perusahaan fintech',
 ]
 

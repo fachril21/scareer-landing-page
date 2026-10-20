@@ -3,8 +3,6 @@ import { ArrowRight, CornerDownLeft } from 'lucide-react'
 import { useInteractiveMotion } from '../../hooks/useInteractiveMotion'
 import { useInViewOnce } from '../../hooks/useInView'
 import { useScrollProgress } from '../../hooks/useScrollProgress'
-import { Button } from '../ui/Button'
-import { useHomeHref } from '../../app/router'
 import { Section } from '../layout/Section'
 import { PROBLEM } from '../../content/content'
 import './problem-loop.css'
@@ -63,21 +61,13 @@ function Sides() {
 
 /**
  * Section masalah: kenapa kerja pertama terasa sesulit itu. Tanpa statistik (PRODUCT.md: bukti harus nyata).
- * Jembatan ke "Cara belajar": masalah, titik tempat scareer masuk, lalu tautan ke langkahnya.
  */
-export function ProblemLoop({ variant, next }: { variant: Variant; next: 'program' | 'learn' }) {
-  const home = useHomeHref()
+export function ProblemLoop({ variant }: { variant: Variant }) {
   return (
     <Section id="masalah" tone="surface" labelledBy="problem-title" className="problem">
       <h2 id="problem-title" className="problem__title">{PROBLEM.title}</h2>
       <p className="problem__lead">{PROBLEM.lead}</p>
       {variant === 'sides' ? <Sides /> : <Loop />}
-      <div className="problem__pivot">
-        <p>{PROBLEM.pivot}</p>
-        <Button variant="link" href={home(next === 'program' ? '#program' : '#cara-belajar')}>
-          {PROBLEM.cta[next]}
-        </Button>
-      </div>
     </Section>
   )
 }

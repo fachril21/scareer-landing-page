@@ -109,6 +109,3 @@
 }
 
 /* ---------- Jembatan ke Cara belajar ---------- */
-.problem__pivot { display: grid; gap: 8px; justify-items: start; margin-top: 24px; padding-top: 32px; border-top: var(--hairline); }
-.problem__pivot p { max-width: 58ch; font-family: var(--f-display); font-size: var(--t-statement); font-weight: 600; line-height: 1.25; letter-spacing: -0.02em; text-wrap: balance; }
-@media (min-width: 1024px) { .problem__pivot { margin-top: 40px; } }

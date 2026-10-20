@@ -20,11 +20,12 @@ export type Tweaks = {
   navBlur: 'low' | 'mid' | 'high'
   navWidth: 'compact' | 'wide'
   programLayout: 'grid' | 'carousel'
-  programCount: 'two' | 'real' | 'many'
   whyLayout: 'original' | 'editorial'
   whyTilt: 'tilted' | 'straight'
   whyPanel: 'hidden' | 'shown'
-  learnLayout: 'original' | 'columns'
+  /** Homepage Kenapa scareer (layout editorial): tiga pilar polos, atau kartu berwarna dengan ikon. */
+  whyPillars: 'plain' | 'cards'
+  learnLayout: 'original' | 'columns' | 'timeline'
   worksSection: 'hidden' | 'shown'
   mentorSection: 'hidden' | 'shown'
   faqSection: 'hidden' | 'shown'
@@ -77,16 +78,16 @@ export const DEFAULT_TWEAKS: Tweaks = {
   navBlur: 'mid',
   navWidth: 'compact',
   programLayout: 'carousel',
-  programCount: 'real',
   whyLayout: 'editorial',
   whyTilt: 'tilted',
   whyPanel: 'hidden',
-  learnLayout: 'columns',
+  whyPillars: 'cards',
+  learnLayout: 'timeline',
   worksSection: 'hidden',
   mentorSection: 'hidden',
   faqSection: 'hidden',
   endLayout: 'sheet',
-  whatIs: 'definition',
+  whatIs: 'hidden',
   problem: 'loop',
   pageOrder: 'story',
   motion: 'interactive',
@@ -199,15 +200,6 @@ export const PROGRAM_GROUPS = [
     ],
   },
   {
-    key: 'programCount',
-    title: 'Jumlah program',
-    options: [
-      { value: 'two', label: '2 program' },
-      { value: 'real', label: '4 (asli)' },
-      { value: 'many', label: '12 (dummy)' },
-    ],
-  },
-  {
     key: 'programFinder',
     title: 'Kotak "Cari program yang cocok"',
     options: [
@@ -235,6 +227,14 @@ export const WHY_GROUPS = [
     ],
   },
   {
+    key: 'whyPillars',
+    title: 'Tiga pilar (layout editorial)',
+    options: [
+      { value: 'plain', label: 'Polos (lama)' },
+      { value: 'cards', label: 'Kartu berwarna + ikon (bawaan)' },
+    ],
+  },
+  {
     key: 'whyPanel',
     title: 'Section "Terjangkau, bukan asal-asalan..."',
     options: [
@@ -251,6 +251,7 @@ export const LEARN_GROUPS = [
     options: [
       { value: 'original', label: 'Original' },
       { value: 'columns', label: '4 kolom' },
+      { value: 'timeline', label: 'Garis waktu 3 langkah (bawaan)' },
     ],
   },
 ] as const satisfies readonly TweakGroup<keyof Tweaks>[]
