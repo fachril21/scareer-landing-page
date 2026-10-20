@@ -31,6 +31,8 @@ html[data-nav-style="floating"]:not([data-nav-top="bar"]) .hero-v { padding-top:
   border-radius: 0.16em;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
+  /* <mark> membawa latar kuning bawaan browser: tanpa ini, kotak kuning murni tampil sebelum penanda tersapu. */
+  background-color: transparent;
   background-repeat: no-repeat;
   background-position: 0 0;
   background-size: 100% 100%, 100% 100%, 100% 100%;
