@@ -73,7 +73,7 @@ export type TweakScope = 'home' | 'detail'
 
 /** Bawaan = desain baru yang sudah disetujui. Pilihan "Original" di panel tetap menampilkan tampilan lama. */
 export const DEFAULT_TWEAKS: Tweaks = {
-  heroLayout: 'centered',
+  heroLayout: 'vibrant-stage',
   wordSet: 'tuntutan',
   wordStyle: 'ungu',
   wordLoop: 'infinite',
@@ -96,10 +96,10 @@ export const DEFAULT_TWEAKS: Tweaks = {
   problem: 'cycle',
   pageOrder: 'story',
   motion: 'interactive',
-  heroJobs: 'static',
-  vibrantJobCard: 'off',
+  heroJobs: 'refresh',
+  vibrantJobCard: 'on',
   programFinder: 'off',
-  pricingLayout: 'aligned',
+  pricingLayout: 'glass',
   programHeroLayout: 'split',
   whyUsLayout: 'bento',
   curriculumLayout: 'timeline',
