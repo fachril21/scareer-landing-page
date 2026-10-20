@@ -242,7 +242,8 @@ html[data-nav-style="floating"]:not([data-nav-top="bar"]) .hero-v { padding-top:
 .hero-v--has-job .hero-v__visual .job__card { max-width: none; }
 .hero-v--has-job .hero-v__visual .job__note { top: -56px; }
 .hero-v--has-job .hero-v__note, .hero-v--has-job .sticker--c, .hero-v--has-job .sticker--d { display: none; }
-.hero-v--has-job .hero-v__facts { margin-top: 112px; }
+/* Kotak hitam menggantung separuh tingginya ke bawah (translate 50%), jadi jarak kartu ke kotak = margin + setengah tinggi kotak. */
+.hero-v--has-job .hero-v__facts { margin-top: -48px; }
 
 @media (min-width: 640px) {
   .hero-v--has-job .hero-v__visual .job__note { position: static; top: auto; max-width: 14ch; }
