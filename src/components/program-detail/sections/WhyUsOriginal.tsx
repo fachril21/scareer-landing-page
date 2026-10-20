@@ -65,7 +65,9 @@ export function WhyUsOriginal({ program }: { program: ProgramDetail }) {
           Pelajari scareer
         </Button>
       )}
-      <WhyGroup id="kenapa-program" title="Kenapa program ini" items={forProgram} columns={forProgram.length === 4 ? 2 : 3} />
+      {tweaks.programReasons === 'shown' && (
+        <WhyGroup id="kenapa-program" title="Kenapa program ini" items={forProgram} columns={forProgram.length === 4 ? 2 : 3} />
+      )}
     </Section>
   )
 }

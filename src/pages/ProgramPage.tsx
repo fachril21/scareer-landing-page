@@ -19,13 +19,13 @@ import { PortfolioOutput } from '../components/program-detail/sections/Portfolio
 import { ProgramSpec } from '../components/program-detail/sections/ProgramSpec'
 import { Pricing } from '../components/program-detail/sections/Pricing'
 import { ProgramFaq } from '../components/program-detail/sections/ProgramFaq'
-import { PROGRAM_SECTIONS } from '../content/program-sections'
 import { getProgram } from '../content/program-detail'
 import type { ProgramDetail } from '../content/program-detail.types'
 import { useFocusOnAnchor } from '../hooks/useFocusOnAnchor'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { useNavPattern } from '../hooks/useNavPattern'
 import { useProgramToc } from '../hooks/useProgramToc'
+import { useProgramSections } from '../hooks/useProgramSections'
 import { requestSection } from '../lib/sectionLink'
 import { track } from '../lib/track'
 import { TweakPanel } from '../tweaks/TweakPanel'
@@ -39,7 +39,7 @@ export function ProgramPage({ slug }: { slug: string }) {
   return program ? <ProgramView program={program} /> : <NotFoundPage />
 }
 
-/** Section halaman detail menurut id (urutannya dari PROGRAM_SECTIONS). */
+/** Section halaman detail menurut id (urutan dan penyembunyian dari useProgramSections). */
 const BUILT: Readonly<Record<string, (program: ProgramDetail) => React.ReactNode>> = {
   ringkasan: (p) => <ProgramHero program={p} />,
   'masalah-solusi': (p) => <ProblemAgitateSolution program={p} />,
@@ -66,6 +66,7 @@ const STICKY_HIDE = ['ringkasan', 'harga', 'cta']
 function ProgramView({ program }: { program: ProgramDetail }) {
   const pattern = useNavPattern()
   const toc = useProgramToc()
+  const { sections } = useProgramSections()
   const { tweaks } = useTweaks()
   // CTA penutup dirancang untuk footer Lembar (footer menimpa tepi bawah panelnya).
   const showCta = tweaks.endLayout === 'sheet' && tweaks.programCta === 'shown'
@@ -96,7 +97,7 @@ function ProgramView({ program }: { program: ProgramDetail }) {
       <div className="pd-shell">
         {pattern !== 'switcher' && <ProgramAside pattern={pattern} toc={toc} price={program.startingPrice} />}
         <main id="konten">
-          {PROGRAM_SECTIONS.map((s) => (
+          {sections.map((s) => (
             <Fragment key={s.id}>{BUILT[s.id](program)}</Fragment>
           ))}
         </main>

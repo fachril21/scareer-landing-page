@@ -280,7 +280,7 @@ function buildDetail(base: Program): ProgramDetail {
       { name: 'Portofolio dan persiapan karier [ISI]', duration: '[ISI] minggu', summary: 'Ringkasan fase satu baris [ISI].' },
     ],
     batches: BATCHES,
-    portfolio: [1, 2, 3, 4, 5].map((n) => ({
+    portfolio: [1, 2].map((n) => ({
       image: `work-${n}`,
       title: `Proyek ${n} [ISI]`,
       role: 'Peran peserta [ISI]',

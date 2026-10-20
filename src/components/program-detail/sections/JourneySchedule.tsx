@@ -98,11 +98,12 @@ export function JourneySchedule({ program }: { program: ProgramDetail }) {
   const { tweaks } = useTweaks()
   const isTable = useMediaQuery('(min-width: 768px)')
   const batches = upcomingBatches(program.batches)
+  const showBatches = tweaks.journeyBatches === 'shown'
 
   return (
     <Section id="jadwal" tone="surface" labelledBy="jadwal-title">
       <SectionLabel>Jadwal</SectionLabel>
-      <h2 id="jadwal-title" className="journey-title">Perjalanan belajarmu dan jadwal batch</h2>
+      <h2 id="jadwal-title" className="journey-title">{showBatches ? 'Perjalanan belajarmu dan jadwal batch' : 'Perjalanan belajarmu'}</h2>
 
       <ol className="phases" aria-label="Alur belajar">
         {program.journey.map((phase, i) => {
@@ -121,23 +122,27 @@ export function JourneySchedule({ program }: { program: ProgramDetail }) {
         })}
       </ol>
 
-      <h3 className="batch-title">Batch yang sedang dibuka</h3>
-      {batches.length === 0 ? (
-        <div className="batch-empty">
-          <p>Batch berikutnya belum dijadwalkan. Tanya dulu lewat WhatsApp.</p>
-          <Button
-            variant="outline"
-            href={waLink('Detail: Jadwal', `Aku mau tanya jadwal batch berikutnya untuk ${program.name}`)}
-            target="_blank"
-            onClick={() => track('click_wa_jadwal', { batch: 'belum-ada' })}
-          >
-            Tanya via WhatsApp
-          </Button>
-        </div>
-      ) : isTable ? (
-        <BatchTable batches={batches} program={program} />
-      ) : (
-        <BatchCards batches={batches} program={program} />
+      {showBatches && (
+        <>
+          <h3 className="batch-title">Batch yang sedang dibuka</h3>
+          {batches.length === 0 ? (
+            <div className="batch-empty">
+              <p>Batch berikutnya belum dijadwalkan. Tanya dulu lewat WhatsApp.</p>
+              <Button
+                variant="outline"
+                href={waLink('Detail: Jadwal', `Aku mau tanya jadwal batch berikutnya untuk ${program.name}`)}
+                target="_blank"
+                onClick={() => track('click_wa_jadwal', { batch: 'belum-ada' })}
+              >
+                Tanya via WhatsApp
+              </Button>
+            </div>
+          ) : isTable ? (
+            <BatchTable batches={batches} program={program} />
+          ) : (
+            <BatchCards batches={batches} program={program} />
+          )}
+        </>
       )}
     </Section>
   )

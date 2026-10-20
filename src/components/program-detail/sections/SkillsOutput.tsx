@@ -3,6 +3,7 @@ import { Section } from '../../layout/Section'
 import type { ProgramDetail, Skill, SkillKind } from '../../../content/program-detail.types'
 import { useFadeFilter } from '../../../hooks/useFadeFilter'
 import { useMediaQuery } from '../../../hooks/useMediaQuery'
+import { useTweaks } from '../../../tweaks/TweakContext'
 import { openModule } from '../../../lib/sectionLink'
 import './skills.css'
 
@@ -36,16 +37,25 @@ function ModuleLink({ moduleId, program }: { moduleId: string; program: ProgramD
   )
 }
 
-function SkillsTable({ skills, program, isFading }: { skills: readonly Skill[]; program: ProgramDetail; isFading: (s: Skill) => boolean }) {
+interface SkillsViewProps {
+  skills: readonly Skill[]
+  program: ProgramDetail
+  isFading: (s: Skill) => boolean
+  showOutput: boolean
+}
+
+function SkillsTable({ skills, program, isFading, showOutput }: SkillsViewProps) {
   return (
     <div className="skills-box">
-      <table className="skills-table">
-        <caption className="sr-only">Skill yang dikuasai, bukti kemampuan, dan output yang dibawa pulang</caption>
+      <table className={`skills-table${showOutput ? '' : ' skills-table--no-output'}`}>
+        <caption className="sr-only">
+          {showOutput ? 'Skill yang dikuasai, bukti kemampuan, dan output yang dibawa pulang' : 'Skill yang dikuasai dan bukti kemampuan'}
+        </caption>
         <thead>
           <tr>
             <th scope="col">Skill yang dikuasai</th>
             <th scope="col">Buktinya: kamu bisa...</th>
-            <th scope="col">Output yang dibawa pulang</th>
+            {showOutput && <th scope="col">Output yang dibawa pulang</th>}
           </tr>
         </thead>
         <tbody>
@@ -53,10 +63,12 @@ function SkillsTable({ skills, program, isFading }: { skills: readonly Skill[]; 
             <tr key={s.skill} className={isFading(s) ? 'is-fading' : undefined}>
               <th scope="row">{s.skill}</th>
               <td>{s.proof}</td>
-              <td>
-                {s.output}
-                {s.moduleId && <> · <ModuleLink moduleId={s.moduleId} program={program} /></>}
-              </td>
+              {showOutput && (
+                <td>
+                  {s.output}
+                  {s.moduleId && <> · <ModuleLink moduleId={s.moduleId} program={program} /></>}
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
@@ -66,7 +78,7 @@ function SkillsTable({ skills, program, isFading }: { skills: readonly Skill[]; 
 }
 
 /** Mobile: ditumpuk per skill (tabel tidak muat dan tidak boleh digeser untuk membaca satu baris). */
-function SkillsStack({ skills, program, isFading }: { skills: readonly Skill[]; program: ProgramDetail; isFading: (s: Skill) => boolean }) {
+function SkillsStack({ skills, program, isFading, showOutput }: SkillsViewProps) {
   return (
     <ul className="skills-stack">
       {skills.map((s) => (
@@ -77,13 +89,15 @@ function SkillsStack({ skills, program, isFading }: { skills: readonly Skill[]; 
               <dt>Buktinya: kamu bisa...</dt>
               <dd>{s.proof}</dd>
             </div>
-            <div>
-              <dt>Output yang dibawa pulang</dt>
-              <dd>
-                {s.output}
-                {s.moduleId && <> · <ModuleLink moduleId={s.moduleId} program={program} /></>}
-              </dd>
-            </div>
+            {showOutput && (
+              <div>
+                <dt>Output yang dibawa pulang</dt>
+                <dd>
+                  {s.output}
+                  {s.moduleId && <> · <ModuleLink moduleId={s.moduleId} program={program} /></>}
+                </dd>
+              </div>
+            )}
           </dl>
         </li>
       ))}
@@ -92,12 +106,13 @@ function SkillsStack({ skills, program, isFading }: { skills: readonly Skill[]; 
 }
 
 /**
- * 6. Skills & Output. Tabel tiga kolom dengan filter Hard/Soft skill (hasil lewat aria-live) dan empat kartu output.
+ * 6. Skills & Output. Tabel tiga kolom (kolom output disembunyikan lewat tweak, bawaan) dengan filter Hard/Soft skill (hasil lewat aria-live) dan empat kartu output.
  * Tanpa janji hasil kerja atau gaji. Kolom "sering diminta di lowongan" belum ada: butuh sampel lowongan nyata.
  */
 export function SkillsOutput({ program }: { program: ProgramDetail }) {
   const { selected, applied, choose, fadingOut } = useFadeFilter<Filter>('semua')
   const isDesktop = useMediaQuery('(min-width: 768px)')
+  const showOutput = useTweaks().tweaks.skillsOutputColumn === 'shown'
   const ordered = [...program.skills].sort((a, b) => KIND_ORDER[a.kind] - KIND_ORDER[b.kind])
   const visible = ordered.filter((s) => matches(s, applied))
   const count = ordered.filter((s) => matches(s, selected)).length
@@ -120,9 +135,9 @@ export function SkillsOutput({ program }: { program: ProgramDetail }) {
       </p>
 
       {isDesktop ? (
-        <SkillsTable skills={visible} program={program} isFading={isFading} />
+        <SkillsTable skills={visible} program={program} isFading={isFading} showOutput={showOutput} />
       ) : (
-        <SkillsStack skills={visible} program={program} isFading={isFading} />
+        <SkillsStack skills={visible} program={program} isFading={isFading} showOutput={showOutput} />
       )}
 
       <ul className="takehome" aria-label="Yang dibawa pulang">

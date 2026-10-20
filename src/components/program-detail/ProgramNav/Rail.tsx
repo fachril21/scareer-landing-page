@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { PROGRAM_SECTIONS, PROGRAM_TOC } from '../../../content/program-sections'
+import { useProgramSections } from '../../../hooks/useProgramSections'
 import { TocList } from './TocList'
 import type { ProgramToc } from '../../../hooks/useProgramToc'
 
@@ -14,7 +14,8 @@ export function Rail({ toc, boxed = false }: { toc: ProgramToc; boxed?: boolean 
   const [open, setOpen] = useState(false)
   const timer = useRef<number | undefined>(undefined)
   const toggleRef = useRef<HTMLButtonElement>(null)
-  const activeLabel = PROGRAM_SECTIONS.find((s) => s.id === toc.activeId)?.tocLabel
+  const { sections, toc: tocGroups } = useProgramSections()
+  const activeLabel = sections.find((s) => s.id === toc.activeId)?.tocLabel
 
   const schedule = useCallback((next: boolean, delay: number) => {
     window.clearTimeout(timer.current)
@@ -41,7 +42,7 @@ export function Rail({ toc, boxed = false }: { toc: ProgramToc; boxed?: boolean 
       }}
     >
       <div className="rail__dashes" aria-hidden="true">
-        {PROGRAM_TOC.map((group) => (
+        {tocGroups.map((group) => (
           <div key={group.label} className="rail__group">
             {group.items.map((it) => {
               const active = it.id === toc.activeId

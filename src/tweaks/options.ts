@@ -50,6 +50,8 @@ export type Tweaks = {
   pricingLayout: 'original' | 'tiers' | 'glass' | 'aligned' | 'aligned-light' | 'table'
   /** Halaman detail bootcamp: hero. */
   programHeroLayout: 'original' | 'split'
+  /** Halaman detail bootcamp: gerak hero Terbelah (masuk berurutan, miring ke kursor, hover baris ringkasan). */
+  programHeroMotion: 'still' | 'live'
   /** Halaman detail bootcamp: section Kenapa kami. */
   whyUsLayout: 'original' | 'bento'
   /** Halaman detail bootcamp: section Kurikulum. */
@@ -62,10 +64,24 @@ export type Tweaks = {
   mentorLayout: 'original' | 'spotlight'
   /** Halaman detail bootcamp: fase tujuan akhir di section Jadwal. */
   journeyGoal: 'plain' | 'highlight'
+  /** Halaman detail bootcamp: tabel "Batch yang sedang dibuka" di section Jadwal. */
+  journeyBatches: 'hidden' | 'shown'
+  /** Halaman detail bootcamp: section Karya. Kartu terbuka semua, atau akordeon yang membuka saat hover. */
+  programWorksLayout: 'accordion' | 'cards'
+  /** Halaman detail bootcamp: tabel spesifikasi (level, durasi, bahasa, prasyarat, dst.) di section Untuk siapa. */
+  programSpecs: 'hidden' | 'shown'
+  /** Halaman detail bootcamp: judul "Program ini untuk siapa" di atas tiga persona. */
+  personasHeading: 'hidden' | 'shown'
+  /** Halaman detail bootcamp: blok "Kenapa program ini" di section Kenapa kami (juga hilang dari daftar isi). */
+  programReasons: 'hidden' | 'shown'
   /** Halaman detail bootcamp: section FAQ. */
   faqLayout: 'original' | 'cards'
   /** Halaman detail bootcamp: CTA penutup di atas footer (hanya dengan footer Lembar). */
   programCta: 'hidden' | 'shown'
+  /** Halaman detail bootcamp: section Masalah dan solusi (juga hilang dari daftar isi). */
+  programProblem: 'hidden' | 'shown'
+  /** Halaman detail bootcamp: kolom "Output yang dibawa pulang" di tabel Skill dan output. */
+  skillsOutputColumn: 'hidden' | 'shown'
   /** Halaman detail bootcamp: daftar isi di gutter kiri (sidebar dan rail). */
   navContainer: 'plain' | 'boxed'
 }
@@ -104,14 +120,22 @@ export const DEFAULT_TWEAKS: Tweaks = {
   programFinder: 'off',
   pricingLayout: 'aligned',
   programHeroLayout: 'split',
+  programHeroMotion: 'live',
   whyUsLayout: 'bento',
   curriculumLayout: 'timeline',
   syllabusGate: 'form',
   toolsLayout: 'tiles',
   mentorLayout: 'spotlight',
   journeyGoal: 'highlight',
+  journeyBatches: 'hidden',
+  programWorksLayout: 'cards',
+  programSpecs: 'hidden',
+  personasHeading: 'hidden',
+  programReasons: 'hidden',
   faqLayout: 'cards',
   programCta: 'shown',
+  programProblem: 'hidden',
+  skillsOutputColumn: 'hidden',
   navContainer: 'boxed',
 }
 
@@ -400,6 +424,14 @@ export const PROGRAM_HERO_GROUPS = [
       { value: 'split', label: 'Terbelah + panel merah' },
     ],
   },
+  {
+    key: 'programHeroMotion',
+    title: 'Gerak hero (layout Terbelah)',
+    options: [
+      { value: 'still', label: 'Diam (lama)' },
+      { value: 'live', label: 'Hidup (bawaan)' },
+    ],
+  },
 ] as const satisfies readonly TweakGroup<keyof Tweaks>[]
 
 export const WHY_US_GROUPS = [
@@ -463,6 +495,14 @@ export const JOURNEY_GROUPS = [
       { value: 'highlight', label: 'Kotak pembeda (merah + pil kuning)' },
     ],
   },
+  {
+    key: 'journeyBatches',
+    title: 'Batch yang sedang dibuka',
+    options: [
+      { value: 'hidden', label: 'Sembunyikan (bawaan)' },
+      { value: 'shown', label: 'Tampilkan' },
+    ],
+  },
 ] as const satisfies readonly TweakGroup<keyof Tweaks>[]
 
 export const FAQ_LAYOUT_GROUPS = [
@@ -482,6 +522,69 @@ export const PROGRAM_CTA_GROUPS = [
     title: 'CTA penutup (footer Lembar)',
     options: [
       { value: 'hidden', label: 'Sembunyikan' },
+      { value: 'shown', label: 'Tampilkan' },
+    ],
+  },
+] as const satisfies readonly TweakGroup<keyof Tweaks>[]
+
+export const PROGRAM_PROBLEM_GROUPS = [
+  {
+    key: 'programProblem',
+    title: 'Masalah dan solusi',
+    options: [
+      { value: 'hidden', label: 'Sembunyikan (bawaan)' },
+      { value: 'shown', label: 'Tampilkan' },
+    ],
+  },
+] as const satisfies readonly TweakGroup<keyof Tweaks>[]
+
+export const SKILLS_OUTPUT_GROUPS = [
+  {
+    key: 'skillsOutputColumn',
+    title: 'Kolom output di tabel Skill',
+    options: [
+      { value: 'hidden', label: 'Sembunyikan (bawaan)' },
+      { value: 'shown', label: 'Tampilkan' },
+    ],
+  },
+] as const satisfies readonly TweakGroup<keyof Tweaks>[]
+
+export const PROGRAM_WORKS_GROUPS = [
+  {
+    key: 'programWorksLayout',
+    title: 'Layout Karya',
+    options: [
+      { value: 'accordion', label: 'Akordeon hover (lama)' },
+      { value: 'cards', label: 'Semua terlihat (bawaan)' },
+    ],
+  },
+] as const satisfies readonly TweakGroup<keyof Tweaks>[]
+
+export const PROGRAM_SPEC_GROUPS = [
+  {
+    key: 'programSpecs',
+    title: 'Tabel spesifikasi (level, durasi, prasyarat, dst.)',
+    options: [
+      { value: 'hidden', label: 'Sembunyikan (bawaan)' },
+      { value: 'shown', label: 'Tampilkan' },
+    ],
+  },
+  {
+    key: 'personasHeading',
+    title: 'Judul "Program ini untuk siapa"',
+    options: [
+      { value: 'hidden', label: 'Sembunyikan (bawaan)' },
+      { value: 'shown', label: 'Tampilkan' },
+    ],
+  },
+] as const satisfies readonly TweakGroup<keyof Tweaks>[]
+
+export const PROGRAM_REASONS_GROUPS = [
+  {
+    key: 'programReasons',
+    title: 'Blok "Kenapa program ini"',
+    options: [
+      { value: 'hidden', label: 'Sembunyikan (bawaan)' },
       { value: 'shown', label: 'Tampilkan' },
     ],
   },
@@ -519,11 +622,16 @@ export const SCOPE_SECTIONS: Readonly<Record<TweakScope, readonly { title: strin
   detail: [
     { title: 'Navigasi halaman', groups: NAV_CONTAINER_GROUPS as AnyGroups },
     { title: 'Hero', groups: PROGRAM_HERO_GROUPS as AnyGroups },
+    { title: 'Masalah dan solusi', groups: PROGRAM_PROBLEM_GROUPS as AnyGroups },
     { title: 'Kenapa kami', groups: WHY_US_GROUPS as AnyGroups },
+    { title: 'Kenapa program ini', groups: PROGRAM_REASONS_GROUPS as AnyGroups },
     { title: 'Kurikulum', groups: CURRICULUM_GROUPS as AnyGroups },
     { title: 'Tools', groups: TOOLS_GROUPS as AnyGroups },
+    { title: 'Skill dan output', groups: SKILLS_OUTPUT_GROUPS as AnyGroups },
     { title: 'Mentor', groups: MENTOR_LAYOUT_GROUPS as AnyGroups },
     { title: 'Jadwal', groups: JOURNEY_GROUPS as AnyGroups },
+    { title: 'Karya', groups: PROGRAM_WORKS_GROUPS as AnyGroups },
+    { title: 'Untuk siapa', groups: PROGRAM_SPEC_GROUPS as AnyGroups },
     { title: 'FAQ', groups: FAQ_LAYOUT_GROUPS as AnyGroups },
     { title: 'CTA penutup', groups: PROGRAM_CTA_GROUPS as AnyGroups },
     { title: 'Harga', groups: PRICING_GROUPS as AnyGroups },
@@ -551,11 +659,16 @@ export const ALL_GROUPS: AnyGroups = [
   ...MOTION_GROUPS,
   ...PRICING_GROUPS,
   ...PROGRAM_HERO_GROUPS,
+  ...PROGRAM_PROBLEM_GROUPS,
   ...WHY_US_GROUPS,
+  ...PROGRAM_REASONS_GROUPS,
   ...CURRICULUM_GROUPS,
   ...TOOLS_GROUPS,
+  ...SKILLS_OUTPUT_GROUPS,
   ...MENTOR_LAYOUT_GROUPS,
   ...JOURNEY_GROUPS,
+  ...PROGRAM_WORKS_GROUPS,
+  ...PROGRAM_SPEC_GROUPS,
   ...FAQ_LAYOUT_GROUPS,
   ...PROGRAM_CTA_GROUPS,
   ...NAV_CONTAINER_GROUPS,

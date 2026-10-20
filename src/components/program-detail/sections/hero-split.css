@@ -35,3 +35,92 @@
 .phs__card dl > div:first-child { border-top: 0; }
 .phs__card dt { color: var(--text-secondary); font-size: var(--t-small); }
 .phs__card dd { margin: 0; font-weight: 600; text-align: right; text-wrap: balance; }
+
+/* ---------- Gerak hero (tweak "Gerak hero" = Hidup; kelas .phs--live) ---------- */
+/* Penanda nama program di judul. Tanpa .phs--live <mark> dibuat polos supaya tampilan lama tidak berubah. */
+.phs__mark { background: none; color: inherit; }
+.phs--live .phs__mark {
+  padding: 0.02em 0.14em;
+  border-radius: 0.16em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  background: linear-gradient(var(--highlight), var(--highlight)) no-repeat 0 0 / 100% 100%;
+  color: var(--ink);
+}
+.phs__live { display: none; }
+.phs--live .phs__live {
+  position: relative;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--highlight);
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+  vertical-align: 0.05em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .phs--live { --phs-t0: 380ms; } /* mulai setelah foto kartu mendarat (transisi halaman 420 ms) */
+
+  @keyframes phs-rise { from { opacity: 0; translate: 0 16px; } }
+  @keyframes phs-row-in { from { opacity: 0; translate: 0 10px; } }
+  @keyframes phs-line { from { scale: 0 1; } }
+  @keyframes phs-wipe { from { background-size: 0% 100%; } }
+  @keyframes phs-ping { from { opacity: 0.7; scale: 1; } to { opacity: 0; scale: 3; } }
+
+  .phs--live .phs__chips li { animation: phs-rise 560ms var(--ease-out) calc(var(--phs-t0) + var(--i, 0) * 60ms) backwards; }
+  .phs--live .phs__title { animation: phs-rise 700ms var(--ease-out) calc(var(--phs-t0) + 140ms) backwards; }
+  .phs--live .phs__lead { animation: phs-rise 700ms var(--ease-out) calc(var(--phs-t0) + 260ms) backwards; }
+  .phs--live .phs__actions { animation: phs-rise 700ms var(--ease-out) calc(var(--phs-t0) + 360ms) backwards; }
+  .phs--live .phs__mark { animation: phs-wipe 700ms var(--ease-out) calc(var(--phs-t0) + 760ms) backwards; }
+
+  /* Kartu ringkasan: kartu naik, lalu baris muncul berurutan dengan garis atas tergambar dari kiri. */
+  .phs--live .phs__card { animation: phs-rise 640ms var(--ease-out) calc(var(--phs-t0) + 200ms) backwards; }
+  .phs--live .phs__card dl > div {
+    position: relative;
+    border-top: 0;
+    animation: phs-row-in 480ms var(--ease-out) calc(var(--phs-t0) + 340ms + var(--i, 0) * 70ms) backwards;
+  }
+  .phs--live .phs__card dl > div:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: var(--border);
+    transform-origin: left;
+    animation: phs-line 520ms var(--ease-out) calc(var(--phs-t0) + 340ms + var(--i, 0) * 70ms) backwards;
+  }
+
+  /* Titik status batch berdenyut dua kali, lalu diam. */
+  .phs--live .phs__live::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--highlight);
+    animation: phs-ping 1100ms var(--ease-out) calc(var(--phs-t0) + 1000ms) 2 backwards;
+  }
+
+  /* Panel miring tipis mengikuti kursor (--tx dan --ty dari usePointerTilt). Foto di dalamnya tidak dianimasikan sendiri. */
+  .phs--live .phs__panel {
+    transform: perspective(1100px) rotateX(calc(var(--ty, 0) * -2deg)) rotateY(calc(var(--tx, 0) * 2deg));
+    transition: transform 320ms var(--ease-out);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .phs--live .phs__chips li { transition: translate var(--dur-base) var(--ease-out); }
+  .phs--live .phs__chips li:hover { translate: 0 -2px; }
+
+  /* Baris ringkasan: latar Putih Tulang dan label bergeser 4 px. Margin negatif menjaga posisi teks tetap. */
+  .phs--live .phs__card dl > div {
+    margin-inline: -12px;
+    padding-inline: 12px;
+    border-radius: 8px;
+    transition: background-color var(--dur-fast) var(--ease-out);
+  }
+  .phs--live .phs__card dt { transition: translate var(--dur-base) var(--ease-out); }
+  .phs--live .phs__card dl > div:hover { background: var(--paper); }
+  .phs--live .phs__card dl > div:hover dt { translate: 4px 0; }
+}

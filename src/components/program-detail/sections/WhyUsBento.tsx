@@ -1,6 +1,7 @@
 import { BadgeCheck, CircleCheck, CircleMinus, ShieldCheck, Wallet, type LucideIcon } from 'lucide-react'
 import { Section } from '../../layout/Section'
 import type { ProgramDetail } from '../../../content/program-detail.types'
+import { useTweaks } from '../../../tweaks/TweakContext'
 import { WhyChatCard } from './WhyChatCard'
 import './whyus-bento.css'
 
@@ -18,6 +19,7 @@ function Icon({ icon: Glyph }: { icon: LucideIcon }) {
  */
 export function WhyUsBento({ program }: { program: ProgramDetail }) {
   const { whyBento: w } = program
+  const { tweaks } = useTweaks()
 
   return (
     <Section id="kenapa-kami" tone="ink" labelledBy="kenapa-kami-title">
@@ -56,18 +58,20 @@ export function WhyUsBento({ program }: { program: ProgramDetail }) {
         </article>
       </div>
 
-      <div id="kenapa-program" className="wb-reasons">
-        <h3 className="wb-reasons__title">{w.reasonsTitle}</h3>
-        <ul className="wb-reasons__list">
-          {w.reasons.map((reason, i) => (
-            <li key={reason.title} className="wb-card wb-card--reason">
-              <span className="wb-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-              <h4 className="wb-card__title">{reason.title}</h4>
-              <p className="wb-card__body">{reason.body}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {tweaks.programReasons === 'shown' && (
+        <div id="kenapa-program" className="wb-reasons">
+          <h3 className="wb-reasons__title">{w.reasonsTitle}</h3>
+          <ul className="wb-reasons__list">
+            {w.reasons.map((reason, i) => (
+              <li key={reason.title} className="wb-card wb-card--reason">
+                <span className="wb-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <h4 className="wb-card__title">{reason.title}</h4>
+                <p className="wb-card__body">{reason.body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </Section>
   )
 }

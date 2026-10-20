@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef } from 'react'
 import { Check } from 'lucide-react'
-import { PROGRAM_TOC, type TocItem } from '../../../content/program-sections'
+import type { TocItem } from '../../../content/program-sections'
+import { useProgramSections } from '../../../hooks/useProgramSections'
 
 interface TocListProps {
   activeId: string
@@ -77,8 +78,9 @@ function TocEntry({ item, activeId, activeChild, variant, onSelect }: { item: To
   )
 }
 
-/** Daftar isi 12 item dalam 4 grup. Satu komponen untuk sidebar, panel rail, dan bottom sheet. */
+/** Daftar isi (12 item dalam 4 grup, kurang bila ada section disembunyikan lewat tweak). Satu komponen untuk sidebar, panel rail, dan bottom sheet. */
 export function TocList({ activeId, activeChild, onSelect, variant = 'side' }: TocListProps) {
+  const { toc } = useProgramSections()
   const rootRef = useRef<HTMLDivElement>(null)
 
   // Segmen tebal jalur progres: terisi dari atas sampai item aktif (transform saja, tanpa animasi tinggi).
@@ -108,7 +110,7 @@ export function TocList({ activeId, activeChild, onSelect, variant = 'side' }: T
         </span>
       )}
       <ol className="toc__groups">
-        {PROGRAM_TOC.map((group) => (
+        {toc.map((group) => (
           <li key={group.label} className="toc__group">
             <p className="toc__group-label">{group.label}</p>
             <ol>

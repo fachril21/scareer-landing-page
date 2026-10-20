@@ -4,6 +4,7 @@ import { Photo, SectionLabel } from '../ui/Primitives'
 import { Section } from '../layout/Section'
 import { WORKS, WORK_HONEST_LABEL } from '../../content/content'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
+import { WorkCards } from './WorkCards'
 import './works.css'
 
 const GROW_REST = 1
@@ -33,6 +34,8 @@ interface WorkShowcaseProps {
   width?: 'content' | 'wide'
   /** Dipanggil saat sebuah karya dibuka (klik atau Enter), mis. untuk pelacakan. */
   onOpen?: (item: WorkItem) => void
+  /** `accordion` (bawaan, homepage) atau `cards`: kartu yang langsung terbuka tanpa reveal hover. */
+  layout?: 'accordion' | 'cards'
 }
 
 interface ItemsProps {
@@ -70,14 +73,16 @@ export function Works() {
  * Desktop dengan pointer: akordeon foto 5 kolom (hover atau fokus melebarkan kolom).
  * Layar sentuh dan mobile: carousel scroll-snap. Nama dan label selalu ada di DOM.
  */
-export function WorkShowcase({ id, heading, items, sectionLabel = 'Karya', width = 'wide', onOpen }: WorkShowcaseProps) {
+export function WorkShowcase({ id, heading, items, sectionLabel = 'Karya', width = 'wide', onOpen, layout = 'accordion' }: WorkShowcaseProps) {
   const accordion = useMediaQuery('(min-width: 1024px) and (hover: hover)')
 
   return (
     <Section id={id} tone="ink" width={width} labelledBy={`${id}-title`}>
       <SectionLabel onInk>{sectionLabel}</SectionLabel>
       <h2 id={`${id}-title`} className="works__title">{heading}</h2>
-      {accordion ? (
+      {layout === 'cards' ? (
+        <WorkCards items={items} onOpen={onOpen} />
+      ) : accordion ? (
         <PhotoAccordion items={items} fallbackHref={`#${id}`} onOpen={onOpen} />
       ) : (
         <Carousel items={items} fallbackHref={`#${id}`} onOpen={onOpen} />

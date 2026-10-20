@@ -93,3 +93,46 @@
 }
 .carousel::-webkit-scrollbar { display: none; }
 .carousel__item { flex: 0 0 calc(100% - 48px); max-width: 420px; height: 420px; scroll-snap-align: start; }
+
+/* ---------- Kartu karya yang langsung terbuka (halaman detail, tweak "Layout Karya" = Semua terlihat) ---------- */
+.wcards { display: grid; gap: 12px; }
+@media (min-width: 768px) { .wcards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; } }
+.wcard { min-width: 0; }
+.work--card { height: 360px; transition: translate 400ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1); }
+@media (min-width: 768px) { .work--card { height: 420px; } }
+.work--plain { cursor: default; }
+/* Foto sedikit lebih besar dari kotaknya: ruang untuk bergeser mengikuti kursor tanpa tepi kosong. */
+.work--card .work__photo { transform: scale(1.06); }
+.work--card .work__text { inset: auto 24px 24px 24px; }
+.work--card .work__more { gap: 8px; }
+/* Ikon panah (hanya kartu yang punya tautan): sama dengan keadaan hover akordeon. */
+.work--card .work__icon { border-color: var(--highlight); background: var(--highlight); color: var(--ink); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .work--card .work__photo { transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1); }
+  html[data-motion="interactive"] .work--card .work__photo {
+    transform: scale(1.06) translate(calc(var(--tx, 0) * -6px), calc(var(--ty, 0) * -5px));
+  }
+
+  @keyframes wcard-in { from { opacity: 0; translate: 0 28px; } }
+  @keyframes wcard-text { from { opacity: 0; translate: 0 10px; } }
+  html[data-motion="interactive"] .wcards:not(.is-seen) .wcard { opacity: 0; }
+  html[data-motion="interactive"] .wcards.is-seen .wcard { animation: wcard-in 700ms var(--ease-out) calc(var(--i, 0) * 140ms) backwards; }
+  html[data-motion="interactive"] .wcards.is-seen .work__name { animation: wcard-text 560ms var(--ease-out) calc(300ms + var(--i, 0) * 140ms) backwards; }
+  html[data-motion="interactive"] .wcards.is-seen .work__more > * { animation: wcard-text 560ms var(--ease-out) calc(380ms + var(--i, 0) * 140ms) backwards; }
+  html[data-motion="interactive"] .wcards.is-seen .work__more > :nth-child(2) { animation-delay: calc(440ms + var(--i, 0) * 140ms); }
+  html[data-motion="interactive"] .wcards.is-seen .work__more > :nth-child(3) { animation-delay: calc(500ms + var(--i, 0) * 140ms); }
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .work--card:hover { translate: 0 -4px; box-shadow: inset 0 0 0 2px var(--highlight); }
+  .work--card:hover .work__photo { transform: scale(1.1); }
+  html[data-motion="interactive"] .work--card:hover .work__photo {
+    transform: scale(1.1) translate(calc(var(--tx, 0) * -8px), calc(var(--ty, 0) * -6px));
+  }
+  .work--card .work__name { transition: translate 400ms cubic-bezier(0.22, 1, 0.36, 1); }
+  .work--card:hover .work__name { translate: 4px 0; }
+  .work--card .work__icon svg { transition: translate 400ms cubic-bezier(0.22, 1, 0.36, 1); }
+  .work--card:hover .work__icon svg { translate: 3px 0; }
+}
+.work--card:focus-visible { outline: 2px solid var(--highlight); outline-offset: 3px; }

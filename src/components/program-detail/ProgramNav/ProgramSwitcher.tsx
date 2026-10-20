@@ -1,19 +1,20 @@
 import { useCallback, useRef, useState } from 'react'
 import { ChevronDown } from 'lucide-react'
-import { PROGRAM_SECTIONS } from '../../../content/program-sections'
+import { useProgramSections } from '../../../hooks/useProgramSections'
 import { TocSheet } from './TocSheet'
 import type { ProgramToc } from '../../../hooks/useProgramToc'
 import './toc.css'
 
 const SHEET_CLOSE_MS = 220
-const TOTAL = PROGRAM_SECTIONS.length
 
 /** Di bawah 1280 px: bilah 52 px di bawah navbar (nama section, "n dari 12", garis kemajuan) yang membuka bottom sheet. */
 export function ProgramSwitcher({ toc }: { toc: ProgramToc }) {
   const [open, setOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
-  const index = PROGRAM_SECTIONS.findIndex((s) => s.id === toc.activeId)
-  const section = PROGRAM_SECTIONS[Math.max(index, 0)]
+  const { sections } = useProgramSections()
+  const total = sections.length
+  const index = sections.findIndex((s) => s.id === toc.activeId)
+  const section = sections[Math.max(index, 0)]
 
   const close = useCallback(() => {
     setOpen(false)
@@ -44,9 +45,9 @@ export function ProgramSwitcher({ toc }: { toc: ProgramToc }) {
             <span key={section.id} className="switcher__label">{section.tocLabel}</span>
             <ChevronDown size={16} strokeWidth={1.75} aria-hidden="true" />
           </span>
-          <span className="switcher__count num">{index + 1} dari {TOTAL}</span>
+          <span className="switcher__count num">{index + 1} dari {total}</span>
         </button>
-        <span className="switcher__progress" aria-hidden="true" style={{ transform: `scaleX(${(index + 1) / TOTAL})` }} />
+        <span className="switcher__progress" aria-hidden="true" style={{ transform: `scaleX(${(index + 1) / total})` }} />
       </div>
       <TocSheet open={open} onClose={close} activeId={toc.activeId} activeChild={toc.activeChild} onSelect={select} />
     </>
