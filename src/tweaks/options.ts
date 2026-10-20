@@ -118,7 +118,7 @@ export const DEFAULT_TWEAKS: Tweaks = {
   heroJobs: 'refresh',
   vibrantJobCard: 'on',
   programFinder: 'off',
-  pricingLayout: 'aligned',
+  pricingLayout: 'glass',
   programHeroLayout: 'split',
   programHeroMotion: 'live',
   whyUsLayout: 'bento',
