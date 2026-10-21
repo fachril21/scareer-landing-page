@@ -21,7 +21,7 @@ function FooterOriginal() {
     <footer className="footer on-ink">
       <div className="container container--wide">
         <div className="footer__top">
-          <Logo onInk />
+          <Logo onInk size="lg" />
           <nav className="footer__cols" aria-label="Footer">
             {FOOTER.columns.map((col) => (
               <div key={col.title}>

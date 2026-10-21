@@ -27,6 +27,9 @@
 }
 /* Berkas logo punya ruang kosong di sekelilingnya (isi sekitar 80% tinggi). Tinggi 36 px menghasilkan wordmark setinggi sekitar 29 px; margin negatif meluruskan tepi kiri dengan teks di bawahnya. */
 .logo__img { flex: none; width: auto; height: 36px; margin-left: -3px; }
+/* Logo penutup di footer: simbol sekitar 35 px di mobile dan 41 px di desktop, seimbang dengan tagline besar di sebelahnya. */
+.logo--lg .logo__img { height: 44px; margin-left: -4px; }
+@media (min-width: 1024px) { .logo--lg .logo__img { height: 52px; margin-left: -5px; } }
 
 .nav__menu { display: none; }
 .nav__actions { display: none; }

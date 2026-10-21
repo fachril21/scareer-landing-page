@@ -38,7 +38,7 @@ scareer adalah bootcamp terjangkau (mulai dari ±Rp3 juta) dengan internship, Su
 ## Brand Commitments
 
 - Nama Scareer, posisi "kakak tingkat", tone jujur, hangat, relatable, santai, percaya diri.
-- Logo Scareer dan Dibimbing belum tersedia; logo Dibimbing butuh izin dan panduan pemakaian resmi.
+- Logo Scareer sudah tersedia (21 Okt 2026). Logo Dibimbing belum tersedia dan butuh izin dan panduan pemakaian resmi.
 - Referensi yang dinyatakan pengguna sebagai pola UI/UX: homepage customer.io. Yang dipinjam hanya pola UI dan komposisi; warna, font, ilustrasi, foto, logo, dan copy customer.io tidak dipakai. *(Detail visual ada di Design.md, bukan di sini.)*
 
 ## Evidence on Hand

@@ -21,7 +21,7 @@ export function FooterSheet({ overlapsCta }: { overlapsCta: boolean }) {
     <footer className={`fsheet on-ink${overlapsCta ? ' fsheet--overlap' : ''}`}>
       <div className="container container--wide">
         <div className="fsheet__head">
-          <Logo onInk />
+          <Logo onInk size="lg" />
           <p className="fsheet__tagline">{FOOTER_SHEET.tagline}</p>
         </div>
 
