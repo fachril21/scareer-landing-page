@@ -105,14 +105,40 @@ function SkillsStack({ skills, program, isFading, showOutput }: SkillsViewProps)
   )
 }
 
+/** Kartu ringkas: satu kartu per skill, sama besar, dua kolom di desktop. Jenis dan nama skill di baris atas, bukti kemampuan di bawahnya. */
+function SkillsCards({ skills, program, isFading, showOutput }: SkillsViewProps) {
+  return (
+    <ul className="skills-cards" aria-label="Skill yang dikuasai">
+      {skills.map((s) => (
+        <li key={s.skill} className={`skill-card${isFading(s) ? ' is-fading' : ''}`}>
+          <div className="skill-card__head">
+            <span className={`skill-card__kind skill-card__kind--${s.kind}`}>{s.kind === 'hard' ? 'Hard skill' : 'Soft skill'}</span>
+            <h3>{s.skill}</h3>
+          </div>
+          <div className="skill-card__body">
+            <p className="skill-card__proof">{s.proof}</p>
+            {showOutput && (
+              <p className="skill-card__output">
+                <span>Output:</span> {s.output}
+                {s.moduleId && <> · <ModuleLink moduleId={s.moduleId} program={program} /></>}
+              </p>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 /**
- * 6. Skills & Output. Tabel tiga kolom (kolom output disembunyikan lewat tweak, bawaan) dengan filter Hard/Soft skill (hasil lewat aria-live) dan empat kartu output.
+ * 6. Skills & Output. Skill tampil sebagai kartu ringkas (tweak "Layout Skill", bawaan) atau tabel tiga kolom (kolom output disembunyikan lewat tweak, bawaan) dengan filter Hard/Soft skill (hasil lewat aria-live) dan empat kartu output.
  * Tanpa janji hasil kerja atau gaji. Kolom "sering diminta di lowongan" belum ada: butuh sampel lowongan nyata.
  */
 export function SkillsOutput({ program }: { program: ProgramDetail }) {
   const { selected, applied, choose, fadingOut } = useFadeFilter<Filter>('semua')
   const isDesktop = useMediaQuery('(min-width: 768px)')
-  const showOutput = useTweaks().tweaks.skillsOutputColumn === 'shown'
+  const { tweaks } = useTweaks()
+  const showOutput = tweaks.skillsOutputColumn === 'shown'
   const ordered = [...program.skills].sort((a, b) => KIND_ORDER[a.kind] - KIND_ORDER[b.kind])
   const visible = ordered.filter((s) => matches(s, applied))
   const count = ordered.filter((s) => matches(s, selected)).length
@@ -134,7 +160,9 @@ export function SkillsOutput({ program }: { program: ProgramDetail }) {
         Menampilkan {count} skill
       </p>
 
-      {isDesktop ? (
+      {tweaks.skillsLayout === 'cards' ? (
+        <SkillsCards skills={visible} program={program} isFading={isFading} showOutput={showOutput} />
+      ) : isDesktop ? (
         <SkillsTable skills={visible} program={program} isFading={isFading} showOutput={showOutput} />
       ) : (
         <SkillsStack skills={visible} program={program} isFading={isFading} showOutput={showOutput} />

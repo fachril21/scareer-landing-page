@@ -5,11 +5,12 @@ import { useInViewOnce } from '../../hooks/useInView'
 import { useScrollProgress } from '../../hooks/useScrollProgress'
 import { Section } from '../layout/Section'
 import { PROBLEM } from '../../content/content'
+import { CycleSquare } from './ProblemSquare'
 import './problem-loop.css'
 import './problem-cycle.css'
 import './problem-motion.css'
 
-type Variant = 'cycle' | 'loop' | 'sides'
+type Variant = 'square' | 'cycle' | 'loop' | 'sides'
 
 function Loop() {
   const listRef = useRef<HTMLOListElement>(null)
@@ -153,7 +154,7 @@ export function ProblemLoop({ variant }: { variant: Variant }) {
     <Section id="masalah" tone="surface" labelledBy="problem-title" className="problem">
       <h2 id="problem-title" className="problem__title">{PROBLEM.title}</h2>
       <p className="problem__lead">{PROBLEM.lead}</p>
-      {variant === 'sides' ? <Sides /> : variant === 'cycle' ? <Cycle /> : <Loop />}
+      {variant === 'sides' ? <Sides /> : variant === 'square' ? <CycleSquare /> : variant === 'cycle' ? <Cycle /> : <Loop />}
     </Section>
   )
 }

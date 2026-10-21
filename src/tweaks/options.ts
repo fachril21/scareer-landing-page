@@ -36,7 +36,7 @@ export type Tweaks = {
   faqSection: 'hidden' | 'shown'
   endLayout: 'original' | 'sheet'
   whatIs: 'hidden' | 'definition' | 'sentence'
-  problem: 'hidden' | 'cycle' | 'loop' | 'sides'
+  problem: 'hidden' | 'square' | 'cycle' | 'loop' | 'sides'
   pageOrder: 'story' | 'previous'
   /** Homepage: lapisan gerak (reveal bervariasi, progres scroll, efek kursor). Dasar = fade-up lama. */
   motion: 'basic' | 'interactive'
@@ -82,6 +82,8 @@ export type Tweaks = {
   programProblem: 'hidden' | 'shown'
   /** Halaman detail bootcamp: kolom "Output yang dibawa pulang" di tabel Skill dan output. */
   skillsOutputColumn: 'hidden' | 'shown'
+  /** Halaman detail bootcamp: skill ditampilkan sebagai tabel atau kartu ringkas. */
+  skillsLayout: 'table' | 'cards'
   /** Halaman detail bootcamp: daftar isi di gutter kiri (sidebar dan rail). */
   navContainer: 'plain' | 'boxed'
 }
@@ -112,7 +114,7 @@ export const DEFAULT_TWEAKS: Tweaks = {
   faqSection: 'hidden',
   endLayout: 'sheet',
   whatIs: 'hidden',
-  problem: 'cycle',
+  problem: 'square',
   pageOrder: 'story',
   motion: 'interactive',
   heroJobs: 'refresh',
@@ -136,6 +138,7 @@ export const DEFAULT_TWEAKS: Tweaks = {
   programCta: 'shown',
   programProblem: 'hidden',
   skillsOutputColumn: 'hidden',
+  skillsLayout: 'cards',
   navContainer: 'boxed',
 }
 
@@ -371,7 +374,8 @@ export const PROBLEM_GROUPS = [
     title: 'Section masalah (di bawah Kenapa scareer)',
     options: [
       { value: 'hidden', label: 'Sembunyikan' },
-      { value: 'cycle', label: 'Siklus lingkaran (bawaan)' },
+      { value: 'square', label: 'Siklus persegi (bawaan)' },
+      { value: 'cycle', label: 'Siklus lingkaran' },
       { value: 'loop', label: 'Garis lurus (lama)' },
       { value: 'sides', label: 'Dua sisi' },
     ],
@@ -539,6 +543,14 @@ export const PROGRAM_PROBLEM_GROUPS = [
 ] as const satisfies readonly TweakGroup<keyof Tweaks>[]
 
 export const SKILLS_OUTPUT_GROUPS = [
+  {
+    key: 'skillsLayout',
+    title: 'Layout Skill',
+    options: [
+      { value: 'table', label: 'Tabel (lama)' },
+      { value: 'cards', label: 'Kartu ringkas (bawaan)' },
+    ],
+  },
   {
     key: 'skillsOutputColumn',
     title: 'Kolom output di tabel Skill',

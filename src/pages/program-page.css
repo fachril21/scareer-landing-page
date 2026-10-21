@@ -18,3 +18,6 @@ html[data-nav-style="floating"] .pd-crumb { padding-top: var(--nav-h); }
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation-duration: 0.01ms !important; }
 }
+
+/* Kurikulum dan Tools sama-sama Paper: tanpa pergantian band, dua padding penuh menumpuk jadi jarak yang renggang. Padding atas Tools dipangkas separuh; hairline tetap jadi pemisah. */
+.is-program-page #kurikulum + #tools { padding-top: calc(var(--sec-y) * 0.5); }
