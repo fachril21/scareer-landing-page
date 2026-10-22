@@ -37,8 +37,24 @@
 .sq__orbit { display: none; }
 .sq__core { position: absolute; inset: 0; bottom: 6%; margin: auto; color: var(--highlight); opacity: 0.55; }
 
-/* Panah keluar dan pil hanya di desktop; di mobile pil jadi chip di bawah langkah 3. */
-.sq__pill, .sq__exit { display: none; }
+/* Panah keluar dan pil tampil di semua ukuran. Mobile: pil rata tengah di bawah ujung panah (ring diberi ruang bawah). Chip di daftar tetap ada. */
+.sq__ring { margin-bottom: 44px; }
+.sq__pill {
+  position: absolute;
+  top: 98%;
+  left: 50%;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--r-pill);
+  background: var(--highlight);
+  color: var(--ink);
+  font-size: var(--t-small);
+  font-weight: 600;
+  white-space: nowrap;
+  translate: -50% 0;
+}
 
 /* ---------- Langkah ---------- */
 .sq__steps { display: grid; gap: 24px; }
@@ -96,21 +112,12 @@
 
   /* Chip di daftar tetap terbaca pembaca layar, tapi tampil sebagai pil di samping panah keluar. */
   .sq__chip { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); padding: 0; margin: 0; white-space: nowrap; }
-  .sq__exit { display: block; }
+  .sq__ring { margin-bottom: 0; }
   .sq__pill {
-    position: absolute;
     top: 95%;
     left: calc(50% + 14px);
-    display: inline-flex;
-    align-items: center;
     gap: 8px;
     padding: 6px 14px;
-    border-radius: var(--r-pill);
-    background: var(--highlight);
-    color: var(--ink);
-    font-size: var(--t-small);
-    font-weight: 600;
-    white-space: nowrap;
     translate: 0 -50%;
   }
 }
