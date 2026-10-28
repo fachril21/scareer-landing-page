@@ -14,7 +14,7 @@
 }
 
 /* ---------- Grid sel dalam satu kontainer ---------- */
-.program__lead { max-width: 52ch; margin-top: 20px; color: var(--text-secondary); font-size: var(--t-lead); line-height: 1.5; }
+.program__lead { margin-top: 20px; color: var(--text-secondary); font-size: var(--t-lead); line-height: 1.5; }
 .program-grid {
   display: grid;
   grid-template-columns: 1fr;
